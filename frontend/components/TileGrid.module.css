@@ -45,6 +45,10 @@
     transition-duration: 0ms;
 }
 
+.lit {
+    box-shadow: 0 0 18px rgba(255,255,255,0.12) inset, 0 6px 18px rgba(0,0,0,0.5);
+}
+
 .tile:nth-child(4n):hover {
     background-color: rgb(var(--red-rgb));
 }
