@@ -1,0 +1,50 @@
+/* TileGrid global styles */
+:root {
+  --red-rgb: 248 113 113;
+  --blue-rgb: 56 189 248;
+  --green-rgb: 74 222 128;
+  --yellow-rgb: 253 224 71;
+  --background-rgb: 0 0 0;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(var(--background-rgb));
+  overflow: hidden;
+  perspective: 2000px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
