@@ -2,21 +2,38 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Preloader.module.css";
 
-const COLS = 20;
-const ROWS = 12;
-const CUBE_COUNT = COLS * ROWS;
-
+// Muted, solid cube colors (no glass/transparency)
 const COLORS = [
-  "rgba(100, 116, 139, 0.4)", // slate
-  "rgba(71, 85, 105, 0.4)",   // slate darker
-  "rgba(148, 163, 184, 0.4)", // slate light
-  "rgba(51, 65, 85, 0.4)",    // slate darkest
-  "rgba(203, 213, 225, 0.3)", // slate lightest
+  "#1f2937", // slate-800
+  "#111827", // gray-900
+  "#334155", // slate-700
+  "#0b1220", // deep navy
+  "#2a3342", // muted blue-gray
 ];
 
 export default function Preloader({ onComplete }) {
-  const [stage, setStage] = useState("waiting"); // waiting -> splitting -> falling -> hidden
+  const [stage, setStage] = useState("waiting"); // waiting -> splitting -> falling -> clearing -> hidden
   const [clicked, setClicked] = useState(false);
+  const [grid, setGrid] = useState({ cols: 16, rows: 10 });
+  const [mounted, setMounted] = useState(false);
+
+  // Calculate an adaptive grid based on viewport for performance
+  useEffect(() => {
+    setMounted(true);
+    const calcGrid = () => {
+      const target = 64; // approx cube size in px
+      const cols = Math.max(12, Math.min(22, Math.ceil(window.innerWidth / target)));
+      const rows = Math.max(8, Math.min(14, Math.ceil(window.innerHeight / target)));
+      setGrid({ cols, rows });
+    };
+    calcGrid();
+    // Resize handler (preloader is short-lived, so lightweight is fine)
+    const onResize = () => {
+      if (stage === "waiting") calcGrid();
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [stage]);
 
   const handleClick = () => {
     if (!clicked) {
@@ -27,47 +44,52 @@ export default function Preloader({ onComplete }) {
         setStage("falling");
       }, 200);
 
+      // After fall completes (account for max per-cube delay), fade overlay, then hide
+      setTimeout(() => {
+        setStage("clearing");
+      }, 3800);
+
       setTimeout(() => {
         setStage("hidden");
         if (onComplete) onComplete();
-      }, 3500);
+      }, 4100);
     }
   };
 
-  if (stage === "hidden") return null;
+  if (!mounted || stage === "hidden") return null;
 
   return (
     <div className={`${styles.preloader} ${styles[stage]}`} onClick={handleClick}>
       <div className={styles.cubesContainer}>
-        {Array.from({ length: CUBE_COUNT }).map((_, i) => {
-          const row = Math.floor(i / COLS);
-          const col = i % COLS;
+        {Array.from({ length: grid.cols * grid.rows }).map((_, i) => {
+          const row = Math.floor(i / grid.cols);
+          const col = i % grid.cols;
           const color = COLORS[i % COLORS.length];
           
           // Determine which side of the split
-          const isLeftHalf = col < COLS / 2;
-          const distanceFromCenter = Math.abs(col - COLS / 2);
+          const isLeftHalf = col < grid.cols / 2;
+          const distanceFromCenter = Math.abs(col - grid.cols / 2);
           const jitter = Math.random() * 0.04; // subtle randomness
           const delay = distanceFromCenter * 0.12 + jitter;
           
           // Movement values
-          const xOffset = isLeftHalf ? -150 : 150;
+          const xOffset = isLeftHalf ? -140 : 140;
           const yOffset = 80;
           const zOffset = -1400;
-          const rotateX = (Math.random() * 360 - 180);
-          const rotateY = (Math.random() * 360 - 180);
-          const rotateZ = (Math.random() * 360 - 180);
+          const rotateX = (Math.random() * 240 - 120);
+          const rotateY = (Math.random() * 240 - 120);
+          const rotateZ = (Math.random() * 240 - 120);
 
           return (
             <div
               key={i}
               className={styles.cube}
               style={{
-                left: `${(col / COLS) * 100}%`,
-                top: `${(row / ROWS) * 100}%`,
-                width: `${100 / COLS}%`,
-                height: `${100 / ROWS}%`,
-                backgroundColor: color,
+                left: `${(col / grid.cols) * 100}%`,
+                top: `${(row / grid.rows) * 100}%`,
+                width: `${100 / grid.cols}%`,
+                height: `${100 / grid.rows}%`,
+                "--cube-color": color,
                 animationDelay: `${delay}s`,
                 "--x-offset": `${xOffset}px`,
                 "--y-offset": `${yOffset}px`,
@@ -79,7 +101,7 @@ export default function Preloader({ onComplete }) {
               }}
             >
               <div className={styles.cubeInner}>
-                <div className={styles.cubeFace} style={{ backgroundColor: color }}></div>
+                <div className={styles.cubeFace}></div>
               </div>
             </div>
           );
@@ -87,7 +109,7 @@ export default function Preloader({ onComplete }) {
       </div>
       {stage === "waiting" && (
         <div className={styles.clickPrompt}>
-          <p>Click to Enter</p>
+          <p>click to enter</p>
         </div>
       )}
     </div>
