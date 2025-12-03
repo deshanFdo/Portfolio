@@ -12,7 +12,7 @@
     display: grid;
     grid-template-rows: repeat(50, 1fr);
     grid-template-columns: repeat(50, 1fr);
-    position: absolute;
+    position: fixed;
     top: -35rem;
     left: -50rem;
     transform: rotateX(60deg) rotateY(-4.7deg) rotateZ(23deg) scale(1.25);

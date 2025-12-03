@@ -1,0 +1,15 @@
+.skills { padding: 5rem 1.5rem; }
+.inner { max-width: 1100px; margin: 0 auto; }
+.h2 { font-size: clamp(1.8rem, 3.5vw, 2.2rem); color: #e5e7eb; margin-bottom: 1rem; }
+.tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tag {
+  background: #111827;
+  color: #e5e7eb;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 999px;
+  padding: 0.5rem 0.75rem;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: enter 500ms ease forwards;
+}
+@keyframes enter { to { opacity: 1; transform: translateY(0); } }

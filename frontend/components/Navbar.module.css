@@ -56,7 +56,9 @@
 .logo {
   font-size: 1.3rem;
   font-weight: bold;
-  letter-spacing: 0.05em;
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(6px);
   color: #fff;
 }
 
