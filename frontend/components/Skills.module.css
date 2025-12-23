@@ -1,6 +1,5 @@
 .skills {
   padding: 8rem 2rem;
-  background: var(--carbon-black);
   position: relative;
 }
 
@@ -9,74 +8,57 @@
   margin: 0 auto;
 }
 
-/* Section Header */
+/* Header */
 .header {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 4rem;
 }
 
 .sectionNumber {
+  font-family: 'Orbitron', sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
-  color: var(--papaya);
+  color: var(--petronas-teal);
   padding: 0.5rem 1rem;
-  background: rgba(255, 128, 0, 0.1);
-  border: 1px solid var(--border-accent);
+  background: rgba(0, 210, 190, 0.1);
+  border: 1px solid var(--border-teal);
   border-radius: 6px;
-  letter-spacing: 0.1em;
 }
 
-.h2 {
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 800;
+.title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
   color: var(--text-primary);
-  letter-spacing: -0.02em;
+  letter-spacing: 0.05em;
 }
 
-.headerLine {
+.titleLine {
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, var(--border-accent), transparent);
+  background: linear-gradient(90deg, var(--border-teal), transparent);
 }
 
-.subtitle {
-  color: var(--text-muted);
-  font-size: 1.1rem;
-  margin-bottom: 3rem;
-}
-
-/* Categories Grid */
+/* Categories grid */
 .categoriesGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
   margin-bottom: 4rem;
 }
 
 .category {
-  background: var(--surface-card);
+  background: var(--graphite);
   border: 1px solid var(--border-subtle);
   border-radius: 16px;
   padding: 1.5rem;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.5s ease forwards;
   transition: all 0.3s ease;
 }
 
 .category:hover {
-  border-color: var(--border-accent);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg), 0 0 30px rgba(255, 128, 0, 0.1);
-}
-
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  box-shadow: 0 0 30px rgba(0, 210, 190, 0.1);
 }
 
 .categoryHeader {
@@ -93,83 +75,74 @@
 }
 
 .categoryTitle {
-  font-size: 1rem;
-  font-weight: 700;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: var(--text-primary);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.05em;
 }
 
-/* Skill Tags */
-.skillTags {
+/* Skills wrapper */
+.skillsWrapper {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-.tag {
+.skillTag {
   display: inline-block;
-  padding: 0.5rem 0.875rem;
-  background: var(--carbon-dark);
+  padding: 0.5rem 1rem;
+  background: var(--carbon);
   border: 1px solid var(--border-subtle);
   border-radius: 8px;
-  font-size: 0.8rem;
-  font-weight: 500;
+  font-size: 0.85rem;
   color: var(--text-secondary);
-  opacity: 0;
-  transform: scale(0.9);
-  animation: popIn 0.3s ease forwards;
   transition: all 0.2s ease;
+  cursor: default;
 }
 
-.tag:hover {
-  background: rgba(255, 128, 0, 0.1);
-  border-color: var(--papaya);
-  color: var(--papaya);
-  transform: scale(1.05);
-}
-
-@keyframes popIn {
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Speed Meter */
-.speedMeter {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 2rem;
-  background: var(--surface-card);
+/* Meter section */
+.meterSection {
+  background: var(--graphite);
   border: 1px solid var(--border-subtle);
   border-radius: 16px;
+  padding: 2rem;
+}
+
+.meterHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .meterLabel {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  text-transform: uppercase;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  color: var(--text-muted);
   letter-spacing: 0.1em;
-  white-space: nowrap;
+}
+
+.meterValue {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  color: var(--petronas-teal);
+  letter-spacing: 0.1em;
 }
 
 .meterTrack {
-  flex: 1;
-  height: 12px;
-  background: var(--carbon-dark);
-  border-radius: 6px;
-  overflow: hidden;
   position: relative;
+  height: 8px;
+  background: var(--carbon);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
 }
 
 .meterFill {
   height: 100%;
-  width: 0;
-  background: linear-gradient(90deg, var(--papaya-dark), var(--papaya), var(--papaya-light));
-  border-radius: 6px;
-  animation: fillMeter 2s ease forwards 0.5s;
+  background: linear-gradient(90deg, var(--petronas-teal-dark), var(--petronas-teal), var(--petronas-teal-light));
+  border-radius: 4px;
   position: relative;
 }
 
@@ -180,17 +153,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(90deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.3) 50%,
-      transparent 100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
   animation: shimmer 2s ease-in-out infinite;
-}
-
-@keyframes fillMeter {
-  to {
-    width: 95%;
-  }
 }
 
 @keyframes shimmer {
@@ -203,25 +167,31 @@
   }
 }
 
-.meterValue {
-  font-size: 1.25rem;
-  font-weight: 900;
-  color: var(--papaya);
-  letter-spacing: 0.1em;
+.meterGlow {
+  position: absolute;
+  top: -10px;
+  bottom: -10px;
+  left: 0;
+  width: 92%;
+  background: var(--petronas-teal);
+  filter: blur(20px);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.meterMarkers {
+  display: flex;
+  justify-content: space-between;
+}
+
+.meterMarkers span {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.7rem;
+  color: var(--text-subtle);
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
-  .categoriesGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .skills {
-    padding: 5rem 1.5rem;
-  }
-
+@media (max-width: 768px) {
   .categoriesGrid {
     grid-template-columns: 1fr;
   }
@@ -230,14 +200,17 @@
     flex-wrap: wrap;
   }
 
-  .headerLine {
+  .titleLine {
     display: none;
   }
+}
 
-  .speedMeter {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-    text-align: center;
+@media (max-width: 600px) {
+  .skills {
+    padding: 5rem 1.5rem;
+  }
+
+  .meterSection {
+    padding: 1.5rem;
   }
 }

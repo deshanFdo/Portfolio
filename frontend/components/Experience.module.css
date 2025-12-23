@@ -1,267 +1,272 @@
-.exp {
+.experience {
     padding: 8rem 2rem;
-    background: var(--carbon-black);
+    position: relative;
 }
 
 .inner {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
-/* Section Header */
+/* Header */
 .header {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 4rem;
 }
 
 .sectionNumber {
+    font-family: 'Orbitron', sans-serif;
     font-size: 0.9rem;
     font-weight: 700;
-    color: var(--papaya);
+    color: var(--petronas-teal);
     padding: 0.5rem 1rem;
-    background: rgba(255, 128, 0, 0.1);
-    border: 1px solid var(--border-accent);
+    background: rgba(0, 210, 190, 0.1);
+    border: 1px solid var(--border-teal);
     border-radius: 6px;
-    letter-spacing: 0.1em;
 }
 
-.h2 {
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 800;
+.title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 700;
     color: var(--text-primary);
-    letter-spacing: -0.02em;
-}
-
-.headerLine {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, var(--border-accent), transparent);
-}
-
-.subtitle {
-    color: var(--text-muted);
-    font-size: 1.1rem;
-    margin-bottom: 3rem;
-}
-
-/* Timeline */
-.timeline {
-    position: relative;
-    padding-left: 4rem;
-}
-
-/* Racing track line */
-.trackLine {
-    position: absolute;
-    left: 20px;
-    top: 0;
-    bottom: 60px;
-    width: 4px;
-    background: var(--carbon-mid);
-    border-radius: 2px;
-    overflow: hidden;
-}
-
-.trackProgress {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 0;
-    background: linear-gradient(180deg, var(--papaya), var(--papaya-dark));
-    animation: fillTrack 2s ease forwards 0.5s;
-}
-
-@keyframes fillTrack {
-    to {
-        height: 100%;
-    }
-}
-
-/* Timeline item */
-.item {
-    position: relative;
-    margin-bottom: 2rem;
-    opacity: 0;
-    transform: translateX(-20px);
-    animation: slideIn 0.5s ease forwards;
-}
-
-@keyframes slideIn {
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/* Checkpoint (position marker) */
-.checkpoint {
-    position: absolute;
-    left: -4rem;
-    top: 0;
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--carbon-dark);
-    border: 3px solid var(--papaya);
-    border-radius: 50%;
-    z-index: 2;
-    box-shadow: 0 0 20px var(--papaya-glow);
-}
-
-.position {
-    font-size: 0.9rem;
-    font-weight: 800;
-    color: var(--papaya);
     letter-spacing: 0.05em;
 }
 
-/* Panel */
-.panel {
-    background: var(--surface-card);
+.titleLine {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border-teal), transparent);
+}
+
+/* Grid */
+.grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 4rem;
+}
+
+/* Section labels */
+.sectionLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.1em;
+}
+
+.labelIcon {
+    font-size: 1.25rem;
+}
+
+/* Experience card */
+.expCard {
+    background: var(--graphite);
     border: 1px solid var(--border-subtle);
-    border-radius: 16px;
+    border-left: 3px solid var(--petronas-teal);
+    border-radius: 0 16px 16px 0;
     padding: 1.5rem;
-    transition: all 0.3s ease;
     position: relative;
 }
 
-.panel::before {
-    content: '';
-    position: absolute;
-    left: -12px;
-    top: 14px;
-    width: 0;
-    height: 0;
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-    border-right: 12px solid var(--border-subtle);
+.currentBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--petronas-teal);
+    padding: 0.35rem 0.75rem;
+    background: rgba(0, 210, 190, 0.1);
+    border: 1px solid var(--border-teal);
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
 }
 
-.panel::after {
-    content: '';
-    position: absolute;
-    left: -10px;
-    top: 15px;
-    width: 0;
-    height: 0;
-    border-top: 7px solid transparent;
-    border-bottom: 7px solid transparent;
-    border-right: 11px solid var(--surface-card);
+.currentDot {
+    width: 6px;
+    height: 6px;
+    background: var(--petronas-teal);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
 }
 
-.item:hover .panel {
-    border-color: var(--border-accent);
-    box-shadow: var(--shadow-lg);
-    transform: translateX(8px);
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
 }
 
-.item:hover .checkpoint {
-    transform: scale(1.1);
-    box-shadow: 0 0 30px var(--papaya-glow);
-}
-
-.panelHeader {
+.expHeader {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 1rem;
-    margin-bottom: 1rem;
     flex-wrap: wrap;
+    margin-bottom: 0.5rem;
 }
 
-.roleInfo h3 {
-    font-size: 1.15rem;
+.expRole {
+    font-size: 1.25rem;
     font-weight: 700;
     color: var(--text-primary);
+}
+
+.expPeriod {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    padding: 0.35rem 0.75rem;
+    background: var(--carbon);
+    border-radius: 6px;
+}
+
+.expCompany {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
+    color: var(--petronas-teal);
+}
+
+.expLocation {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.expHighlights {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.expHighlights li {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.bulletIcon {
+    color: var(--petronas-teal);
+    flex-shrink: 0;
+}
+
+/* Education section */
+.eduSection {
+    display: flex;
+    flex-direction: column;
+}
+
+.eduCard {
+    background: var(--graphite);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.eduCard:hover {
+    border-color: var(--border-teal);
+}
+
+.eduHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.eduDegree {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.eduStatus {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+    background: var(--carbon);
+    border-radius: 4px;
+    color: var(--text-muted);
+}
+
+.eduStatus.distinction {
+    background: rgba(0, 210, 190, 0.1);
+    color: var(--petronas-teal);
+    border: 1px solid var(--border-teal);
+}
+
+.eduInstitution {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
     margin-bottom: 0.25rem;
 }
 
-.company {
-    font-size: 0.9rem;
-    color: var(--papaya);
-    font-weight: 500;
-}
-
-.period {
+.eduPeriod {
     font-size: 0.8rem;
     color: var(--text-muted);
-    background: var(--carbon-dark);
-    padding: 0.35rem 0.75rem;
-    border-radius: 6px;
-    white-space: nowrap;
+    margin-bottom: 0.75rem;
 }
 
-.desc {
-    color: var(--text-secondary);
-    line-height: 1.6;
-    font-size: 0.95rem;
-}
-
-/* Finish flag */
-.finishFlag {
+.coursework {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    position: relative;
-    padding-left: 0;
-    margin-left: -4rem;
-    padding-top: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
-.finishFlag span:first-child {
-    font-size: 2rem;
-}
-
-.flagText {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    font-weight: 500;
-    letter-spacing: 0.05em;
+.courseTag {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+    background: var(--carbon);
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    color: var(--text-subtle);
 }
 
 /* Responsive */
+@media (max-width: 900px) {
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+}
+
 @media (max-width: 600px) {
-    .exp {
+    .experience {
         padding: 5rem 1.5rem;
-    }
-
-    .timeline {
-        padding-left: 3rem;
-    }
-
-    .checkpoint {
-        left: -3rem;
-        width: 36px;
-        height: 36px;
-    }
-
-    .position {
-        font-size: 0.75rem;
-    }
-
-    .trackLine {
-        left: 16px;
     }
 
     .header {
         flex-wrap: wrap;
     }
 
-    .headerLine {
+    .titleLine {
         display: none;
     }
 
-    .panelHeader {
+    .expHeader {
         flex-direction: column;
         gap: 0.5rem;
-    }
-
-    .finishFlag {
-        margin-left: -3rem;
     }
 }

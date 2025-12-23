@@ -1,141 +1,162 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import styles from "./Contact.module.css";
 
 export default function Contact() {
-  const [formState, setFormState] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-  const [submitted, setSubmitted] = useState(false);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [formState, setFormState] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState('idle'); // idle, sending, sent
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Placeholder - add your form handling logic here
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    setStatus('sending');
+    setTimeout(() => {
+      setStatus('sent');
+      setFormState({ name: '', email: '', message: '' });
+      setTimeout(() => setStatus('idle'), 3000);
+    }, 1500);
   };
 
-  const handleChange = (e) => {
-    setFormState({
-      ...formState,
-      [e.target.name]: e.target.value
-    });
-  };
+  const contactMethods = [
+    { icon: "📧", label: "Email", value: "deshanfernando67@gmail.com", href: "mailto:deshanfernando67@gmail.com" },
+    { icon: "💼", label: "LinkedIn", value: "linkedin.com/in/deshanFdo", href: "https://linkedin.com/in/deshanFdo" },
+    { icon: "🐙", label: "GitHub", value: "github.com/DeshanFdo31", href: "https://github.com/DeshanFdo31" },
+    { icon: "📱", label: "Phone", value: "+94 76 9106285", href: "tel:+94769106285" }
+  ];
 
   return (
-    <section className={styles.contact} id="contact">
+    <section className={styles.contact} id="contact" ref={ref}>
       <div className={styles.inner}>
         {/* Section header */}
-        <div className={styles.header}>
+        <motion.div 
+          className={styles.header}
+          initial={{ opacity: 0, x: -50 }}
+          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.6 }}
+        >
           <span className={styles.sectionNumber}>05</span>
-          <h2 className={styles.h2}>Get in Touch</h2>
-          <div className={styles.headerLine}></div>
-        </div>
+          <h2 className={styles.title}>GET_IN_TOUCH</h2>
+          <div className={styles.titleLine} />
+        </motion.div>
 
         <div className={styles.grid}>
           {/* Left content */}
-          <div className={styles.content}>
+          <motion.div 
+            className={styles.content}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          >
             <h3 className={styles.contentTitle}>
-              Ready to start your next project?
+              Let's build something <span>amazing</span> together.
             </h3>
             <p className={styles.contentDesc}>
-              Whether you have a project in mind, want to collaborate, or just 
-              want to say hello — I'd love to hear from you. Let's build something 
-              amazing together.
+              I'm currently open to new opportunities and collaborations.
+              Whether you have a project in mind, want to discuss technology,
+              or just want to say hi — my inbox is always open.
             </p>
-            
+
             <div className={styles.contactMethods}>
-              <a href="mailto:your@email.com" className={styles.contactMethod}>
-                <span className={styles.methodIcon}>📧</span>
-                <span className={styles.methodLabel}>Email</span>
-                <span className={styles.methodValue}>your@email.com</span>
-              </a>
-              <a href="#" className={styles.contactMethod}>
-                <span className={styles.methodIcon}>💼</span>
-                <span className={styles.methodLabel}>LinkedIn</span>
-                <span className={styles.methodValue}>Connect with me</span>
-              </a>
-              <a href="#" className={styles.contactMethod}>
-                <span className={styles.methodIcon}>🐙</span>
-                <span className={styles.methodLabel}>GitHub</span>
-                <span className={styles.methodValue}>Check my code</span>
-              </a>
+              {contactMethods.map((method, i) => (
+                <motion.a 
+                  key={i}
+                  href={method.href}
+                  className={styles.contactMethod}
+                  target={method.href.startsWith('http') ? '_blank' : undefined}
+                  rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 0.4 + (i * 0.1), duration: 0.4 }}
+                  whileHover={{ x: 10, borderColor: "var(--petronas-teal)" }}
+                >
+                  <span className={styles.methodIcon}>{method.icon}</span>
+                  <div className={styles.methodInfo}>
+                    <span className={styles.methodLabel}>{method.label}</span>
+                    <span className={styles.methodValue}>{method.value}</span>
+                  </div>
+                  <span className={styles.methodArrow}>→</span>
+                </motion.a>
+              ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Contact form */}
-          <form className={styles.form} onSubmit={handleSubmit}>
+          <motion.form 
+            className={styles.form}
+            onSubmit={handleSubmit}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.4, duration: 0.5 }}
+          >
             <div className={styles.formHeader}>
-              <span className={styles.formIcon}>🏎️</span>
+              <span className={styles.formIcon}>{">"}</span>
               <span>Send a Message</span>
             </div>
-            
+
             <div className={styles.inputGroup}>
-              <label htmlFor="name" className={styles.label}>Name</label>
-              <input 
+              <label htmlFor="name">Name</label>
+              <input
                 type="text"
                 id="name"
-                name="name"
-                className={styles.input}
-                placeholder="What should I call you?"
                 value={formState.name}
-                onChange={handleChange}
+                onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                placeholder="What should I call you?"
                 required
               />
             </div>
-            
+
             <div className={styles.inputGroup}>
-              <label htmlFor="email" className={styles.label}>Email</label>
-              <input 
+              <label htmlFor="email">Email</label>
+              <input
                 type="email"
                 id="email"
-                name="email"
-                className={styles.input}
-                placeholder="Where can I reach you?"
                 value={formState.email}
-                onChange={handleChange}
+                onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                placeholder="Where can I reach you?"
                 required
               />
             </div>
-            
+
             <div className={styles.inputGroup}>
-              <label htmlFor="message" className={styles.label}>Message</label>
-              <textarea 
+              <label htmlFor="message">Message</label>
+              <textarea
                 id="message"
-                name="message"
-                className={styles.textarea}
+                value={formState.message}
+                onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                 placeholder="Tell me about your project..."
                 rows={5}
-                value={formState.message}
-                onChange={handleChange}
                 required
               />
             </div>
-            
-            <button 
-              type="submit" 
-              className={`${styles.button} ${submitted ? styles.submitted : ''}`}
+
+            <motion.button
+              type="submit"
+              className={`${styles.submitBtn} ${status === 'sent' ? styles.sent : ''}`}
+              disabled={status === 'sending'}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              {submitted ? (
+              {status === 'idle' && (
                 <>
-                  <span className={styles.checkmark}>✓</span>
-                  Message Sent!
-                </>
-              ) : (
-                <>
-                  <span className={styles.buttonIcon}>🚀</span>
-                  Send Message
+                  <span>Send Message</span>
+                  <span className={styles.btnIcon}>🚀</span>
                 </>
               )}
-            </button>
-          </form>
+              {status === 'sending' && (
+                <span className={styles.sending}>Sending...</span>
+              )}
+              {status === 'sent' && (
+                <>
+                  <span>Message Sent!</span>
+                  <span className={styles.btnIcon}>✓</span>
+                </>
+              )}
+            </motion.button>
+          </motion.form>
         </div>
       </div>
-      
-      {/* Checkered pattern accent */}
-      <div className={styles.checkeredAccent} aria-hidden="true"></div>
     </section>
   );
 }

@@ -1,117 +1,154 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import styles from "./Preloader.module.css";
 
-// McLaren-inspired racing colors
-const COLORS = [
-  "#0C0C0C", // carbon black
-  "#1A1A1A", // anthracite
-  "#141414", // carbon dark
-  "#FF8000", // papaya orange (accent)
-  "#2A2A2A", // carbon mid
-];
-
 export default function Preloader({ onComplete }) {
-  const [stage, setStage] = useState("waiting"); // waiting -> splitting -> falling -> clearing -> hidden
-  const [clicked, setClicked] = useState(false);
-  const [grid, setGrid] = useState({ cols: 16, rows: 10 });
-  const [mounted, setMounted] = useState(false);
+  const [stage, setStage] = useState("loading"); // loading -> ready -> exit
+  const [loadProgress, setLoadProgress] = useState(0);
+  const [glitchText, setGlitchText] = useState("INITIALIZING");
+  const containerRef = useRef(null);
 
-  // Calculate an adaptive grid based on viewport for performance
+  // Simulated loading
   useEffect(() => {
-    setMounted(true);
-    const calcGrid = () => {
-      const target = 64; // approx cube size in px
-      const cols = Math.max(12, Math.min(22, Math.ceil(window.innerWidth / target)));
-      const rows = Math.max(8, Math.min(14, Math.ceil(window.innerHeight / target)));
-      setGrid({ cols, rows });
-    };
-    calcGrid();
-    // Resize handler (preloader is short-lived, so lightweight is fine)
-    const onResize = () => {
-      if (stage === "waiting") calcGrid();
-    };
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, [stage]);
+    const glitchMessages = [
+      "INITIALIZING",
+      "LOADING ASSETS",
+      "PREPARING ENGINE",
+      "CALIBRATING SYSTEMS",
+      "READY TO LAUNCH"
+    ];
 
-  const handleClick = () => {
-    if (!clicked) {
-      setClicked(true);
-      setStage("splitting");
-      
-      setTimeout(() => {
-        setStage("falling");
-      }, 200);
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += Math.random() * 15;
+      if (progress >= 100) {
+        progress = 100;
+        setLoadProgress(100);
+        setGlitchText("CLICK TO ENTER");
+        setStage("ready");
+        clearInterval(interval);
+      } else {
+        setLoadProgress(Math.floor(progress));
+        setGlitchText(glitchMessages[Math.floor(progress / 25)] || glitchMessages[0]);
+      }
+    }, 200);
 
-      // After fall completes (account for max per-cube delay), fade overlay, then hide
-      setTimeout(() => {
-        setStage("clearing");
-      }, 3800);
+    return () => clearInterval(interval);
+  }, []);
 
+  const handleEnter = () => {
+    if (stage === "ready") {
+      setStage("exit");
       setTimeout(() => {
-        setStage("hidden");
         if (onComplete) onComplete();
-      }, 4100);
+      }, 1000);
     }
   };
 
-  if (!mounted || stage === "hidden") return null;
-
   return (
-    <div className={`${styles.preloader} ${styles[stage]}`} onClick={handleClick}>
-      <div className={styles.cubesContainer}>
-        {Array.from({ length: grid.cols * grid.rows }).map((_, i) => {
-          const row = Math.floor(i / grid.cols);
-          const col = i % grid.cols;
-          const color = COLORS[i % COLORS.length];
-          
-          // Determine which side of the split
-          const isLeftHalf = col < grid.cols / 2;
-          const distanceFromCenter = Math.abs(col - grid.cols / 2);
-          const jitter = Math.random() * 0.04; // subtle randomness
-          const delay = distanceFromCenter * 0.12 + jitter;
-          
-          // Movement values
-          const xOffset = isLeftHalf ? -140 : 140;
-          const yOffset = 80;
-          const zOffset = -1400;
-          const rotateX = (Math.random() * 240 - 120);
-          const rotateY = (Math.random() * 240 - 120);
-          const rotateZ = (Math.random() * 240 - 120);
+    <AnimatePresence>
+      {stage !== "hidden" && (
+        <motion.div
+          ref={containerRef}
+          className={styles.preloader}
+          onClick={handleEnter}
+          initial={{ opacity: 1 }}
+          exit={{ 
+            opacity: 0,
+            scale: 1.1,
+            filter: "blur(20px)"
+          }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+        >
+          {/* Grid lines background */}
+          <div className={styles.gridBackground}>
+            {Array.from({ length: 20 }).map((_, i) => (
+              <div key={`h-${i}`} className={styles.gridLineH} style={{ top: `${i * 5}%` }} />
+            ))}
+            {Array.from({ length: 20 }).map((_, i) => (
+              <div key={`v-${i}`} className={styles.gridLineV} style={{ left: `${i * 5}%` }} />
+            ))}
+          </div>
 
-          return (
-            <div
-              key={i}
-              className={styles.cube}
-              style={{
-                left: `${(col / grid.cols) * 100}%`,
-                top: `${(row / grid.rows) * 100}%`,
-                width: `${100 / grid.cols}%`,
-                height: `${100 / grid.rows}%`,
-                "--cube-color": color,
-                animationDelay: `${delay}s`,
-                "--x-offset": `${xOffset}px`,
-                "--y-offset": `${yOffset}px`,
-                "--z-offset": `${zOffset}px`,
-                "--rotate-x": `${rotateX}deg`,
-                "--rotate-y": `${rotateY}deg`,
-                "--rotate-z": `${rotateZ}deg`,
-                "--lift-z": `${-60 - Math.random() * 40}px`,
-              }}
-            >
-              <div className={styles.cubeInner}>
-                <div className={styles.cubeFace}></div>
-              </div>
+          {/* Central content */}
+          <div className={styles.content}>
+            {/* Rotating ring */}
+            <div className={styles.ringContainer}>
+              <motion.div 
+                className={styles.ring}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+              />
+              <motion.div 
+                className={styles.ringInner}
+                animate={{ rotate: -360 }}
+                transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+              />
             </div>
-          );
-        })}
-      </div>
-      {stage === "waiting" && (
-        <div className={styles.clickPrompt}>
-          <p>click to enter</p>
-        </div>
+
+            {/* Logo / Name */}
+            <motion.div 
+              className={styles.logoContainer}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+            >
+              <span className={styles.logo}>DF</span>
+            </motion.div>
+
+            {/* Glitch text */}
+            <motion.p 
+              className={styles.statusText}
+              data-text={glitchText}
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              {glitchText}
+            </motion.p>
+
+            {/* Progress bar */}
+            <div className={styles.progressContainer}>
+              <div className={styles.progressTrack}>
+                <motion.div 
+                  className={styles.progressFill}
+                  initial={{ width: 0 }}
+                  animate={{ width: `${loadProgress}%` }}
+                  transition={{ duration: 0.3 }}
+                />
+              </div>
+              <span className={styles.progressValue}>{loadProgress}%</span>
+            </div>
+
+            {/* Ready indicator */}
+            {stage === "ready" && (
+              <motion.div
+                className={styles.readyIndicator}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ type: "spring" }}
+              >
+                <div className={styles.pulseRing} />
+                <span>TAP ANYWHERE</span>
+              </motion.div>
+            )}
+          </div>
+
+          {/* Corner decorations */}
+          <div className={`${styles.corner} ${styles.topLeft}`}>
+            <span>SYS://INIT</span>
+          </div>
+          <div className={`${styles.corner} ${styles.topRight}`}>
+            <span>v2.0.25</span>
+          </div>
+          <div className={`${styles.corner} ${styles.bottomLeft}`}>
+            <span>DESHAN.DEV</span>
+          </div>
+          <div className={`${styles.corner} ${styles.bottomRight}`}>
+            <span>PETRONAS</span>
+          </div>
+        </motion.div>
       )}
-    </div>
+    </AnimatePresence>
   );
 }

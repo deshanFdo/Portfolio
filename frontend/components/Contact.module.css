@@ -1,50 +1,48 @@
 .contact {
     padding: 8rem 2rem;
-    background: linear-gradient(180deg, var(--carbon-black) 0%, var(--anthracite) 100%);
     position: relative;
-    overflow: hidden;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 210, 190, 0.02) 50%, transparent 100%);
 }
 
 .inner {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
-    position: relative;
-    z-index: 2;
 }
 
-/* Section Header */
+/* Header */
 .header {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
 }
 
 .sectionNumber {
+    font-family: 'Orbitron', sans-serif;
     font-size: 0.9rem;
     font-weight: 700;
-    color: var(--papaya);
+    color: var(--petronas-teal);
     padding: 0.5rem 1rem;
-    background: rgba(255, 128, 0, 0.1);
-    border: 1px solid var(--border-accent);
+    background: rgba(0, 210, 190, 0.1);
+    border: 1px solid var(--border-teal);
     border-radius: 6px;
-    letter-spacing: 0.1em;
 }
 
-.h2 {
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 800;
+.title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 700;
     color: var(--text-primary);
-    letter-spacing: -0.02em;
+    letter-spacing: 0.05em;
 }
 
-.headerLine {
+.titleLine {
     flex: 1;
     height: 1px;
-    background: linear-gradient(90deg, var(--border-accent), transparent);
+    background: linear-gradient(90deg, var(--border-teal), transparent);
 }
 
-/* Grid layout */
+/* Grid */
 .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -52,22 +50,26 @@
     align-items: start;
 }
 
-/* Left content */
+/* Content */
 .content {
     padding-right: 2rem;
 }
 
 .contentTitle {
-    font-size: 1.75rem;
+    font-size: 2rem;
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 1rem;
     line-height: 1.3;
+    margin-bottom: 1.25rem;
+}
+
+.contentTitle span {
+    color: var(--petronas-teal);
 }
 
 .contentDesc {
-    color: var(--text-secondary);
-    line-height: 1.7;
+    color: var(--text-muted);
+    line-height: 1.8;
     margin-bottom: 2rem;
 }
 
@@ -75,7 +77,7 @@
 .contactMethods {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.75rem;
 }
 
 .contactMethod {
@@ -83,48 +85,58 @@
     align-items: center;
     gap: 1rem;
     padding: 1rem 1.25rem;
-    background: var(--surface-card);
+    background: var(--graphite);
     border: 1px solid var(--border-subtle);
     border-radius: 12px;
     text-decoration: none;
     transition: all 0.3s ease;
 }
 
-.contactMethod:hover {
-    border-color: var(--border-accent);
-    transform: translateX(8px);
-    box-shadow: var(--shadow-md);
-}
-
 .methodIcon {
     font-size: 1.5rem;
 }
 
+.methodInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
 .methodLabel {
-    font-size: 0.8rem;
-    color: var(--text-muted);
+    font-size: 0.75rem;
+    color: var(--text-subtle);
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }
 
 .methodValue {
-    margin-left: auto;
+    font-size: 0.9rem;
     color: var(--text-secondary);
-    font-weight: 500;
+}
+
+.methodArrow {
+    color: var(--text-subtle);
+    font-size: 1.25rem;
+    transition: transform 0.3s ease;
+}
+
+.contactMethod:hover .methodArrow {
+    transform: translateX(4px);
+    color: var(--petronas-teal);
 }
 
 .contactMethod:hover .methodValue {
-    color: var(--papaya);
+    color: var(--petronas-teal);
 }
 
 /* Form */
 .form {
-    background: var(--surface-card);
+    background: var(--graphite);
     border: 1px solid var(--border-subtle);
     border-radius: 20px;
     padding: 2rem;
     position: relative;
-    overflow: hidden;
 }
 
 .form::before {
@@ -133,8 +145,9 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--papaya), var(--electric-blue));
+    height: 3px;
+    background: linear-gradient(90deg, var(--petronas-teal), var(--petronas-teal-light));
+    border-radius: 20px 20px 0 0;
 }
 
 .formHeader {
@@ -142,22 +155,22 @@
     align-items: center;
     gap: 0.75rem;
     margin-bottom: 1.5rem;
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
     color: var(--text-primary);
 }
 
 .formIcon {
-    font-size: 1.5rem;
+    color: var(--petronas-teal);
 }
 
 .inputGroup {
     margin-bottom: 1.25rem;
 }
 
-.label {
+.inputGroup label {
     display: block;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: var(--text-secondary);
     margin-bottom: 0.5rem;
@@ -165,121 +178,102 @@
     letter-spacing: 0.05em;
 }
 
-.input,
-.textarea {
+.inputGroup input,
+.inputGroup textarea {
     width: 100%;
-    padding: 1rem 1.25rem;
-    background: var(--carbon-dark);
+    padding: 1rem;
+    background: var(--carbon);
     border: 1px solid var(--border-subtle);
-    border-radius: 12px;
+    border-radius: 10px;
     color: var(--text-primary);
     font-size: 1rem;
     font-family: inherit;
     transition: all 0.3s ease;
 }
 
-.input::placeholder,
-.textarea::placeholder {
+.inputGroup input::placeholder,
+.inputGroup textarea::placeholder {
     color: var(--text-subtle);
 }
 
-.input:focus,
-.textarea:focus {
+.inputGroup input:focus,
+.inputGroup textarea:focus {
     outline: none;
-    border-color: var(--papaya);
-    box-shadow: 0 0 0 3px rgba(255, 128, 0, 0.1);
+    border-color: var(--petronas-teal);
+    box-shadow: 0 0 0 3px rgba(0, 210, 190, 0.1);
 }
 
-.textarea {
+.inputGroup textarea {
     resize: vertical;
     min-height: 120px;
 }
 
 /* Submit button */
-.button {
+.submitBtn {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
     padding: 1rem 2rem;
-    background: linear-gradient(135deg, var(--papaya) 0%, var(--papaya-dark) 100%);
-    color: var(--carbon-black);
+    background: var(--petronas-teal);
+    color: var(--black);
     font-size: 1rem;
     font-weight: 700;
     border: none;
-    border-radius: 12px;
+    border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
 }
 
-.button::before {
+.submitBtn::before {
     content: '';
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     transition: left 0.5s ease;
 }
 
-.button:hover::before {
+.submitBtn:hover::before {
     left: 100%;
 }
 
-.button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 30px var(--papaya-glow);
+.submitBtn:hover {
+    box-shadow: 0 0 30px var(--petronas-glow);
 }
 
-.button:active {
-    transform: translateY(0);
+.submitBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
 }
 
-.buttonIcon {
-    font-size: 1.2rem;
-}
-
-.button.submitted {
+.submitBtn.sent {
     background: #28c840;
-    pointer-events: none;
 }
 
-.checkmark {
+.btnIcon {
     font-size: 1.2rem;
-    animation: popIn 0.3s ease;
 }
 
-@keyframes popIn {
-    0% {
-        transform: scale(0);
+.sending {
+    animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
     }
 
     50% {
-        transform: scale(1.2);
+        opacity: 0.5;
     }
-
-    100% {
-        transform: scale(1);
-    }
-}
-
-/* Checkered pattern accent */
-.checkeredAccent {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 8px;
-    background: repeating-linear-gradient(90deg,
-            var(--text-primary) 0px,
-            var(--text-primary) 20px,
-            var(--carbon-black) 20px,
-            var(--carbon-black) 40px);
-    opacity: 0.1;
 }
 
 /* Responsive */
@@ -299,26 +293,19 @@
         padding: 5rem 1.5rem;
     }
 
-    .form {
-        padding: 1.5rem;
-    }
-
     .header {
         flex-wrap: wrap;
     }
 
-    .headerLine {
+    .titleLine {
         display: none;
     }
 
-    .contactMethod {
-        flex-wrap: wrap;
+    .form {
+        padding: 1.5rem;
     }
 
-    .methodValue {
-        width: 100%;
-        margin-top: 0.25rem;
-        margin-left: 2.5rem;
-        font-size: 0.9rem;
+    .contentTitle {
+        font-size: 1.5rem;
     }
 }

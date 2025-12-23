@@ -1,81 +1,143 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import styles from "./Experience.module.css";
 
-const ITEMS = [
+const EXPERIENCE = [
   {
-    role: "Senior Full-Stack Developer",
-    company: "Tech Innovations Inc.",
-    period: "2022 - Present",
-    desc: "Leading development of high-traffic web applications. Architected microservices handling 10M+ daily requests.",
-    lap: "P1"
+    role: "Software Engineer Intern",
+    company: "Sri Lanka Telecom",
+    location: "Colombo, Sri Lanka",
+    period: "Jun 2025 - Present",
+    current: true,
+    highlights: [
+      "Engineered high-performance RESTful API endpoints for 'Smart Employee' platform using Node.js",
+      "Architected strict server-client panel isolation mechanism for 100% data privacy compliance",
+      "Revamped assessor frontend using React with local caching and parallel data prefetching",
+      "Led migration from legacy database structures to robust, normalized schemas"
+    ]
+  }
+];
+
+const EDUCATION = [
+  {
+    degree: "BSc (Hons) in Computer Science",
+    institution: "University of Westminster, UK",
+    period: "Jan 2023 - Present",
+    status: "Reading",
+    coursework: ["Advanced Algorithms", "Database Architecture", "OOP"]
   },
   {
-    role: "Full-Stack Developer",
-    company: "Digital Solutions Co.",
-    period: "2020 - 2022",
-    desc: "Built and maintained multiple client-facing applications. Improved performance by 40% through optimization.",
-    lap: "P2"
-  },
-  {
-    role: "Frontend Developer",
-    company: "Creative Agency",
-    period: "2019 - 2020",
-    desc: "Developed responsive web interfaces and interactive dashboards for enterprise clients.",
-    lap: "P3"
-  },
-  {
-    role: "Junior Developer",
-    company: "Startup Hub",
-    period: "2018 - 2019", 
-    desc: "Started my journey building MVPs and learning best practices in a fast-paced environment.",
-    lap: "P4"
+    degree: "Foundation Certificate in Higher Education IT",
+    institution: "IIT, Sri Lanka",
+    period: "Jan 2023 - Sep 2023",
+    status: "Distinction"
   }
 ];
 
 export default function Experience() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
   return (
-    <section className={styles.exp} id="experience">
+    <section className={styles.experience} id="experience" ref={ref}>
       <div className={styles.inner}>
         {/* Section header */}
-        <div className={styles.header}>
+        <motion.div 
+          className={styles.header}
+          initial={{ opacity: 0, x: -50 }}
+          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.6 }}
+        >
           <span className={styles.sectionNumber}>04</span>
-          <h2 className={styles.h2}>Career Laps</h2>
-          <div className={styles.headerLine}></div>
-        </div>
-        
-        <p className={styles.subtitle}>
-          Every position is a lap in the race. Here's my journey to the podium.
-        </p>
+          <h2 className={styles.title}>EXPERIENCE</h2>
+          <div className={styles.titleLine} />
+        </motion.div>
 
-        <div className={styles.timeline}>
-          {/* Racing track line */}
-          <div className={styles.trackLine}>
-            <div className={styles.trackProgress}></div>
-          </div>
-          
-          {ITEMS.map((item, i) => (
-            <div className={styles.item} key={i} style={{ animationDelay: `${i * 150}ms` }}>
-              <div className={styles.checkpoint}>
-                <span className={styles.position}>{item.lap}</span>
-              </div>
-              <div className={styles.panel}>
-                <div className={styles.panelHeader}>
-                  <div className={styles.roleInfo}>
-                    <h3>{item.role}</h3>
-                    <span className={styles.company}>{item.company}</span>
+        <div className={styles.grid}>
+          {/* Work experience */}
+          <div className={styles.workSection}>
+            <h3 className={styles.sectionLabel}>
+              <span className={styles.labelIcon}>💼</span>
+              Work
+            </h3>
+            
+            {EXPERIENCE.map((exp, i) => (
+              <motion.div 
+                key={i}
+                className={styles.expCard}
+                initial={{ opacity: 0, x: -30 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ delay: 0.2 + (i * 0.1), duration: 0.5 }}
+              >
+                {exp.current && (
+                  <div className={styles.currentBadge}>
+                    <span className={styles.currentDot} />
+                    CURRENT
                   </div>
-                  <span className={styles.period}>{item.period}</span>
+                )}
+                
+                <div className={styles.expHeader}>
+                  <h4 className={styles.expRole}>{exp.role}</h4>
+                  <span className={styles.expPeriod}>{exp.period}</span>
                 </div>
-                <p className={styles.desc}>{item.desc}</p>
-              </div>
-            </div>
-          ))}
-          
-          {/* Finish flag */}
-          <div className={styles.finishFlag}>
-            <span>🏁</span>
-            <span className={styles.flagText}>Started Here</span>
+                
+                <div className={styles.expCompany}>
+                  <span>@ {exp.company}</span>
+                  <span className={styles.expLocation}>📍 {exp.location}</span>
+                </div>
+                
+                <ul className={styles.expHighlights}>
+                  {exp.highlights.map((h, j) => (
+                    <motion.li 
+                      key={j}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={isInView ? { opacity: 1, x: 0 } : {}}
+                      transition={{ delay: 0.4 + (j * 0.1), duration: 0.4 }}
+                    >
+                      <span className={styles.bulletIcon}>▸</span>
+                      {h}
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Education */}
+          <div className={styles.eduSection}>
+            <h3 className={styles.sectionLabel}>
+              <span className={styles.labelIcon}>🎓</span>
+              Education
+            </h3>
+            
+            {EDUCATION.map((edu, i) => (
+              <motion.div 
+                key={i}
+                className={styles.eduCard}
+                initial={{ opacity: 0, x: 30 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ delay: 0.3 + (i * 0.15), duration: 0.5 }}
+              >
+                <div className={styles.eduHeader}>
+                  <h4 className={styles.eduDegree}>{edu.degree}</h4>
+                  <span className={`${styles.eduStatus} ${edu.status === 'Distinction' ? styles.distinction : ''}`}>
+                    {edu.status}
+                  </span>
+                </div>
+                
+                <p className={styles.eduInstitution}>{edu.institution}</p>
+                <p className={styles.eduPeriod}>{edu.period}</p>
+                
+                {edu.coursework && (
+                  <div className={styles.coursework}>
+                    {edu.coursework.map((c, j) => (
+                      <span key={j} className={styles.courseTag}>{c}</span>
+                    ))}
+                  </div>
+                )}
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>
