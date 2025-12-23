@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Preloader.module.css";
 
-// Muted, solid cube colors (no glass/transparency)
+// McLaren-inspired racing colors
 const COLORS = [
-  "#1f2937", // slate-800
-  "#111827", // gray-900
-  "#334155", // slate-700
-  "#0b1220", // deep navy
-  "#2a3342", // muted blue-gray
+  "#0C0C0C", // carbon black
+  "#1A1A1A", // anthracite
+  "#141414", // carbon dark
+  "#FF8000", // papaya orange (accent)
+  "#2A2A2A", // carbon mid
 ];
 
 export default function Preloader({ onComplete }) {

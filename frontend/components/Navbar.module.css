@@ -1,131 +1,203 @@
 .navbar {
   position: fixed;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1rem 2rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar.scrolled {
+  background: rgba(12, 12, 12, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 3rem;
-  padding: 1rem 3rem;
-  max-width: 700px;
-  max-height: 70px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
-  backdrop-filter: blur(14px) saturate(120%);
-  border-radius: 70px;
-  color: #fff;
-  font-family: inherit;
-  box-shadow: 0 12px 40px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.03);
-  position: relative;
-  overflow: visible;
+  justify-content: space-between;
 }
 
-/* subtle colored rim behind the navbar */
-.navbar::before {
-  content: '';
-  position: absolute;
-  inset: -6px;
-  border-radius: 80px;
-  background: linear-gradient(90deg, rgba(56,189,248,0.12), rgba(147,51,234,0.12));
-  filter: blur(10px);
-  opacity: 0.7;
-  z-index: -2;
-}
-
-/* animated sheen moving across */
-.navbar::after {
-  content: '';
-  position: absolute;
-  left: -40%;
-  top: -10%;
-  width: 40%;
-  height: 120%;
-  transform: skewX(-20deg);
-  background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02), rgba(255,255,255,0.06));
-  opacity: 0.0;
-  transition: opacity 0.45s ease, left 0.9s cubic-bezier(.2,.9,.2,1);
-  z-index: -1;
-}
-
-.navbar:hover::after {
-  left: 110%;
-  opacity: 1;
-}
-
+/* Logo */
 .logo {
-  font-size: 1.3rem;
-  font-weight: bold;
-  position: sticky;
-  top: 0;
-  backdrop-filter: blur(6px);
-  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  transition: transform 0.3s ease;
 }
 
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.logoIcon {
+  font-size: 1.5rem;
+}
+
+.logoText {
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--papaya) 0%, var(--papaya-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.05em;
+}
+
+/* Desktop Links */
 .links {
   display: flex;
-  gap: 3rem;
+  gap: 0.5rem;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.links li {
-  position: relative;
-}
-
-.links a {
-  color: rgba(255, 255, 255, 0.8);
+.links li a {
+  display: inline-block;
+  padding: 0.6rem 1.25rem;
+  color: var(--text-secondary);
   text-decoration: none;
-  font-size: 1.3rem;
+  font-size: 0.9rem;
   font-weight: 500;
-  padding: 0.6rem 1.2rem;
-  border-radius: 25px;
+  letter-spacing: 0.02em;
+  border-radius: 8px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  overflow: hidden;
-  display: block;
 }
 
-.links a::before {
+.links li a::after {
   content: '';
   position: absolute;
+  bottom: 4px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--papaya);
+  border-radius: 1px;
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+}
+
+.links li a:hover {
+  color: var(--text-primary);
+  background: rgba(255, 128, 0, 0.08);
+}
+
+.links li a:hover::after {
+  width: 60%;
+}
+
+/* Mobile Menu Toggle */
+.menuToggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 101;
+}
+
+.menuToggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 1px;
+  transition: all 0.3s ease;
+}
+
+.menuToggle.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+  background: var(--papaya);
+}
+
+.menuToggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.menuToggle.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+  background: var(--papaya);
+}
+
+/* Mobile Menu */
+.mobileMenu {
+  display: none;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(56, 189, 248, 0.3), rgba(147, 51, 234, 0.3));
-  border-radius: 25px;
-  opacity: 0;
-  transform: scale(0.8);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: -1;
+  background: rgba(12, 12, 12, 0.98);
+  backdrop-filter: blur(20px);
+  padding: 6rem 2rem 2rem;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 99;
 }
 
-.links a::after {
-  content: '';
-  position: absolute;
-  bottom: 0.3rem;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #38bdf8, #9333ea);
-  border-radius: 1px;
-  transform: translateX(-50%);
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+.mobileMenu.mobileOpen {
+  transform: translateX(0);
 }
 
-.links a:hover {
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
+.mobileMenu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.links a:hover::before {
-  opacity: 1;
-  transform: scale(1);
+.mobileMenu li a {
+  display: block;
+  padding: 1.25rem 1.5rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: 600;
+  border-radius: 12px;
+  border-left: 3px solid transparent;
+  transition: all 0.3s ease;
 }
 
-.links a:hover::after {
-  width: 70%;
+.mobileMenu li a:hover {
+  color: var(--papaya);
+  background: rgba(255, 128, 0, 0.08);
+  border-left-color: var(--papaya);
+  padding-left: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .links {
+    display: none;
+  }
+
+  .menuToggle {
+    display: flex;
+  }
+
+  .mobileMenu {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 1rem;
+  }
+
+  .logoText {
+    font-size: 1.25rem;
+  }
 }

@@ -15,12 +15,11 @@ export default function Home() {
   const [showPreloader, setShowPreloader] = useState(true);
 
   return (
-    <main>
+    <main style={{ position: "relative", minHeight: "100vh" }}>
       {showPreloader && <Preloader onComplete={() => setShowPreloader(false)} />}
       <TileGrid />
       <div style={{ position: "relative", zIndex: 10 }}>
         <Navbar />
-        <div style={{ height: "64px" }} />
         <Hero />
         <About />
         <Skills />

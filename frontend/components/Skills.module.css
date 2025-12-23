@@ -1,15 +1,243 @@
-.skills { padding: 5rem 1.5rem; }
-.inner { max-width: 1100px; margin: 0 auto; }
-.h2 { font-size: clamp(1.8rem, 3.5vw, 2.2rem); color: #e5e7eb; margin-bottom: 1rem; }
-.tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.tag {
-  background: #111827;
-  color: #e5e7eb;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 999px;
-  padding: 0.5rem 0.75rem;
-  opacity: 0;
-  transform: translateY(8px);
-  animation: enter 500ms ease forwards;
+.skills {
+  padding: 8rem 2rem;
+  background: var(--carbon-black);
+  position: relative;
 }
-@keyframes enter { to { opacity: 1; transform: translateY(0); } }
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Section Header */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.sectionNumber {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--papaya);
+  padding: 0.5rem 1rem;
+  background: rgba(255, 128, 0, 0.1);
+  border: 1px solid var(--border-accent);
+  border-radius: 6px;
+  letter-spacing: 0.1em;
+}
+
+.h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.headerLine {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-accent), transparent);
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  margin-bottom: 3rem;
+}
+
+/* Categories Grid */
+.categoriesGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.category {
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 1.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease forwards;
+  transition: all 0.3s ease;
+}
+
+.category:hover {
+  border-color: var(--border-accent);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg), 0 0 30px rgba(255, 128, 0, 0.1);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.categoryHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.categoryIcon {
+  font-size: 1.5rem;
+}
+
+.categoryTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
+/* Skill Tags */
+.skillTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.5rem 0.875rem;
+  background: var(--carbon-dark);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  opacity: 0;
+  transform: scale(0.9);
+  animation: popIn 0.3s ease forwards;
+  transition: all 0.2s ease;
+}
+
+.tag:hover {
+  background: rgba(255, 128, 0, 0.1);
+  border-color: var(--papaya);
+  color: var(--papaya);
+  transform: scale(1.05);
+}
+
+@keyframes popIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Speed Meter */
+.speedMeter {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+}
+
+.meterLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.meterTrack {
+  flex: 1;
+  height: 12px;
+  background: var(--carbon-dark);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.meterFill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--papaya-dark), var(--papaya), var(--papaya-light));
+  border-radius: 6px;
+  animation: fillMeter 2s ease forwards 0.5s;
+  position: relative;
+}
+
+.meterFill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      transparent 100%);
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes fillMeter {
+  to {
+    width: 95%;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.meterValue {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--papaya);
+  letter-spacing: 0.1em;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .categoriesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .skills {
+    padding: 5rem 1.5rem;
+  }
+
+  .categoriesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    flex-wrap: wrap;
+  }
+
+  .headerLine {
+    display: none;
+  }
+
+  .speedMeter {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    text-align: center;
+  }
+}
