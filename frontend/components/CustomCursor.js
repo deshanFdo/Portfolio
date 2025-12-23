@@ -11,31 +11,43 @@ export default function CustomCursor() {
     setIsVisible(true);
   }, []);
 
+  const onMouseLeave = useCallback(() => {
+    setIsVisible(false);
+  }, []);
+
   useEffect(() => {
     window.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseleave", () => setIsVisible(false));
+    document.addEventListener("mouseleave", onMouseLeave);
 
+    // Add hover detection for interactive elements
     const addHoverListeners = () => {
-      document.querySelectorAll("a, button, input, textarea, [role='button']").forEach((el) => {
+      const interactiveElements = document.querySelectorAll(
+        'a, button, input, textarea, [role="button"], .hover-target'
+      );
+      
+      interactiveElements.forEach((el) => {
         el.addEventListener("mouseenter", () => setIsHovering(true));
         el.addEventListener("mouseleave", () => setIsHovering(false));
       });
     };
 
+    // Initial setup and mutation observer for dynamic content
     addHoverListeners();
     const observer = new MutationObserver(addHoverListeners);
     observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseleave", onMouseLeave);
       observer.disconnect();
     };
-  }, [onMouseMove]);
+  }, [onMouseMove, onMouseLeave]);
 
   if (typeof window === "undefined") return null;
 
   return (
     <>
+      {/* Dot */}
       <div
         style={{
           position: "fixed",
@@ -43,16 +55,17 @@ export default function CustomCursor() {
           top: position.y - 4,
           width: 8,
           height: 8,
-          backgroundColor: "#DFFF00",
+          backgroundColor: "#00D2BE",
           borderRadius: "50%",
           pointerEvents: "none",
           zIndex: 99999,
           opacity: isVisible ? 1 : 0,
-          transition: "opacity 0.3s, transform 0.1s",
+          transition: "opacity 0.3s ease, transform 0.1s ease",
           transform: isHovering ? "scale(0)" : "scale(1)",
           mixBlendMode: "difference",
         }}
       />
+      {/* Ring */}
       <div
         style={{
           position: "fixed",
@@ -60,13 +73,15 @@ export default function CustomCursor() {
           top: position.y - 20,
           width: 40,
           height: 40,
-          border: "1px solid #DFFF00",
+          border: "2px solid #00D2BE",
           borderRadius: "50%",
           pointerEvents: "none",
           zIndex: 99998,
-          opacity: isVisible ? 0.5 : 0,
+          opacity: isVisible ? 1 : 0,
           transition: "all 0.15s ease-out",
           transform: isHovering ? "scale(1.5)" : "scale(1)",
+          backgroundColor: isHovering ? "rgba(0, 210, 190, 0.1)" : "transparent",
+          mixBlendMode: "difference",
         }}
       />
     </>

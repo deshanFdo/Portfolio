@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
 
-// Component that creates the Norris sliding text effect
-export default function NorrisText({ text, className = "", fontSize = "4rem", as: Tag = "span" }) {
+// Norris sliding text effect - wraps each character
+export default function NorrisText({ text, className = "", fontSize = "inherit" }) {
   const chars = text.split("");
   
   return (
-    <Tag 
+    <span 
       className={`norris-text ${className}`}
       style={{ fontSize, lineHeight: fontSize }}
     >
@@ -19,6 +19,6 @@ export default function NorrisText({ text, className = "", fontSize = "4rem", as
           {char === " " ? "\u00A0" : char}
         </span>
       ))}
-    </Tag>
+    </span>
   );
 }

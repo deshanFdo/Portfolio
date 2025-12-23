@@ -1,23 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* Mercedes AMG Petronas F1 Design System */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
 
-/* CSS Reset */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+:root {
+  /* Mercedes AMG Petronas Colors */
+  --petronas-teal: #00D2BE;
+  --petronas-teal-light: #00F5DD;
+  --petronas-teal-dark: #00A89A;
+  --petronas-glow: rgba(0, 210, 190, 0.4);
+
+  /* Silver Arrows */
+  --silver: #C6C6C6;
+  --silver-light: #E8E8E8;
+  --silver-dark: #8A8A8A;
+
+  /* Dark Theme */
+  --black: #000000;
+  --carbon: #0A0A0A;
+  --graphite: #1A1A1A;
+  --slate: #2A2A2A;
+
+  /* Accent Colors */
+  --red-accent: #E10600;
+  --white: #FFFFFF;
+
+  /* Text */
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.85);
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --text-subtle: rgba(255, 255, 255, 0.4);
+
+  /* Surfaces */
+  --surface-glass: rgba(10, 10, 10, 0.8);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-teal: rgba(0, 210, 190, 0.3);
+
+  /* Shadows */
+  --shadow-teal: 0 0 40px var(--petronas-glow);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
 }
 
-/* Norris Variables */
-:root {
-  --c-primary: #dde1d2;
-  --c-secondary: #b2c73a;
-  --c-dark: #0a0a0a;
-  --c-gray: #666666;
-  --c-border: rgba(255, 255, 255, 0.1);
-  --font-display: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-  --font-body: 'Inter', sans-serif;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
@@ -25,50 +51,198 @@ html {
 }
 
 body {
-  font-family: var(--font-body);
-  background-color: var(--c-dark);
-  color: var(--c-primary);
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--black);
+  color: var(--text-primary);
+  min-height: 100vh;
   overflow-x: hidden;
-  line-height: 1.6;
+  cursor: none;
 }
 
+/* Custom cursor (will be replaced by JS) */
+.cursor-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--petronas-teal);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transition: transform 0.1s ease;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--petronas-teal);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transition: all 0.15s ease-out;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring.hover {
+  transform: scale(1.5);
+  border-color: var(--petronas-teal-light);
+  background: rgba(0, 210, 190, 0.1);
+}
+
+/* Glitch effect base */
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.glitch::before {
+  color: var(--petronas-teal);
+  animation: glitch-1 2s infinite linear alternate-reverse;
+  clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+}
+
+.glitch::after {
+  color: var(--red-accent);
+  animation: glitch-2 3s infinite linear alternate-reverse;
+  clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+}
+
+@keyframes glitch-1 {
+  0% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(-3px);
+  }
+
+  40% {
+    transform: translateX(3px);
+  }
+
+  60% {
+    transform: translateX(-1px);
+  }
+
+  80% {
+    transform: translateX(2px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes glitch-2 {
+  0% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(3px);
+  }
+
+  40% {
+    transform: translateX(-2px);
+  }
+
+  60% {
+    transform: translateX(1px);
+  }
+
+  80% {
+    transform: translateX(-3px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Selection */
 ::selection {
-  background: var(--c-secondary);
-  color: var(--c-dark);
+  background: var(--petronas-teal);
+  color: var(--black);
 }
 
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--c-dark);
+  background: var(--carbon);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--c-secondary);
+  background: var(--petronas-teal);
+  border-radius: 3px;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* Focus */
+:focus-visible {
+  outline: 2px solid var(--petronas-teal);
+  outline-offset: 2px;
 }
 
-/* Norris Text Animation */
+/* Neon text glow */
+.neon-text {
+  text-shadow:
+    0 0 10px var(--petronas-glow),
+    0 0 20px var(--petronas-glow),
+    0 0 40px var(--petronas-glow);
+}
+
+/* Scanline effect */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.1) 2px,
+      rgba(0, 0, 0, 0.1) 4px);
+  pointer-events: none;
+}
+
+/* Noise texture */
+.noise::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Norris Sliding Text Effect - Teal Theme */
 .norris-text {
+  display: inline-flex;
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 800;
-  font-family: var(--font-display);
+  font-family: 'Orbitron', Impact, sans-serif;
   overflow: hidden;
-  letter-spacing: 0.02em;
-  display: inline-flex;
+  letter-spacing: 0.05rem;
 }
 
 .norris-text .char {
   position: relative;
-  color: transparent;
   display: inline-block;
+  color: transparent;
 }
 
 .norris-text .char::before,
@@ -76,82 +250,68 @@ a {
   content: attr(data-char);
   position: absolute;
   left: 0;
-  color: var(--c-primary);
-  transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+  color: var(--text-primary);
+  transition: all 0.3s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* Staggered delays using CSS custom properties */
+.norris-text .char {
+  --delay: 0;
+}
+
+.norris-text .char:nth-child(1) {
+  --delay: 0ms;
+}
+
+.norris-text .char:nth-child(2) {
+  --delay: 30ms;
+}
+
+.norris-text .char:nth-child(3) {
+  --delay: 60ms;
+}
+
+.norris-text .char:nth-child(4) {
+  --delay: 90ms;
+}
+
+.norris-text .char:nth-child(5) {
+  --delay: 120ms;
+}
+
+.norris-text .char:nth-child(6) {
+  --delay: 150ms;
+}
+
+.norris-text .char:nth-child(7) {
+  --delay: 180ms;
+}
+
+.norris-text .char:nth-child(8) {
+  --delay: 210ms;
+}
+
+.norris-text .char:nth-child(9) {
+  --delay: 240ms;
+}
+
+.norris-text .char:nth-child(10) {
+  --delay: 270ms;
 }
 
 .norris-text .char::before {
   transform: translateY(0);
+  transition-delay: var(--delay);
 }
 
 .norris-text .char::after {
   transform: translateY(100%);
-}
-
-/* Staggered delay for each character */
-.norris-text .char:nth-child(1)::before,
-.norris-text .char:nth-child(1)::after {
-  transition-delay: 0ms;
-}
-
-.norris-text .char:nth-child(2)::before,
-.norris-text .char:nth-child(2)::after {
-  transition-delay: 25ms;
-}
-
-.norris-text .char:nth-child(3)::before,
-.norris-text .char:nth-child(3)::after {
-  transition-delay: 50ms;
-}
-
-.norris-text .char:nth-child(4)::before,
-.norris-text .char:nth-child(4)::after {
-  transition-delay: 75ms;
-}
-
-.norris-text .char:nth-child(5)::before,
-.norris-text .char:nth-child(5)::after {
-  transition-delay: 100ms;
-}
-
-.norris-text .char:nth-child(6)::before,
-.norris-text .char:nth-child(6)::after {
-  transition-delay: 125ms;
-}
-
-.norris-text .char:nth-child(7)::before,
-.norris-text .char:nth-child(7)::after {
-  transition-delay: 150ms;
-}
-
-.norris-text .char:nth-child(8)::before,
-.norris-text .char:nth-child(8)::after {
-  transition-delay: 175ms;
-}
-
-.norris-text .char:nth-child(9)::before,
-.norris-text .char:nth-child(9)::after {
-  transition-delay: 200ms;
-}
-
-.norris-text .char:nth-child(10)::before,
-.norris-text .char:nth-child(10)::after {
-  transition-delay: 225ms;
-}
-
-.norris-text .char:nth-child(11)::before,
-.norris-text .char:nth-child(11)::after {
-  transition-delay: 250ms;
-}
-
-.norris-text .char:nth-child(12)::before,
-.norris-text .char:nth-child(12)::after {
-  transition-delay: 275ms;
+  transition-delay: var(--delay);
 }
 
 .norris-text:hover .char::before,
 .norris-text:hover .char::after {
-  color: var(--c-secondary);
+  color: var(--petronas-teal);
 }
 
 .norris-text:hover .char::before {
@@ -160,42 +320,4 @@ a {
 
 .norris-text:hover .char::after {
   transform: translateY(0);
-}
-
-/* Page fade in */
-main {
-  animation: fadeIn 1s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-/* Smooth section transitions */
-section {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: sectionReveal 0.8s ease-out forwards;
-}
-
-@keyframes sectionReveal {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Vignette */
-.vignette {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 999;
-  background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
 }
