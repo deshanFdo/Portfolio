@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import NorrisText from "./NorrisText";
 import styles from "./About.module.css";
 
 export default function About() {
@@ -15,59 +16,59 @@ export default function About() {
   return (
     <section className={styles.about} id="about" ref={ref}>
       <div className={styles.inner}>
-        <div className={styles.grid}>
-          {/* Left - Image/Avatar */}
-          <motion.div
-            className={styles.imageSection}
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8 }}
-          >
-            <div className={styles.imageFrame}>
-              <div className={styles.imagePlaceholder}>
-                <span>{fullName.split(" ").map(n => n[0]).join("")}</span>
-              </div>
-            </div>
-            <div className={styles.imageAccent} />
-          </motion.div>
+        {/* Header with Norris effect */}
+        <motion.div
+          className={styles.header}
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+        >
+          <span className={styles.label}>About</span>
+          <a href="#about">
+            <NorrisText text="Who I Am" fontSize="clamp(2.5rem, 8vw, 5rem)" />
+          </a>
+        </motion.div>
 
-          {/* Right - Content */}
+        <div className={styles.grid}>
+          {/* Image */}
           <motion.div
-            className={styles.contentSection}
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            className={styles.imageWrap}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h2 className={styles.sectionTitle}>
-              <span className={styles.titleLabel}>About</span>
-              <span className={styles.titleMain}>Me</span>
-            </h2>
+            <div className={styles.image}>
+              <span>{fullName.split(" ").map(n => n[0]).join("")}</span>
+            </div>
+          </motion.div>
 
-            <p className={styles.bio}>
+          {/* Bio */}
+          <motion.div
+            className={styles.bio}
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <p>
               Results-oriented Computer Science undergraduate with expertise in 
-              building scalable full-stack applications. Currently at {company || "the industry"}, 
-              architecting high-performance systems and solving complex challenges.
+              building scalable full-stack applications.
             </p>
-
-            <p className={styles.bio}>
+            <p>
+              {company && `Currently at ${company}, `}
               I specialize in React, Node.js, and modern web technologies — 
               crafting seamless experiences from concept to deployment.
             </p>
 
             <div className={styles.details}>
-              <div className={styles.detailItem}>
+              <div className={styles.detail}>
                 <span className={styles.detailLabel}>Location</span>
                 <span className={styles.detailValue}>{location}</span>
               </div>
-              <div className={styles.detailItem}>
-                <span className={styles.detailLabel}>Current Role</span>
+              <div className={styles.detail}>
+                <span className={styles.detailLabel}>Role</span>
                 <span className={styles.detailValue}>{jobTitle}</span>
               </div>
             </div>
-
-            <a href="#contact" className={styles.contactLink}>
-              Get in Touch →
-            </a>
           </motion.div>
         </div>
       </div>

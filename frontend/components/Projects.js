@@ -1,29 +1,27 @@
 "use client";
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import NorrisText from "./NorrisText";
 import styles from "./Projects.module.css";
 
 const PROJECTS = [
   {
+    num: "01",
     title: "Smart Employee System",
-    category: "Full-Stack Development",
-    description: "Role-Based Access Control platform for employee assessments at Sri Lanka Telecom.",
-    tech: ["Node.js", "React", "MySQL", "TypeScript"],
-    image: null,
+    desc: "Role-Based Access Control platform for assessments",
+    tech: "Node.js • React • MySQL",
   },
   {
+    num: "02",
     title: "LawLinkLK",
-    category: "Full-Stack Development",
-    description: "Real-time legal consultation platform with AI assistant and secure messaging.",
-    tech: ["MERN Stack", "OpenAI API", "Socket.io"],
-    image: null,
+    desc: "Real-time legal consultation with AI assistant",
+    tech: "MERN Stack • OpenAI • Socket.io",
   },
   {
+    num: "03",
     title: "Airline Seat Booking",
-    category: "Backend Development",
-    description: "Core API for seat reservations and passenger manifest management.",
-    tech: ["Java", "REST API"],
-    image: null,
+    desc: "Core API for reservations and manifest management",
+    tech: "Java • REST API",
   },
 ];
 
@@ -37,38 +35,33 @@ export default function Projects() {
         {/* Header */}
         <motion.div
           className={styles.header}
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
         >
-          <span className={styles.headerLabel}>Selected</span>
-          <h2 className={styles.headerTitle}>Work</h2>
+          <span className={styles.label}>Selected</span>
+          <a href="#projects">
+            <NorrisText text="Work" fontSize="clamp(3rem, 10vw, 7rem)" />
+          </a>
         </motion.div>
 
-        {/* Project list */}
-        <div className={styles.projectList}>
+        {/* Projects list */}
+        <div className={styles.list}>
           {PROJECTS.map((project, i) => (
             <motion.article
               key={i}
-              className={styles.projectItem}
-              initial={{ opacity: 0, y: 50 }}
+              className={styles.item}
+              initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.15 }}
+              transition={{ duration: 0.6, delay: 0.2 + (i * 0.15) }}
             >
-              <div className={styles.projectContent}>
-                <span className={styles.projectCategory}>{project.category}</span>
-                <h3 className={styles.projectTitle}>{project.title}</h3>
-                <p className={styles.projectDesc}>{project.description}</p>
-                <div className={styles.projectTech}>
-                  {project.tech.map((t, j) => (
-                    <span key={j}>{t}</span>
-                  ))}
-                </div>
-              </div>
-              <div className={styles.projectImage}>
-                <div className={styles.imagePlaceholder}>
-                  <span>{String(i + 1).padStart(2, "0")}</span>
-                </div>
+              <span className={styles.num}>{project.num}</span>
+              <div className={styles.content}>
+                <a href="#" className={styles.titleLink}>
+                  <NorrisText text={project.title} fontSize="clamp(1.5rem, 4vw, 2.5rem)" />
+                </a>
+                <p className={styles.desc}>{project.desc}</p>
+                <span className={styles.tech}>{project.tech}</span>
               </div>
             </motion.article>
           ))}

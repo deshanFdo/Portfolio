@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import NorrisText from "./NorrisText";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
@@ -24,18 +25,20 @@ export default function Navbar() {
     <>
       <motion.nav
         className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}
-        initial={{ y: -100 }}
+        initial={{ y: -80 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
       >
         <a href="#home" className={styles.logo}>
-          <span className={styles.logoText}>DF</span>
+          <NorrisText text="DF" fontSize="1.2rem" />
         </a>
 
         <ul className={styles.links}>
           {links.map((link) => (
             <li key={link.href}>
-              <a href={link.href}>{link.label}</a>
+              <a href={link.href}>
+                <NorrisText text={link.label} fontSize="0.8rem" />
+              </a>
             </li>
           ))}
         </ul>
@@ -43,34 +46,39 @@ export default function Navbar() {
         <button
           className={`${styles.menuBtn} ${menuOpen ? styles.open : ""}`}
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
         >
           <span />
           <span />
         </button>
       </motion.nav>
 
-      {/* Full-screen menu */}
-      <motion.div
-        className={styles.fullMenu}
-        initial={false}
-        animate={menuOpen ? { opacity: 1, pointerEvents: "auto" } : { opacity: 0, pointerEvents: "none" }}
-      >
-        <ul>
-          {links.map((link, i) => (
-            <motion.li
-              key={link.href}
-              initial={{ opacity: 0, x: -50 }}
-              animate={menuOpen ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-              transition={{ delay: i * 0.1 }}
-            >
-              <a href={link.href} onClick={() => setMenuOpen(false)}>
-                {link.label}
-              </a>
-            </motion.li>
-          ))}
-        </ul>
-      </motion.div>
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className={styles.mobileMenu}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <ul>
+              {links.map((link, i) => (
+                <motion.li
+                  key={link.href}
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -30 }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  <a href={link.href} onClick={() => setMenuOpen(false)}>
+                    <NorrisText text={link.label} fontSize="3rem" />
+                  </a>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

@@ -2,7 +2,7 @@
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: var(--bg-dark);
+  background: var(--c-dark);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,71 +13,40 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3rem;
+  gap: 2rem;
 }
 
-/* Name styling - signature feel */
-.nameContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-}
-
-.firstName {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(4rem, 15vw, 10rem);
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  line-height: 1;
-  color: var(--text-white);
-}
-
-.lastName {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.5rem, 5vw, 3rem);
-  font-style: italic;
-  font-weight: 400;
-  color: var(--accent-green);
-  margin-top: -0.5rem;
-  text-shadow: 0 0 30px var(--accent-green-glow);
-}
-
-/* Progress */
-.progressContainer {
+.progress {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  width: 200px;
+  gap: 1rem;
 }
 
-.progressTrack {
-  flex: 1;
+.bar {
+  width: 120px;
   height: 2px;
   background: rgba(255, 255, 255, 0.1);
   overflow: hidden;
 }
 
-.progressFill {
+.fill {
   height: 100%;
-  background: var(--accent-green);
-  box-shadow: 0 0 10px var(--accent-green-glow);
+  background: var(--c-secondary);
 }
 
-.progressText {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1rem;
-  color: var(--text-gray);
-  min-width: 40px;
+.percent {
+  font-size: 0.8rem;
+  color: var(--c-gray);
+  font-family: var(--font-display);
+  min-width: 35px;
 }
 
-/* Enter prompt */
-.enterPrompt {
-  font-size: 0.85rem;
-  color: var(--text-gray);
-  letter-spacing: 0.1em;
+.prompt {
+  font-size: 0.8rem;
+  color: var(--c-gray);
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  animation: pulse 2s ease-in-out infinite;
+  animation: pulse 1.5s ease-in-out infinite;
 }
 
 @keyframes pulse {
@@ -89,24 +58,5 @@
 
   50% {
     opacity: 0.4;
-  }
-}
-
-/* Signature corner */
-.signature {
-  position: absolute;
-  bottom: 2rem;
-  right: 2rem;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
-  font-style: italic;
-  color: var(--accent-green);
-  opacity: 0.5;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .progressContainer {
-    width: 150px;
   }
 }

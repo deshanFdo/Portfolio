@@ -1,22 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-:root {
-  /* Lando Norris inspired palette */
-  --bg-dark: #0a0a0a;
-  --bg-card: #111111;
-  --accent-green: #DFFF00;
-  --accent-green-glow: rgba(223, 255, 0, 0.4);
-  --blue-vignette: rgba(30, 60, 120, 0.3);
-  --text-white: #ffffff;
-  --text-gray: #888888;
-  --text-muted: #555555;
-  --border-subtle: rgba(255, 255, 255, 0.08);
-}
-
-* {
+/* CSS Reset */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* Norris Variables */
+:root {
+  --c-primary: #dde1d2;
+  --c-secondary: #b2c73a;
+  --c-dark: #0a0a0a;
+  --c-gray: #666666;
+  --c-border: rgba(255, 255, 255, 0.1);
+  --font-display: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  --font-body: 'Inter', sans-serif;
 }
 
 html {
@@ -24,92 +25,177 @@ html {
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  background: var(--bg-dark);
-  color: var(--text-white);
+  font-family: var(--font-body);
+  background-color: var(--c-dark);
+  color: var(--c-primary);
   overflow-x: hidden;
-  cursor: default;
+  line-height: 1.6;
 }
 
-/* Hide default cursor on desktop */
-@media (min-width: 769px) {
-  body {
-    cursor: none;
-  }
-
-  a,
-  button {
-    cursor: none;
-  }
-}
-
-/* Selection */
 ::selection {
-  background: var(--accent-green);
-  color: var(--bg-dark);
+  background: var(--c-secondary);
+  color: var(--c-dark);
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-dark);
+  background: var(--c-dark);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--accent-green);
-  border-radius: 3px;
+  background: var(--c-secondary);
 }
 
-/* Typography classes */
-.font-display {
-  font-family: 'Bebas Neue', sans-serif;
-  letter-spacing: 0.02em;
-}
-
-.font-serif {
-  font-family: 'Playfair Display', serif;
-}
-
-/* Vignette overlay for entire page */
-.vignette-overlay {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1000;
-  background:
-    radial-gradient(ellipse at top left, var(--blue-vignette), transparent 50%),
-    radial-gradient(ellipse at bottom right, var(--blue-vignette), transparent 50%);
-}
-
-/* Topographic background pattern */
-.topo-bg {
-  position: fixed;
-  inset: 0;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cpath d='M0 200 Q100 150 200 200 T400 200' fill='none' stroke='%23fff' stroke-width='1'/%3E%3Cpath d='M0 180 Q100 130 200 180 T400 180' fill='none' stroke='%23fff' stroke-width='1'/%3E%3Cpath d='M0 220 Q100 170 200 220 T400 220' fill='none' stroke='%23fff' stroke-width='1'/%3E%3Cpath d='M0 160 Q100 110 200 160 T400 160' fill='none' stroke='%23fff' stroke-width='1'/%3E%3Cpath d='M0 240 Q100 190 200 240 T400 240' fill='none' stroke='%23fff' stroke-width='1'/%3E%3C/svg%3E");
-  background-size: 400px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Links base */
 a {
   color: inherit;
   text-decoration: none;
 }
 
-/* Button base */
-button {
-  font-family: inherit;
-  border: none;
-  cursor: pointer;
+/* Norris Text Animation */
+.norris-text {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-family: var(--font-display);
+  overflow: hidden;
+  letter-spacing: 0.02em;
+  display: inline-flex;
 }
 
-/* Section padding */
-section {
+.norris-text .char {
   position: relative;
-  z-index: 1;
+  color: transparent;
+  display: inline-block;
+}
+
+.norris-text .char::before,
+.norris-text .char::after {
+  content: attr(data-char);
+  position: absolute;
+  left: 0;
+  color: var(--c-primary);
+  transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.norris-text .char::before {
+  transform: translateY(0);
+}
+
+.norris-text .char::after {
+  transform: translateY(100%);
+}
+
+/* Staggered delay for each character */
+.norris-text .char:nth-child(1)::before,
+.norris-text .char:nth-child(1)::after {
+  transition-delay: 0ms;
+}
+
+.norris-text .char:nth-child(2)::before,
+.norris-text .char:nth-child(2)::after {
+  transition-delay: 25ms;
+}
+
+.norris-text .char:nth-child(3)::before,
+.norris-text .char:nth-child(3)::after {
+  transition-delay: 50ms;
+}
+
+.norris-text .char:nth-child(4)::before,
+.norris-text .char:nth-child(4)::after {
+  transition-delay: 75ms;
+}
+
+.norris-text .char:nth-child(5)::before,
+.norris-text .char:nth-child(5)::after {
+  transition-delay: 100ms;
+}
+
+.norris-text .char:nth-child(6)::before,
+.norris-text .char:nth-child(6)::after {
+  transition-delay: 125ms;
+}
+
+.norris-text .char:nth-child(7)::before,
+.norris-text .char:nth-child(7)::after {
+  transition-delay: 150ms;
+}
+
+.norris-text .char:nth-child(8)::before,
+.norris-text .char:nth-child(8)::after {
+  transition-delay: 175ms;
+}
+
+.norris-text .char:nth-child(9)::before,
+.norris-text .char:nth-child(9)::after {
+  transition-delay: 200ms;
+}
+
+.norris-text .char:nth-child(10)::before,
+.norris-text .char:nth-child(10)::after {
+  transition-delay: 225ms;
+}
+
+.norris-text .char:nth-child(11)::before,
+.norris-text .char:nth-child(11)::after {
+  transition-delay: 250ms;
+}
+
+.norris-text .char:nth-child(12)::before,
+.norris-text .char:nth-child(12)::after {
+  transition-delay: 275ms;
+}
+
+.norris-text:hover .char::before,
+.norris-text:hover .char::after {
+  color: var(--c-secondary);
+}
+
+.norris-text:hover .char::before {
+  transform: translateY(-100%);
+}
+
+.norris-text:hover .char::after {
+  transform: translateY(0);
+}
+
+/* Page fade in */
+main {
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Smooth section transitions */
+section {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: sectionReveal 0.8s ease-out forwards;
+}
+
+@keyframes sectionReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Vignette */
+.vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
 }

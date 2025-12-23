@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import NorrisText from "./NorrisText";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -12,19 +13,22 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.inner}>
         <div className={styles.top}>
-          <div className={styles.brand}>
-            <span className={styles.logo}>DF</span>
-            <span className={styles.tagline}>Building digital experiences.</span>
-          </div>
+          <a href="#home" className={styles.logo}>
+            <NorrisText text="DF" fontSize="1.5rem" />
+          </a>
 
-          <div className={styles.socials}>
-            <a href={linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a href={github} target="_blank" rel="noopener noreferrer">GitHub</a>
+          <div className={styles.links}>
+            <a href={linkedin} target="_blank" rel="noopener noreferrer">
+              <NorrisText text="LinkedIn" fontSize="0.85rem" />
+            </a>
+            <a href={github} target="_blank" rel="noopener noreferrer">
+              <NorrisText text="GitHub" fontSize="0.85rem" />
+            </a>
           </div>
         </div>
 
         <div className={styles.bottom}>
-          <p>© {year} {name}. All rights reserved.</p>
+          <p>© {year} {name}</p>
         </div>
       </div>
     </footer>

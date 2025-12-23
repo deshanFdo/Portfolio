@@ -1,12 +1,13 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import NorrisText from "./NorrisText";
 import styles from "./Contact.module.css";
 
 export default function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [formState, setFormState] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("idle");
 
   const email = process.env.NEXT_PUBLIC_EMAIL || "hello@example.com";
@@ -19,7 +20,7 @@ export default function Contact() {
     setStatus("sending");
     setTimeout(() => {
       setStatus("sent");
-      setFormState({ name: "", email: "", message: "" });
+      setForm({ name: "", email: "", message: "" });
       setTimeout(() => setStatus("idle"), 3000);
     }, 1500);
   };
@@ -27,49 +28,45 @@ export default function Contact() {
   return (
     <section className={styles.contact} id="contact" ref={ref}>
       <div className={styles.inner}>
+        {/* Header */}
         <motion.div
           className={styles.header}
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
         >
-          <span className={styles.headerLabel}>Get in</span>
-          <h2 className={styles.headerTitle}>Touch</h2>
+          <span className={styles.label}>Get in</span>
+          <a href="#contact">
+            <NorrisText text="Touch" fontSize="clamp(3rem, 10vw, 7rem)" />
+          </a>
         </motion.div>
 
         <div className={styles.grid}>
-          {/* Info */}
+          {/* Links */}
           <motion.div
-            className={styles.info}
+            className={styles.links}
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <p className={styles.infoText}>
-              Interested in working together? Feel free to reach out for 
-              collaborations or just a friendly hello.
-            </p>
-
-            <div className={styles.links}>
-              <a href={`mailto:${email}`} className={styles.link}>
-                <span className={styles.linkLabel}>Email</span>
-                <span className={styles.linkValue}>{email}</span>
+            <a href={`mailto:${email}`} className={styles.link}>
+              <span className={styles.linkLabel}>Email</span>
+              <NorrisText text={email} fontSize="1rem" />
+            </a>
+            {phone && (
+              <a href={`tel:${phone.replace(/\s/g, "")}`} className={styles.link}>
+                <span className={styles.linkLabel}>Phone</span>
+                <NorrisText text={phone} fontSize="1rem" />
               </a>
-              {phone && (
-                <a href={`tel:${phone.replace(/\s/g, "")}`} className={styles.link}>
-                  <span className={styles.linkLabel}>Phone</span>
-                  <span className={styles.linkValue}>{phone}</span>
-                </a>
-              )}
-              <a href={linkedin} target="_blank" rel="noopener noreferrer" className={styles.link}>
-                <span className={styles.linkLabel}>LinkedIn</span>
-                <span className={styles.linkValue}>Profile →</span>
-              </a>
-              <a href={github} target="_blank" rel="noopener noreferrer" className={styles.link}>
-                <span className={styles.linkLabel}>GitHub</span>
-                <span className={styles.linkValue}>Profile →</span>
-              </a>
-            </div>
+            )}
+            <a href={linkedin} target="_blank" rel="noopener noreferrer" className={styles.link}>
+              <span className={styles.linkLabel}>LinkedIn</span>
+              <NorrisText text="View Profile" fontSize="1rem" />
+            </a>
+            <a href={github} target="_blank" rel="noopener noreferrer" className={styles.link}>
+              <span className={styles.linkLabel}>GitHub</span>
+              <NorrisText text="View Profile" fontSize="1rem" />
+            </a>
           </motion.div>
 
           {/* Form */}
@@ -78,48 +75,39 @@ export default function Contact() {
             onSubmit={handleSubmit}
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <div className={styles.inputGroup}>
-              <label htmlFor="name">Name</label>
+            <div className={styles.field}>
+              <label>Name</label>
               <input
                 type="text"
-                id="name"
-                value={formState.name}
-                onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                placeholder="Your name"
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
                 required
               />
             </div>
-
-            <div className={styles.inputGroup}>
-              <label htmlFor="email">Email</label>
+            <div className={styles.field}>
+              <label>Email</label>
               <input
                 type="email"
-                id="email"
-                value={formState.email}
-                onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                placeholder="Your email"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
                 required
               />
             </div>
-
-            <div className={styles.inputGroup}>
-              <label htmlFor="message">Message</label>
+            <div className={styles.field}>
+              <label>Message</label>
               <textarea
-                id="message"
-                value={formState.message}
-                onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                placeholder="Your message"
+                value={form.message}
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
                 rows={5}
                 required
               />
             </div>
-
-            <button type="submit" className={styles.submitBtn} disabled={status === "sending"}>
-              {status === "idle" && "Send Message"}
+            <button type="submit" disabled={status === "sending"}>
+              {status === "idle" && <NorrisText text="Send Message" fontSize="0.9rem" />}
               {status === "sending" && "Sending..."}
-              {status === "sent" && "Message Sent ✓"}
+              {status === "sent" && "Sent ✓"}
             </button>
           </motion.form>
         </div>

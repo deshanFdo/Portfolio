@@ -17,115 +17,67 @@
   padding: 1rem 3rem;
 }
 
-/* Logo */
 .logo {
-  text-decoration: none;
+  z-index: 101;
 }
 
-.logoText {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
-  font-style: italic;
-  color: var(--accent-green);
-}
-
-/* Links */
 .links {
   display: flex;
-  gap: 3rem;
+  gap: 2.5rem;
   list-style: none;
 }
 
 .links a {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--text-gray);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition: color 0.3s ease;
-  position: relative;
+  display: block;
 }
 
-.links a::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: var(--accent-green);
-  transition: width 0.3s ease;
-}
-
-.links a:hover {
-  color: var(--text-white);
-}
-
-.links a:hover::after {
-  width: 100%;
-}
-
-/* Menu button */
 .menuBtn {
   display: none;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
   padding: 8px;
   background: transparent;
+  border: none;
   z-index: 101;
 }
 
 .menuBtn span {
-  width: 24px;
+  width: 20px;
   height: 2px;
-  background: var(--text-white);
+  background: var(--c-primary);
   transition: all 0.3s ease;
 }
 
 .menuBtn.open span:first-child {
   transform: rotate(45deg) translate(3px, 3px);
-  background: var(--accent-green);
+  background: var(--c-secondary);
 }
 
 .menuBtn.open span:last-child {
   transform: rotate(-45deg) translate(3px, -3px);
-  background: var(--accent-green);
+  background: var(--c-secondary);
 }
 
-/* Full-screen menu */
-.fullMenu {
+/* Mobile menu */
+.mobileMenu {
   position: fixed;
   inset: 0;
   z-index: 99;
-  background: var(--bg-dark);
+  background: var(--c-dark);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.fullMenu ul {
+.mobileMenu ul {
   list-style: none;
   text-align: center;
 }
 
-.fullMenu li {
-  margin: 1.5rem 0;
+.mobileMenu li {
+  margin: 1rem 0;
 }
 
-.fullMenu a {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 4rem;
-  color: var(--text-white);
-  letter-spacing: 0.05em;
-  transition: color 0.3s ease;
-  position: relative;
-}
-
-.fullMenu a:hover {
-  color: var(--accent-green);
-}
-
-/* Responsive */
 @media (max-width: 768px) {
   .navbar {
     padding: 1rem 1.5rem;

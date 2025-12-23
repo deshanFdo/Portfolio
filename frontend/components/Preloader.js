@@ -1,87 +1,81 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import NorrisText from "./NorrisText";
 import styles from "./Preloader.module.css";
 
 export default function Preloader({ onComplete }) {
   const [progress, setProgress] = useState(0);
-  const [isReady, setIsReady] = useState(false);
-  const [isExiting, setIsExiting] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [exiting, setExiting] = useState(false);
 
   useEffect(() => {
-    // Simple smooth loading
     const interval = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
+      setProgress(p => {
+        if (p >= 100) {
           clearInterval(interval);
-          setTimeout(() => setIsReady(true), 300);
+          setTimeout(() => setReady(true), 500);
           return 100;
         }
-        return prev + Math.random() * 15;
+        return p + Math.random() * 20;
       });
-    }, 100);
-
+    }, 120);
     return () => clearInterval(interval);
   }, []);
 
-  const handleEnter = () => {
-    if (isReady && !isExiting) {
-      setIsExiting(true);
-      setTimeout(() => onComplete?.(), 600);
+  const handleClick = () => {
+    if (ready) {
+      setExiting(true);
+      setTimeout(() => onComplete?.(), 800);
     }
   };
 
   return (
     <AnimatePresence>
-      {!isExiting && (
+      {!exiting && (
         <motion.div
           className={styles.preloader}
-          onClick={handleEnter}
-          initial={{ opacity: 1 }}
+          onClick={handleClick}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
         >
-          {/* Centered content */}
           <div className={styles.content}>
-            {/* Name with signature style */}
+            {/* Initials with Norris effect */}
             <motion.div
-              className={styles.nameContainer}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
             >
-              <span className={styles.firstName}>DESHAN</span>
-              <span className={styles.lastName}>Fernando</span>
+              <NorrisText text="DF" fontSize="clamp(6rem, 20vw, 12rem)" />
             </motion.div>
 
-            {/* Progress bar */}
-            <div className={styles.progressContainer}>
-              <div className={styles.progressTrack}>
+            {/* Progress */}
+            <motion.div 
+              className={styles.progress}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <div className={styles.bar}>
                 <motion.div
-                  className={styles.progressFill}
-                  initial={{ width: 0 }}
+                  className={styles.fill}
                   animate={{ width: `${Math.min(progress, 100)}%` }}
                 />
               </div>
-              <span className={styles.progressText}>
-                {Math.min(Math.floor(progress), 100)}%
-              </span>
-            </div>
+              <span className={styles.percent}>{Math.min(Math.floor(progress), 100)}%</span>
+            </motion.div>
 
             {/* Enter prompt */}
-            {isReady && (
+            {ready && (
               <motion.p
-                className={styles.enterPrompt}
+                className={styles.prompt}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
               >
-                Click anywhere to enter
+                Click to enter
               </motion.p>
             )}
           </div>
-
-          {/* Corner signature */}
-          <div className={styles.signature}>DF</div>
         </motion.div>
       )}
     </AnimatePresence>
