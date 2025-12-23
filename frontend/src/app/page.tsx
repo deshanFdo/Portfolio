@@ -10,28 +10,30 @@ import Projects from "../../components/Projects";
 import Experience from "../../components/Experience";
 import Contact from "../../components/Contact";
 import Footer from "../../components/Footer";
-import CustomCursor from "../../components/CustomCursor";
 
-// Dynamic import for 3D scene to avoid SSR issues
-const Scene3D = dynamic(() => import("../../components/Scene3D"), {
-  ssr: false,
-  loading: () => <div style={{ position: "fixed", inset: 0, background: "#000" }} />
-});
+// Dynamic imports for client-only components
+const Scene3D = dynamic(() => import("../../components/Scene3D"), { ssr: false });
+const CustomCursor = dynamic(() => import("../../components/CustomCursor"), { ssr: false });
+const MiniGame = dynamic(() => import("../../components/MiniGame"), { ssr: false });
 
 export default function Home() {
   const [showPreloader, setShowPreloader] = useState(true);
   const [mounted, setMounted] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    setIsDesktop(window.innerWidth > 768);
+
+    const handleResize = () => setIsDesktop(window.innerWidth > 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
     <>
-      {/* Custom cursor - only on desktop */}
-      {mounted && typeof window !== "undefined" && window.innerWidth > 768 && (
-        <CustomCursor />
-      )}
+      {/* Custom cursor - desktop only */}
+      {mounted && isDesktop && <CustomCursor />}
 
       {/* Preloader */}
       {showPreloader && (
@@ -40,10 +42,10 @@ export default function Home() {
 
       {/* Main content */}
       <main style={{ position: "relative", minHeight: "100vh" }}>
-        {/* 3D Background */}
+        {/* 3D Particle Background */}
         {mounted && !showPreloader && <Scene3D />}
 
-        {/* Content layer */}
+        {/* Content */}
         <div style={{ position: "relative", zIndex: 10 }}>
           <Navbar />
           <Hero />
@@ -54,19 +56,10 @@ export default function Home() {
           <Contact />
           <Footer />
         </div>
-      </main>
 
-      {/* Noise overlay */}
-      <div
-        style={{
-          position: "fixed",
-          inset: 0,
-          pointerEvents: "none",
-          zIndex: 9999,
-          opacity: 0.02,
-          background: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`
-        }}
-      />
+        {/* Snake Game */}
+        {mounted && !showPreloader && <MiniGame />}
+      </main>
     </>
   );
 }

@@ -1,0 +1,152 @@
+.container {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: #000;
+    overflow: hidden;
+}
+
+.canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Grid overlay */
+.grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.gridLineV,
+.gridLineH {
+    position: absolute;
+    background: rgba(0, 210, 190, 0.03);
+}
+
+.gridLineV {
+    top: 0;
+    bottom: 0;
+    width: 1px;
+}
+
+.gridLineH {
+    left: 0;
+    right: 0;
+    height: 1px;
+}
+
+/* Corner accents */
+.corner {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    pointer-events: none;
+}
+
+.corner::before,
+.corner::after {
+    content: '';
+    position: absolute;
+    background: var(--petronas-teal);
+    opacity: 0.3;
+}
+
+.topLeft {
+    top: 0;
+    left: 0;
+}
+
+.topLeft::before {
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 2px;
+}
+
+.topLeft::after {
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 60px;
+}
+
+.topRight {
+    top: 0;
+    right: 0;
+}
+
+.topRight::before {
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 2px;
+}
+
+.topRight::after {
+    top: 0;
+    right: 0;
+    width: 2px;
+    height: 60px;
+}
+
+.bottomLeft {
+    bottom: 0;
+    left: 0;
+}
+
+.bottomLeft::before {
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 2px;
+}
+
+.bottomLeft::after {
+    bottom: 0;
+    left: 0;
+    width: 2px;
+    height: 60px;
+}
+
+.bottomRight {
+    bottom: 0;
+    right: 0;
+}
+
+.bottomRight::before {
+    bottom: 0;
+    right: 0;
+    width: 60px;
+    height: 2px;
+}
+
+.bottomRight::after {
+    bottom: 0;
+    right: 0;
+    width: 2px;
+    height: 60px;
+}
+
+/* Scanlines */
+.scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg,
+            transparent 0px,
+            transparent 2px,
+            rgba(0, 0, 0, 0.03) 2px,
+            rgba(0, 0, 0, 0.03) 4px);
+    pointer-events: none;
+}
+
+/* Add subtle vignette */
+.container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+    pointer-events: none;
+}

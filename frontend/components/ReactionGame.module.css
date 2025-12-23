@@ -1,0 +1,236 @@
+.floatingBtn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: var(--petronas-teal);
+    color: var(--black);
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 4px 20px var(--petronas-glow);
+    transition: box-shadow 0.3s ease;
+}
+
+.floatingBtn:hover {
+    box-shadow: 0 4px 30px var(--petronas-glow), 0 0 40px var(--petronas-glow);
+}
+
+.gameIcon {
+    font-size: 1.25rem;
+}
+
+.gameLabel {
+    display: block;
+}
+
+@media (max-width: 600px) {
+    .floatingBtn {
+        padding: 0.75rem;
+        border-radius: 50%;
+    }
+
+    .gameLabel {
+        display: none;
+    }
+}
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+/* Modal */
+.modal {
+    background: var(--graphite);
+    border: 1px solid var(--border-subtle);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    position: relative;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 32px;
+    height: 32px;
+    background: var(--carbon);
+    border: 1px solid var(--border-subtle);
+    border-radius: 50%;
+    color: var(--text-muted);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.closeBtn:hover {
+    background: var(--petronas-teal);
+    color: var(--black);
+    border-color: var(--petronas-teal);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.header h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.header p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Game area */
+.gameArea {
+    aspect-ratio: 1;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-bottom: 1.5rem;
+}
+
+.gameArea.idle {
+    background: var(--carbon);
+    border: 2px dashed var(--border-subtle);
+}
+
+.gameArea.waiting {
+    background: linear-gradient(135deg, #B91C1C, #7F1D1D);
+    border: 2px solid #EF4444;
+    animation: pulseRed 1s ease-in-out infinite;
+}
+
+@keyframes pulseRed {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(239, 68, 68, 0.5);
+    }
+}
+
+.gameArea.ready {
+    background: linear-gradient(135deg, var(--petronas-teal-dark), var(--petronas-teal));
+    border: 2px solid var(--petronas-teal-light);
+    animation: pulseGreen 0.3s ease-in-out infinite;
+}
+
+@keyframes pulseGreen {
+
+    0%,
+    100% {
+        box-shadow: 0 0 30px var(--petronas-glow);
+    }
+
+    50% {
+        box-shadow: 0 0 60px var(--petronas-glow);
+    }
+}
+
+.gameArea.result {
+    background: var(--carbon);
+    border: 2px solid var(--border-subtle);
+}
+
+.gameContent {
+    text-align: center;
+    user-select: none;
+}
+
+.bigIcon {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.gameContent p {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.warning {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.reactionTime {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--petronas-teal);
+    display: block;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 30px var(--petronas-glow);
+}
+
+.tooEarly {
+    color: #EF4444 !important;
+}
+
+.subtext {
+    font-size: 0.8rem;
+    color: var(--text-subtle);
+}
+
+/* Stats */
+.stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.stat {
+    background: var(--carbon);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.statLabel {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.25rem;
+}
+
+.statValue {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--petronas-teal);
+}

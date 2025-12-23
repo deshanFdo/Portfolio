@@ -1,15 +1,19 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
+  // Use environment variables
+  const github = process.env.NEXT_PUBLIC_GITHUB_URL || "#";
+  const linkedin = process.env.NEXT_PUBLIC_LINKEDIN_URL || "#";
+  const email = process.env.NEXT_PUBLIC_EMAIL || "#";
+
   const socialLinks = [
-    { name: "GitHub", href: "https://github.com/deshanFdo", icon: "🐙" },
-    { name: "LinkedIn", href: "https://linkedin.com/in/DeshanFdo31", icon: "💼" },
-    { name: "Email", href: "mailto:deshanfernando67@gmail.com", icon: "📧" },
+    { name: "GitHub", href: github, icon: "🐙" },
+    { name: "LinkedIn", href: linkedin, icon: "💼" },
+    { name: "Email", href: `mailto:${email}`, icon: "📧" },
   ];
 
   return (
@@ -58,7 +62,7 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className={styles.bottom}>
-          <p>© {currentYear} Deshan Fernando. All rights reserved.</p>
+          <p>© {currentYear} {process.env.NEXT_PUBLIC_FULL_NAME || "Developer"}. All rights reserved.</p>
           <p className={styles.made}>
             Made with <span className={styles.heart}>💚</span> in Sri Lanka
           </p>

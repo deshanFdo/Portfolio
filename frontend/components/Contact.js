@@ -7,7 +7,13 @@ export default function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [formState, setFormState] = useState({ name: '', email: '', message: '' });
-  const [status, setStatus] = useState('idle'); // idle, sending, sent
+  const [status, setStatus] = useState('idle');
+
+  // Use environment variables with fallbacks
+  const email = process.env.NEXT_PUBLIC_EMAIL || "your@email.com";
+  const linkedin = process.env.NEXT_PUBLIC_LINKEDIN_URL || "#";
+  const github = process.env.NEXT_PUBLIC_GITHUB_URL || "#";
+  const phone = process.env.NEXT_PUBLIC_PHONE || "";
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,10 +26,10 @@ export default function Contact() {
   };
 
   const contactMethods = [
-    { icon: "📧", label: "Email", value: "deshanfernando67@gmail.com", href: "mailto:deshanfernando67@gmail.com" },
-    { icon: "💼", label: "LinkedIn", value: "linkedin.com/in/DeshanFdo31", href: "https://linkedin.com/in/DeshanFdo31" },
-    { icon: "🐙", label: "GitHub", value: "github.com/deshanFdo", href: "https://github.com/deshanFdo" },
-    { icon: "📱", label: "Phone", value: "+94 76 9106285", href: "tel:+94769106285" }
+    { icon: "📧", label: "Email", value: email, href: `mailto:${email}` },
+    { icon: "💼", label: "LinkedIn", value: linkedin.replace("https://", ""), href: linkedin },
+    { icon: "🐙", label: "GitHub", value: github.replace("https://", ""), href: github },
+    ...(phone ? [{ icon: "📱", label: "Phone", value: phone, href: `tel:${phone.replace(/\s/g, "")}` }] : [])
   ];
 
   return (

@@ -2,7 +2,7 @@
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: var(--black);
+  background: #000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,55 +14,33 @@
 .gridBackground {
   position: absolute;
   inset: 0;
-  opacity: 0.1;
+  background-image:
+    linear-gradient(rgba(0, 210, 190, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 210, 190, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
 }
 
-.gridLineH,
-.gridLineV {
-  position: absolute;
-  background: var(--petronas-teal);
-}
-
-.gridLineH {
-  left: 0;
-  right: 0;
-  height: 1px;
-  animation: gridPulse 4s ease-in-out infinite;
-}
-
-.gridLineV {
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  animation: gridPulse 4s ease-in-out infinite 2s;
-}
-
-@keyframes gridPulse {
-
-  0%,
-  100% {
-    opacity: 0.1;
-  }
-
-  50% {
-    opacity: 0.3;
-  }
-}
-
-/* Central content */
+/* Content - side by side */
 .content {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  z-index: 2;
+  padding: 2rem;
+}
+
+/* Logo section */
+.logoSection {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  z-index: 2;
 }
 
-/* Rotating rings */
 .ringContainer {
-  position: relative;
-  width: 200px;
-  height: 200px;
+  position: absolute;
+  width: 180px;
+  height: 180px;
 }
 
 .ring {
@@ -70,140 +48,43 @@
   inset: 0;
   border: 2px solid transparent;
   border-top: 2px solid var(--petronas-teal);
+  border-right: 2px solid var(--petronas-teal);
   border-radius: 50%;
-  filter: drop-shadow(0 0 10px var(--petronas-teal));
-}
-
-.ringInner {
-  position: absolute;
-  inset: 20px;
-  border: 1px solid transparent;
-  border-bottom: 1px solid var(--petronas-teal-light);
-  border-radius: 50%;
-}
-
-/* Logo */
-.logoContainer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 0 15px var(--petronas-teal));
 }
 
 .logo {
   font-family: 'Orbitron', sans-serif;
-  font-size: 4rem;
+  font-size: 5rem;
   font-weight: 900;
   color: var(--petronas-teal);
   text-shadow:
-    0 0 20px var(--petronas-glow),
-    0 0 40px var(--petronas-glow),
+    0 0 30px var(--petronas-glow),
     0 0 60px var(--petronas-glow);
   letter-spacing: 0.1em;
-}
-
-/* Status text */
-.statusText {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
   position: relative;
+  z-index: 5;
 }
 
-.statusText::before,
-.statusText::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.8;
-}
-
-.statusText::before {
-  color: var(--petronas-teal);
-  animation: glitch-1 0.5s infinite linear alternate-reverse;
-  clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
-}
-
-.statusText::after {
-  color: var(--red-accent);
-  animation: glitch-2 0.7s infinite linear alternate-reverse;
-  clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
-}
-
-@keyframes glitch-1 {
-  0% {
-    transform: translateX(0);
-  }
-
-  20% {
-    transform: translateX(-2px);
-  }
-
-  40% {
-    transform: translateX(2px);
-  }
-
-  60% {
-    transform: translateX(-1px);
-  }
-
-  80% {
-    transform: translateX(1px);
-  }
-
-  100% {
-    transform: translateX(0);
-  }
-}
-
-@keyframes glitch-2 {
-  0% {
-    transform: translateX(0);
-  }
-
-  25% {
-    transform: translateX(2px);
-  }
-
-  50% {
-    transform: translateX(-1px);
-  }
-
-  75% {
-    transform: translateX(1px);
-  }
-
-  100% {
-    transform: translateX(0);
-  }
-}
-
-/* Progress bar */
+/* Progress */
 .progressContainer {
   display: flex;
   align-items: center;
   gap: 1rem;
-  width: 300px;
+  width: 180px;
 }
 
 .progressTrack {
   flex: 1;
-  height: 4px;
-  background: var(--slate);
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 2px;
   overflow: hidden;
 }
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, var(--petronas-teal), var(--petronas-teal-light));
-  border-radius: 2px;
+  background: var(--petronas-teal);
   box-shadow: 0 0 10px var(--petronas-teal);
 }
 
@@ -214,24 +95,108 @@
   min-width: 40px;
 }
 
+/* Terminal section */
+.terminalSection {
+  width: 400px;
+}
+
+.terminal {
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.terminalHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--graphite);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.terminalDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.terminalTitle {
+  margin-left: auto;
+  font-size: 0.7rem;
+  color: var(--text-subtle);
+  font-family: monospace;
+}
+
+.terminalBody {
+  padding: 1rem;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 0.75rem;
+  height: 200px;
+  overflow-y: auto;
+}
+
+.terminalLine {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.terminalLine.error {
+  color: #EF4444;
+}
+
+.terminalLine.success {
+  color: var(--petronas-teal);
+}
+
+.terminalPrefix {
+  color: var(--petronas-teal);
+  flex-shrink: 0;
+}
+
+.terminalLine.error .terminalPrefix {
+  color: #EF4444;
+}
+
+.terminalLine.success .terminalPrefix {
+  color: #22C55E;
+}
+
+.cursor {
+  color: var(--petronas-teal);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
 /* Ready indicator */
 .readyIndicator {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  margin-top: 1rem;
 }
 
 .readyIndicator span {
   font-family: 'Orbitron', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--petronas-teal);
   letter-spacing: 0.2em;
-  animation: blink 1s ease-in-out infinite;
+  animation: pulse 1.5s ease-in-out infinite;
 }
 
-@keyframes blink {
+@keyframes pulse {
 
   0%,
   100% {
@@ -239,19 +204,19 @@
   }
 
   50% {
-    opacity: 0.3;
+    opacity: 0.5;
   }
 }
 
 .pulseRing {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   border: 2px solid var(--petronas-teal);
   border-radius: 50%;
-  animation: pulse 1.5s ease-out infinite;
+  animation: ripple 1.5s ease-out infinite;
 }
 
-@keyframes pulse {
+@keyframes ripple {
   0% {
     transform: scale(1);
     opacity: 1;
@@ -263,57 +228,60 @@
   }
 }
 
-/* Corner decorations */
+/* Corners */
 .corner {
   position: absolute;
   font-family: 'Orbitron', sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   color: var(--text-subtle);
   letter-spacing: 0.1em;
-}
-
-.topLeft {
-  top: 2rem;
-  left: 2rem;
-}
-
-.topRight {
-  top: 2rem;
-  right: 2rem;
-}
-
-.bottomLeft {
-  bottom: 2rem;
-  left: 2rem;
-}
-
-.bottomRight {
-  bottom: 2rem;
-  right: 2rem;
-}
-
-.corner span {
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.75rem;
   border: 1px solid var(--border-subtle);
   background: rgba(0, 0, 0, 0.5);
 }
 
+.topLeft {
+  top: 1.5rem;
+  left: 1.5rem;
+}
+
+.topRight {
+  top: 1.5rem;
+  right: 1.5rem;
+}
+
+.bottomLeft {
+  bottom: 1.5rem;
+  left: 1.5rem;
+}
+
+.bottomRight {
+  bottom: 1.5rem;
+  right: 1.5rem;
+}
+
 /* Responsive */
-@media (max-width: 600px) {
-  .ringContainer {
-    width: 150px;
-    height: 150px;
+@media (max-width: 800px) {
+  .content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .terminalSection {
+    width: 100%;
+    max-width: 350px;
   }
 
   .logo {
-    font-size: 2.5rem;
+    font-size: 4rem;
+  }
+
+  .ringContainer {
+    width: 140px;
+    height: 140px;
   }
 
   .progressContainer {
-    width: 80%;
-  }
-
-  .corner {
-    font-size: 0.6rem;
+    width: 140px;
   }
 }

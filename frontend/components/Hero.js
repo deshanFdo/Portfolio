@@ -14,6 +14,16 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
 
+  // Use environment variables with fallbacks
+  const fullName = process.env.NEXT_PUBLIC_FULL_NAME || "Your Name";
+  const firstName = fullName.split(" ")[0]?.toUpperCase() || "FIRST";
+  const lastName = fullName.split(" ").slice(1).join(" ").toUpperCase() || "LAST";
+  const jobTitle = process.env.NEXT_PUBLIC_JOB_TITLE || "Software Engineer";
+  const company = process.env.NEXT_PUBLIC_COMPANY || "Company";
+  const email = process.env.NEXT_PUBLIC_EMAIL || "#";
+  const github = process.env.NEXT_PUBLIC_GITHUB_URL || "#";
+  const linkedin = process.env.NEXT_PUBLIC_LINKEDIN_URL || "#";
+
   return (
     <section className={styles.hero} id="home" ref={containerRef}>
       {/* Animated grid lines */}
@@ -52,9 +62,9 @@ export default function Hero() {
           transition={{ delay: 0.7 }}
         >
           <h1 className={styles.greeting}>Hello, I'm</h1>
-          <h2 className={styles.name} data-text="DESHAN">
-            <span className={styles.nameFirst}>DESHAN</span>
-            <span className={styles.nameLast}>FERNANDO</span>
+          <h2 className={styles.name} data-text={firstName}>
+            <span className={styles.nameFirst}>{firstName}</span>
+            <span className={styles.nameLast}>{lastName}</span>
           </h2>
         </motion.div>
 
@@ -66,7 +76,7 @@ export default function Hero() {
           transition={{ delay: 1 }}
         >
           <span className={styles.rolePrefix}>{"<"}</span>
-          <span className={styles.role}>Software Engineer Intern</span>
+          <span className={styles.role}>{jobTitle}</span>
           <span className={styles.rolePrefix}>{" />"}</span>
         </motion.div>
 
@@ -78,7 +88,7 @@ export default function Hero() {
           transition={{ delay: 1.2 }}
         >
           <span className={styles.atSymbol}>@</span>
-          <span>Sri Lanka Telecom</span>
+          <span>{company}</span>
         </motion.div>
 
         {/* Description */}
@@ -118,15 +128,15 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.8 }}
         >
-          <a href="https://github.com/deshanFdo" target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
+          <a href={github} target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
             GitHub
           </a>
           <span className={styles.socialDivider}>/</span>
-          <a href="https://linkedin.com/in/DeshanFdo31" target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
+          <a href={linkedin} target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
             LinkedIn
           </a>
           <span className={styles.socialDivider}>/</span>
-          <a href="mailto:deshanfernando67@gmail.com" className={styles.socialLink}>
+          <a href={`mailto:${email}`} className={styles.socialLink}>
             Email
           </a>
         </motion.div>

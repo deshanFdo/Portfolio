@@ -7,6 +7,11 @@ export default function About() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
+  // Use environment variables
+  const fullName = process.env.NEXT_PUBLIC_FULL_NAME || "Your Name";
+  const location = process.env.NEXT_PUBLIC_LOCATION || "Location";
+  const jobTitle = process.env.NEXT_PUBLIC_JOB_TITLE || "Software Engineer";
+
   const stats = [
     { value: "5+", label: "Projects Shipped" },
     { value: "3+", label: "Years Learning" },
@@ -53,18 +58,20 @@ export default function About() {
             <div className={styles.imageContainer}>
               {/* Placeholder for profile image */}
               <div className={styles.imagePlaceholder}>
-                <span className={styles.initials}>DF</span>
+                <span className={styles.initials}>
+                  {fullName.split(" ").map(n => n[0]).join("")}
+                </span>
                 <div className={styles.imageGlow} />
               </div>
               <div className={styles.imageFrame} />
             </div>
             
             <div className={styles.profileInfo}>
-              <h3 className={styles.profileName}>Deshan Fernando</h3>
-              <p className={styles.profileRole}>Software Engineer Intern</p>
+              <h3 className={styles.profileName}>{fullName}</h3>
+              <p className={styles.profileRole}>{jobTitle}</p>
               <div className={styles.locationBadge}>
                 <span>📍</span>
-                <span>Colombo, Sri Lanka</span>
+                <span>{location}</span>
               </div>
             </div>
 
