@@ -118,11 +118,11 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.8 }}
         >
-          <a href="https://github.com/DeshanFdo31" target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
+          <a href="https://github.com/deshanFdo" target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
             GitHub
           </a>
           <span className={styles.socialDivider}>/</span>
-          <a href="https://linkedin.com/in/deshanFdo" target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
+          <a href="https://linkedin.com/in/DeshanFdo31" target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
             LinkedIn
           </a>
           <span className={styles.socialDivider}>/</span>

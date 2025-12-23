@@ -21,8 +21,8 @@ export default function Contact() {
 
   const contactMethods = [
     { icon: "📧", label: "Email", value: "deshanfernando67@gmail.com", href: "mailto:deshanfernando67@gmail.com" },
-    { icon: "💼", label: "LinkedIn", value: "linkedin.com/in/deshanFdo", href: "https://linkedin.com/in/deshanFdo" },
-    { icon: "🐙", label: "GitHub", value: "github.com/DeshanFdo31", href: "https://github.com/DeshanFdo31" },
+    { icon: "💼", label: "LinkedIn", value: "linkedin.com/in/DeshanFdo31", href: "https://linkedin.com/in/DeshanFdo31" },
+    { icon: "🐙", label: "GitHub", value: "github.com/deshanFdo", href: "https://github.com/deshanFdo" },
     { icon: "📱", label: "Phone", value: "+94 76 9106285", href: "tel:+94769106285" }
   ];
 
