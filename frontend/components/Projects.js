@@ -5,6 +5,21 @@ import styles from "./Projects.module.css";
 
 const PROJECTS = [
   {
+    title: "NexusLink",
+    role: "Full-Stack Developer",
+    tech: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Zustand", "Tailwind CSS"],
+    desc: "Knowledge-Graph Driven Collaboration Platform supporting documentation, development, and presentation projects with dedicated editors and workflows. Features dynamic knowledge graph visualization of project structure and relationships.",
+    features: [
+      "Real-time knowledge graph visualization",
+      "Role-based access (Owner, Co-Owner, Member)",
+      "Version history & document tracking",
+      "Secure email invitations with Google SMTP"
+    ],
+    featured: true,
+    link: "#",
+    github: "#"
+  },
+  {
     title: "Smart Employee System",
     role: "Full-Stack Developer",
     tech: ["Node.js", "React", "MySQL", "TypeScript"],
@@ -14,7 +29,7 @@ const PROJECTS = [
       "Automated training workflows",
       "SMART status tracking"
     ],
-    featured: true,
+    featured: false,
     link: "#",
     github: "#"
   },

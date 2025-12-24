@@ -1,7 +1,6 @@
 "use client";
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import NorrisText from "./NorrisText";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
@@ -21,6 +20,7 @@ export default function Hero() {
   const lastName = fullName.split(" ").slice(1).join(" ").toUpperCase() || "LAST";
   const jobTitle = process.env.NEXT_PUBLIC_JOB_TITLE || "Software Engineer";
   const company = process.env.NEXT_PUBLIC_COMPANY || "Company";
+  const email = process.env.NEXT_PUBLIC_EMAIL || "#";
   const github = process.env.NEXT_PUBLIC_GITHUB_URL || "#";
   const linkedin = process.env.NEXT_PUBLIC_LINKEDIN_URL || "#";
 
@@ -54,7 +54,7 @@ export default function Hero() {
           <span>Available for Opportunities</span>
         </motion.div>
 
-        {/* Main heading with Norris sliding effect */}
+        {/* Main heading with glitch */}
         <motion.div 
           className={styles.headingContainer}
           initial={{ opacity: 0 }}
@@ -62,13 +62,13 @@ export default function Hero() {
           transition={{ delay: 0.7 }}
         >
           <h1 className={styles.greeting}>Hello, I'm</h1>
-          <h2 className={styles.name}>
-            <NorrisText text={firstName} className={styles.nameFirst} />
-            <NorrisText text={lastName} className={styles.nameLast} />
+          <h2 className={styles.name} data-text={firstName}>
+            <span className={styles.nameFirst}>{firstName}</span>
+            <span className={styles.nameLast}>{lastName}</span>
           </h2>
         </motion.div>
 
-        {/* Role */}
+        {/* Role with typewriter effect */}
         <motion.div 
           className={styles.roleContainer}
           initial={{ opacity: 0, y: 20 }}
@@ -91,12 +91,42 @@ export default function Hero() {
           <span>{company}</span>
         </motion.div>
 
-        {/* Social links only */}
+        {/* Description */}
+        <motion.p 
+          className={styles.description}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.4 }}
+        >
+          Building scalable full-stack applications with React, Node.js & MySQL.
+          <br />
+          Transforming complex problems into elegant solutions.
+        </motion.p>
+
+        {/* CTAs */}
+        <motion.div 
+          className={styles.ctaContainer}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.6 }}
+        >
+          <a href="#projects" className={styles.ctaPrimary}>
+            <span>View Projects</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="#contact" className={styles.ctaSecondary}>
+            <span>Get in Touch</span>
+          </a>
+        </motion.div>
+
+        {/* Social links */}
         <motion.div 
           className={styles.socials}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.4 }}
+          transition={{ delay: 1.8 }}
         >
           <a href={github} target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
             GitHub
@@ -104,6 +134,10 @@ export default function Hero() {
           <span className={styles.socialDivider}>/</span>
           <a href={linkedin} target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
             LinkedIn
+          </a>
+          <span className={styles.socialDivider}>/</span>
+          <a href={`mailto:${email}`} className={styles.socialLink}>
+            Email
           </a>
         </motion.div>
       </motion.div>
@@ -113,7 +147,7 @@ export default function Hero() {
         className={styles.scrollIndicator}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.6 }}
+        transition={{ delay: 2 }}
       >
         <div className={styles.scrollLine} />
         <span>Scroll to explore</span>
