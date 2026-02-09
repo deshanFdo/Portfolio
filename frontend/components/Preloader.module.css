@@ -2,12 +2,33 @@
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: #000;
+  background: var(--deep-space, #050508);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   overflow: hidden;
+}
+
+/* Curtain panels for dramatic reveal */
+.curtainLeft,
+.curtainRight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background: var(--deep-space, #050508);
+  z-index: 100;
+}
+
+.curtainLeft {
+  left: 0;
+  border-right: 1px solid rgba(0, 210, 190, 0.2);
+}
+
+.curtainRight {
+  right: 0;
+  border-left: 1px solid rgba(0, 210, 190, 0.2);
 }
 
 /* Grid background with animated opacity */

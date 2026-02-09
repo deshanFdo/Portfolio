@@ -1,10 +1,68 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, Suspense } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import dynamic from 'next/dynamic';
 import styles from "./Hero.module.css";
 
-// Magnetic button component for cool hover effect
-function MagneticButton({ children, href, className }) {
+// Sound effects hook
+function useSounds() {
+  const playHover = () => {
+    if (typeof window === 'undefined') return;
+    try {
+      const context = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = context.createOscillator();
+      const gainNode = context.createGain();
+      oscillator.connect(gainNode);
+      gainNode.connect(context.destination);
+      oscillator.frequency.value = 2000;
+      oscillator.type = 'sine';
+      gainNode.gain.setValueAtTime(0.05, context.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, context.currentTime + 0.05);
+      oscillator.start(context.currentTime);
+      oscillator.stop(context.currentTime + 0.05);
+    } catch (e) { }
+  };
+
+  const playClick = () => {
+    if (typeof window === 'undefined') return;
+    try {
+      const context = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = context.createOscillator();
+      const gainNode = context.createGain();
+      oscillator.connect(gainNode);
+      gainNode.connect(context.destination);
+      oscillator.frequency.value = 800;
+      oscillator.type = 'square';
+      gainNode.gain.setValueAtTime(0.08, context.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, context.currentTime + 0.08);
+      oscillator.start(context.currentTime);
+      oscillator.stop(context.currentTime + 0.08);
+    } catch (e) { }
+  };
+
+  return { playHover, playClick };
+}
+
+// Lazy load Spline (using local embed to bypass package export issues)
+const Spline = dynamic(
+  () => import('./SplineEmbed'),
+  {
+    ssr: false,
+    loading: () => (
+      <div className={styles.sceneLoader}>
+        <motion.div
+          className={styles.loaderOrb}
+          animate={{ rotate: 360, scale: [1, 1.2, 1] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+        />
+        <span className={styles.loaderText}>LOADING 3D SCENE</span>
+      </div>
+    )
+  }
+);
+
+// Magnetic button component with sound
+function MagneticButton({ children, href, className, onHover }) {
   const ref = useRef(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -35,6 +93,7 @@ function MagneticButton({ children, href, className }) {
       style={{ x: springX, y: springY }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onMouseEnter={onHover}
       whileTap={{ scale: 0.95 }}
     >
       {children}
@@ -42,21 +101,42 @@ function MagneticButton({ children, href, className }) {
   );
 }
 
-// Floating code snippets in background
-const CODE_SNIPPETS = [
-  "const developer = 'Deshan';",
-  "async function build() { }",
-  "npm run create-awesome",
-  "<Component />",
-  "git push origin main",
-  "return success;",
-  "import { passion } from 'life';",
-  "while(alive) { code(); }",
-];
+// Animated particles background
+function ParticleField() {
+  return (
+    <div className={styles.particleField}>
+      {Array.from({ length: 50 }).map((_, i) => (
+        <motion.div
+          key={i}
+          className={styles.particle}
+          initial={{
+            x: Math.random() * 100 + '%',
+            y: Math.random() * 100 + '%',
+            scale: Math.random() * 0.5 + 0.5,
+            opacity: Math.random() * 0.5 + 0.1,
+          }}
+          animate={{
+            y: [null, '-20%'],
+            opacity: [null, 0],
+          }}
+          transition={{
+            duration: Math.random() * 10 + 10,
+            repeat: Infinity,
+            repeatType: 'loop',
+            ease: 'linear',
+            delay: Math.random() * 10,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
 export default function Hero() {
   const containerRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const { playHover, playClick } = useSounds();
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
@@ -67,13 +147,12 @@ export default function Hero() {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
   const textY = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
-  // Use environment variables with fallbacks
+  // Environment variables
   const fullName = process.env.NEXT_PUBLIC_FULL_NAME || "Deshan Fernando";
   const firstName = fullName.split(" ")[0]?.toUpperCase() || "DESHAN";
   const lastName = fullName.split(" ").slice(1).join(" ").toUpperCase() || "FERNANDO";
   const jobTitle = process.env.NEXT_PUBLIC_JOB_TITLE || "Software Engineer";
   const company = process.env.NEXT_PUBLIC_COMPANY || "Sri Lanka Telecom";
-  const email = process.env.NEXT_PUBLIC_EMAIL || "#";
   const github = process.env.NEXT_PUBLIC_GITHUB_URL || "#";
   const linkedin = process.env.NEXT_PUBLIC_LINKEDIN_URL || "#";
 
@@ -90,280 +169,275 @@ export default function Hero() {
 
   return (
     <section className={styles.hero} id="home" ref={containerRef}>
-      {/* Enhanced grid overlay with perspective */}
+      {/* Animated gradient background */}
+      <div className={styles.gradientBg}>
+        <div className={styles.gradientOrb1}></div>
+        <div className={styles.gradientOrb2}></div>
+        <div className={styles.gradientOrb3}></div>
+      </div>
+
+      {/* Particle field */}
+      <ParticleField />
+
+      {/* Grid overlay with perspective */}
       <motion.div
         className={styles.gridOverlay}
         style={{
-          rotateX: mousePosition.y * 0.5,
-          rotateY: mousePosition.x * 0.5,
+          rotateX: mousePosition.y * 0.3,
+          rotateY: mousePosition.x * 0.3,
         }}
       >
-        {Array.from({ length: 12 }).map((_, i) => (
+        {Array.from({ length: 10 }).map((_, i) => (
           <motion.div
             key={i}
             className={styles.gridLine}
             initial={{ scaleX: 0, opacity: 0 }}
             animate={{ scaleX: 1, opacity: 1 }}
-            transition={{ delay: i * 0.08, duration: 0.8, ease: "easeOut" }}
+            transition={{ delay: i * 0.08, duration: 0.8 }}
           />
         ))}
       </motion.div>
 
-      {/* Floating code snippets */}
-      <div className={styles.codeSnippets}>
-        {CODE_SNIPPETS.map((code, i) => (
+      {/* Split layout: Content + Spline */}
+      <div className={styles.splitContainer}>
+        {/* Left: Text content */}
+        <motion.div
+          className={styles.content}
+          style={{ y, opacity, scale }}
+        >
+          {/* Status badge */}
           <motion.div
-            key={i}
-            className={styles.codeSnippet}
-            initial={{ opacity: 0, x: i % 2 === 0 ? -100 : 100 }}
-            animate={{
-              opacity: [0, 0.15, 0.15, 0],
-              x: i % 2 === 0 ? [-100, 0] : [100, 0],
-              y: [0, -50],
-            }}
-            transition={{
-              duration: 8,
-              delay: i * 1.2,
-              repeat: Infinity,
-              repeatDelay: 3,
-            }}
-            style={{
-              top: `${15 + (i * 10) % 70}%`,
-              [i % 2 === 0 ? 'left' : 'right']: '5%',
-            }}
+            className={styles.statusBadge}
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.3, type: "spring" }}
           >
-            {code}
+            <motion.span
+              className={styles.statusDot}
+              animate={{
+                boxShadow: [
+                  "0 0 0 0 rgba(0, 210, 190, 0.7)",
+                  "0 0 0 8px rgba(0, 210, 190, 0)",
+                ]
+              }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            />
+            <span>Available for Opportunities</span>
           </motion.div>
-        ))}
-      </div>
 
-      {/* Glowing orb that follows mouse */}
-      <motion.div
-        className={styles.glowOrb}
-        animate={{
-          x: mousePosition.x * 10,
-          y: mousePosition.y * 10,
-        }}
-        transition={{ type: "spring", damping: 30 }}
-      />
+          {/* Main heading */}
+          <motion.div
+            className={styles.headingContainer}
+            style={{ y: textY }}
+          >
+            <motion.h1
+              className={styles.greeting}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+            >
+              Hello, I'm
+            </motion.h1>
 
-      <motion.div
-        className={styles.content}
-        style={{ y, opacity, scale }}
-      >
-        {/* Status badge with typing effect */}
-        <motion.div
-          className={styles.statusBadge}
-          initial={{ opacity: 0, y: 20, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ delay: 0.3, type: "spring" }}
-        >
-          <motion.span
-            className={styles.statusDot}
-            animate={{
-              boxShadow: [
-                "0 0 0 0 rgba(0, 210, 190, 0.7)",
-                "0 0 0 8px rgba(0, 210, 190, 0)",
-              ]
-            }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          />
-          <span>Available for Opportunities</span>
-        </motion.div>
+            <h2 className={styles.name} data-text={firstName}>
+              <motion.span
+                className={styles.nameFirst}
+                initial={{ opacity: 0, y: 50, skewY: 5 }}
+                animate={{ opacity: 1, y: 0, skewY: 0 }}
+                transition={{ delay: 0.7, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {firstName.split('').map((char, i) => (
+                  <motion.span
+                    key={i}
+                    className={styles.nameChar}
+                    whileHover={{
+                      y: -10,
+                      color: '#00F5DD',
+                      textShadow: '0 0 30px rgba(0, 210, 190, 0.8)'
+                    }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                    onMouseEnter={playHover}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </motion.span>
+              <motion.span
+                className={styles.nameLast}
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.9, duration: 0.6 }}
+              >
+                {lastName}
+              </motion.span>
+            </h2>
+          </motion.div>
 
-        {/* Main heading with dramatic reveal */}
-        <motion.div
-          className={styles.headingContainer}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          style={{ y: textY }}
-        >
-          <motion.h1
-            className={styles.greeting}
+          {/* Role */}
+          <motion.div
+            className={styles.roleContainer}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
+            transition={{ delay: 1.0 }}
           >
-            Hello, I'm
-          </motion.h1>
+            <span className={styles.rolePrefix}>{'<'}</span>
+            <span className={styles.role}>{jobTitle}</span>
+            <span className={styles.rolePrefix}>{'/>'}</span>
+          </motion.div>
 
-          <h2 className={styles.name} data-text={firstName}>
-            <motion.span
-              className={styles.nameFirst}
-              initial={{ opacity: 0, y: 50, skewY: 5 }}
-              animate={{ opacity: 1, y: 0, skewY: 0 }}
-              transition={{ delay: 0.7, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          {/* Company badge */}
+          <motion.div
+            className={styles.companyBadge}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1.1 }}
+            whileHover={{ scale: 1.05, borderColor: 'var(--petronas-teal)' }}
+            onMouseEnter={playHover}
+          >
+            <span className={styles.atSymbol}>@</span>
+            <span>{company}</span>
+          </motion.div>
+
+          {/* Description */}
+          <motion.p
+            className={styles.description}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2 }}
+          >
+            Building digital experiences that push boundaries.
+            Passionate about clean code, innovative solutions, and turning ideas into reality.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            className={styles.ctaContainer}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.3 }}
+          >
+            <MagneticButton
+              href="#projects"
+              className={styles.ctaPrimary}
+              onHover={playHover}
             >
-              {firstName.split('').map((char, i) => (
-                <motion.span
-                  key={i}
-                  className={styles.nameChar}
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.7 + i * 0.05 }}
-                  whileHover={{
-                    y: -10,
-                    color: "#00F5DD",
-                    textShadow: "0 0 40px rgba(0, 245, 221, 0.8)"
-                  }}
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </motion.span>
-            <motion.span
-              className={styles.nameLast}
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1.2, duration: 0.6 }}
+              <span>View Projects</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </MagneticButton>
+            <MagneticButton
+              href="#contact"
+              className={styles.ctaSecondary}
+              onHover={playHover}
             >
-              {lastName}
-            </motion.span>
-          </h2>
+              <span>Get in Touch</span>
+            </MagneticButton>
+          </motion.div>
+
+          {/* Social links */}
+          <motion.div
+            className={styles.socials}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.4 }}
+          >
+            <motion.a
+              href={github}
+              className={styles.socialLink}
+              whileHover={{ color: 'var(--petronas-teal)' }}
+              onMouseEnter={playHover}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </motion.a>
+            <span className={styles.socialDivider}>/</span>
+            <motion.a
+              href={linkedin}
+              className={styles.socialLink}
+              whileHover={{ color: 'var(--petronas-teal)' }}
+              onMouseEnter={playHover}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </motion.a>
+          </motion.div>
         </motion.div>
 
-        {/* Role with code-style brackets */}
+        {/* Right: Spline 3D Scene */}
         <motion.div
-          className={styles.roleContainer}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.4 }}
-        >
-          <motion.span
-            className={styles.rolePrefix}
-            animate={{ opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            {"<"}
-          </motion.span>
-          <span className={styles.role}>{jobTitle}</span>
-          <motion.span
-            className={styles.rolePrefix}
-            animate={{ opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-          >
-            {" />"}
-          </motion.span>
-        </motion.div>
-
-        {/* Company badge with glow */}
-        <motion.div
-          className={styles.companyBadge}
+          className={styles.splineContainer}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.6 }}
-          whileHover={{
-            borderColor: "var(--petronas-teal)",
-            boxShadow: "0 0 20px rgba(0, 210, 190, 0.3)"
-          }}
+          transition={{ delay: 0.8, duration: 1 }}
         >
-          <span className={styles.atSymbol}>@</span>
-          <span>{company}</span>
+          <div className={styles.splineWrapper}>
+            <Suspense fallback={
+              <div className={styles.sceneLoader}>
+                <motion.div
+                  className={styles.loaderOrb}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                />
+                <span className={styles.loaderText}>LOADING 3D</span>
+              </div>
+            }>
+              <Spline scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode" />
+            </Suspense>
+          </div>
+          {/* Spotlight effect on Spline */}
+          <motion.div
+            className={styles.splineSpotlight}
+            animate={{
+              x: mousePosition.x * 15,
+              y: mousePosition.y * 15,
+            }}
+            transition={{ type: "spring", damping: 20 }}
+          />
         </motion.div>
+      </div>
 
-        {/* Description */}
-        <motion.p
-          className={styles.description}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.8 }}
-        >
-          Building scalable full-stack applications with React, Node.js & MySQL.
-          <br />
-          Transforming complex problems into elegant solutions.
-        </motion.p>
-
-        {/* Magnetic CTAs */}
-        <motion.div
-          className={styles.ctaContainer}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2 }}
-        >
-          <MagneticButton href="#projects" className={styles.ctaPrimary}>
-            <span>View Projects</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </MagneticButton>
-          <MagneticButton href="#contact" className={styles.ctaSecondary}>
-            <span>Get in Touch</span>
-          </MagneticButton>
-        </motion.div>
-
-        {/* Social links */}
-        <motion.div
-          className={styles.socials}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2.2 }}
-        >
-          <motion.a
-            href={github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.socialLink}
-            whileHover={{ y: -3, color: "var(--petronas-teal)" }}
-          >
-            GitHub
-          </motion.a>
-          <span className={styles.socialDivider}>/</span>
-          <motion.a
-            href={linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.socialLink}
-            whileHover={{ y: -3, color: "var(--petronas-teal)" }}
-          >
-            LinkedIn
-          </motion.a>
-          <span className={styles.socialDivider}>/</span>
-          <motion.a
-            href={`mailto:${email}`}
-            className={styles.socialLink}
-            whileHover={{ y: -3, color: "var(--petronas-teal)" }}
-          >
-            Email
-          </motion.a>
-        </motion.div>
-      </motion.div>
-
-      {/* Scroll indicator with enhanced animation */}
+      {/* Scroll indicator */}
       <motion.div
         className={styles.scrollIndicator}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.5 }}
+        transition={{ delay: 2 }}
       >
         <motion.div
           className={styles.scrollMouse}
-          animate={{ y: [0, 8, 0] }}
+          animate={{ y: [0, 5, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
         >
-          <motion.div className={styles.scrollWheel} />
+          <motion.div
+            className={styles.scrollWheel}
+            animate={{ y: [0, 8, 0], opacity: [1, 0.3, 1] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          />
         </motion.div>
-        <span>Scroll to explore</span>
+        <span>SCROLL</span>
       </motion.div>
 
       {/* Decorative elements */}
       <motion.div
         className={styles.decorLeft}
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 2.5 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
       >
-        <span>SOFT_ENG</span>
-        <span>2024.25</span>
+        <span>LAT 6.9271° N</span>
+        <span>LON 79.8612° E</span>
       </motion.div>
       <motion.div
         className={styles.decorRight}
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 2.5 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
       >
-        <span>COLOMBO</span>
-        <span>SRI_LANKA</span>
+        <span>© 2024</span>
+        <span>PORTFOLIO v2.0</span>
       </motion.div>
     </section>
   );
