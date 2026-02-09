@@ -10,21 +10,64 @@
   overflow: hidden;
 }
 
-/* Grid background */
+/* Grid background with animated opacity */
 .gridBackground {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(0, 210, 190, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 210, 190, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
+    linear-gradient(rgba(0, 210, 190, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 210, 190, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridPulse 3s ease-in-out infinite;
+}
+
+@keyframes gridPulse {
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Scanning line effect */
+.scanLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+      transparent,
+      var(--petronas-teal),
+      transparent);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Particle field */
+.particleField {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--petronas-teal);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--petronas-teal);
 }
 
 /* Content - side by side */
 .content {
   display: flex;
   align-items: center;
-  gap: 4rem;
+  gap: 5rem;
   z-index: 2;
   padding: 2rem;
 }
@@ -35,35 +78,137 @@
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  justify-content: center;
 }
 
+/* Ring containers */
 .ringContainer {
   position: absolute;
-  width: 180px;
-  height: 180px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
+/* Multiple rings with different sizes */
 .ring {
-  position: absolute;
-  inset: 0;
   border: 2px solid transparent;
-  border-top: 2px solid var(--petronas-teal);
-  border-right: 2px solid var(--petronas-teal);
   border-radius: 50%;
-  filter: drop-shadow(0 0 15px var(--petronas-teal));
 }
 
+.ringOuter {
+  width: 200px;
+  height: 200px;
+  border-top: 2px solid var(--petronas-teal);
+  border-right: 2px solid transparent;
+  border-bottom: 2px solid rgba(0, 210, 190, 0.3);
+  border-left: 2px solid transparent;
+  filter: drop-shadow(0 0 20px var(--petronas-glow));
+}
+
+.ringMiddle {
+  width: 160px;
+  height: 160px;
+  border-top: 2px solid transparent;
+  border-right: 2px solid var(--petronas-teal);
+  border-bottom: 2px solid transparent;
+  border-left: 2px solid rgba(0, 210, 190, 0.5);
+  filter: drop-shadow(0 0 15px var(--petronas-glow));
+}
+
+.ringInner {
+  width: 120px;
+  height: 120px;
+  border-top: 2px solid rgba(0, 210, 190, 0.5);
+  border-right: 2px solid var(--petronas-teal);
+  border-bottom: 2px solid rgba(0, 210, 190, 0.5);
+  border-left: 2px solid var(--petronas-teal);
+  filter: drop-shadow(0 0 10px var(--petronas-glow));
+}
+
+/* Logo with glitch effect */
 .logo {
   font-family: 'Orbitron', sans-serif;
-  font-size: 5rem;
+  font-size: 4rem;
   font-weight: 900;
   color: var(--petronas-teal);
   text-shadow:
     0 0 30px var(--petronas-glow),
     0 0 60px var(--petronas-glow);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
   position: relative;
-  z-index: 5;
+  z-index: 10;
+}
+
+.logo::before,
+.logo::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.glitchActive::before {
+  opacity: 0.8;
+  color: #ff0040;
+  animation: glitchLeft 0.15s ease;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+
+.glitchActive::after {
+  opacity: 0.8;
+  color: #00ffff;
+  animation: glitchRight 0.15s ease;
+  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+}
+
+@keyframes glitchLeft {
+  0% {
+    transform: translate(0);
+  }
+
+  25% {
+    transform: translate(-5px, -2px);
+  }
+
+  50% {
+    transform: translate(3px, 1px);
+  }
+
+  75% {
+    transform: translate(-2px, -1px);
+  }
+
+  100% {
+    transform: translate(0);
+  }
+}
+
+@keyframes glitchRight {
+  0% {
+    transform: translate(0);
+  }
+
+  25% {
+    transform: translate(5px, 2px);
+  }
+
+  50% {
+    transform: translate(-3px, -1px);
+  }
+
+  75% {
+    transform: translate(2px, 1px);
+  }
+
+  100% {
+    transform: translate(0);
+  }
 }
 
 /* Progress */
@@ -71,49 +216,72 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  width: 180px;
+  width: 200px;
+  position: absolute;
+  bottom: -3rem;
 }
 
 .progressTrack {
   flex: 1;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.1);
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 2px;
   overflow: hidden;
+  position: relative;
 }
 
 .progressFill {
   height: 100%;
   background: var(--petronas-teal);
-  box-shadow: 0 0 10px var(--petronas-teal);
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.progressGlow {
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--petronas-teal-light), transparent);
+  position: absolute;
+  left: 0;
+  top: 0;
+  filter: blur(4px);
 }
 
 .progressValue {
   font-family: 'Orbitron', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--petronas-teal);
-  min-width: 40px;
+  min-width: 45px;
+  text-align: right;
+  font-weight: 600;
 }
 
 /* Terminal section */
 .terminalSection {
-  width: 400px;
+  width: 420px;
 }
 
 .terminal {
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.95);
   border: 1px solid var(--border-subtle);
   border-radius: 12px;
   overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(0, 210, 190, 0.1),
+    0 20px 50px rgba(0, 0, 0, 0.5);
 }
 
 .terminalHeader {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
   padding: 0.75rem 1rem;
   background: var(--graphite);
   border-bottom: 1px solid var(--border-subtle);
+}
+
+.terminalDots {
+  display: flex;
+  gap: 0.5rem;
 }
 
 .terminalDot {
@@ -123,25 +291,54 @@
 }
 
 .terminalTitle {
-  margin-left: auto;
+  flex: 1;
+  text-align: center;
   font-size: 0.7rem;
   color: var(--text-subtle);
   font-family: monospace;
+}
+
+.terminalStatus {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.6rem;
+  color: #22C55E;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 0.1em;
+}
+
+.statusPulse {
+  width: 6px;
+  height: 6px;
+  background: #22C55E;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #22C55E;
 }
 
 .terminalBody {
   padding: 1rem;
   font-family: 'Consolas', 'Monaco', monospace;
   font-size: 0.75rem;
-  height: 200px;
+  height: 220px;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--petronas-teal) transparent;
 }
 
 .terminalLine {
   display: flex;
   gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
   color: var(--text-secondary);
+  align-items: flex-start;
+}
+
+.terminalTime {
+  color: var(--text-subtle);
+  font-size: 0.65rem;
+  min-width: 55px;
+  opacity: 0.6;
 }
 
 .terminalLine.error {
@@ -152,9 +349,14 @@
   color: var(--petronas-teal);
 }
 
+.terminalLine.loading {
+  color: var(--silver);
+}
+
 .terminalPrefix {
   color: var(--petronas-teal);
   flex-shrink: 0;
+  min-width: 12px;
 }
 
 .terminalLine.error .terminalPrefix {
@@ -163,6 +365,10 @@
 
 .terminalLine.success .terminalPrefix {
   color: #22C55E;
+}
+
+.terminalText {
+  flex: 1;
 }
 
 .cursor {
@@ -179,7 +385,7 @@
 /* Ready indicator */
 .readyIndicator {
   position: absolute;
-  bottom: 3rem;
+  bottom: 4rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -190,30 +396,31 @@
 
 .readyIndicator span {
   font-family: 'Orbitron', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: var(--petronas-teal);
   letter-spacing: 0.2em;
-  animation: pulse 1.5s ease-in-out infinite;
+  text-shadow: 0 0 20px var(--petronas-glow);
 }
 
-@keyframes pulse {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.5;
-  }
+.pulseRing,
+.pulseRingOuter {
+  position: absolute;
+  border: 2px solid var(--petronas-teal);
+  border-radius: 50%;
+  animation: ripple 2s ease-out infinite;
 }
 
 .pulseRing {
-  width: 16px;
-  height: 16px;
-  border: 2px solid var(--petronas-teal);
-  border-radius: 50%;
-  animation: ripple 1.5s ease-out infinite;
+  width: 20px;
+  height: 20px;
+  top: -10px;
+}
+
+.pulseRingOuter {
+  width: 20px;
+  height: 20px;
+  top: -10px;
+  animation-delay: 0.5s;
 }
 
 @keyframes ripple {
@@ -223,21 +430,34 @@
   }
 
   100% {
-    transform: scale(2.5);
+    transform: scale(3);
     opacity: 0;
   }
 }
 
-/* Corners */
+/* Corners with animated lines */
 .corner {
   position: absolute;
   font-family: 'Orbitron', sans-serif;
   font-size: 0.6rem;
   color: var(--text-subtle);
   letter-spacing: 0.1em;
-  padding: 0.4rem 0.75rem;
-  border: 1px solid var(--border-subtle);
-  background: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cornerLine {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--petronas-teal), transparent);
+}
+
+.cornerLineV {
+  width: 1px;
+  height: 30px;
+  background: linear-gradient(180deg, var(--petronas-teal), transparent);
 }
 
 .topLeft {
@@ -245,43 +465,101 @@
   left: 1.5rem;
 }
 
+.topLeft .cornerLine {
+  order: 2;
+}
+
 .topRight {
   top: 1.5rem;
   right: 1.5rem;
 }
 
+.topRight .cornerLine {
+  background: linear-gradient(90deg, transparent, var(--petronas-teal));
+}
+
 .bottomLeft {
   bottom: 1.5rem;
   left: 1.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.bottomLeft .cornerLineV {
+  background: linear-gradient(180deg, transparent, var(--petronas-teal));
 }
 
 .bottomRight {
   bottom: 1.5rem;
   right: 1.5rem;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 /* Responsive */
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   .content {
     flex-direction: column;
-    gap: 2rem;
+    gap: 3rem;
   }
 
   .terminalSection {
     width: 100%;
-    max-width: 350px;
+    max-width: 380px;
+  }
+
+  .terminalBody {
+    height: 180px;
+  }
+}
+
+@media (max-width: 500px) {
+  .logoSection {
+    width: 160px;
+    height: 160px;
+  }
+
+  .ringOuter {
+    width: 160px;
+    height: 160px;
+  }
+
+  .ringMiddle {
+    width: 130px;
+    height: 130px;
+  }
+
+  .ringInner {
+    width: 100px;
+    height: 100px;
   }
 
   .logo {
-    font-size: 4rem;
-  }
-
-  .ringContainer {
-    width: 140px;
-    height: 140px;
+    font-size: 3rem;
   }
 
   .progressContainer {
-    width: 140px;
+    width: 160px;
+  }
+
+  .terminalSection {
+    max-width: 320px;
+  }
+
+  .terminalTime {
+    display: none;
+  }
+
+  .corner {
+    font-size: 0.5rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .cornerLine {
+    width: 25px;
+  }
+
+  .cornerLineV {
+    height: 20px;
   }
 }

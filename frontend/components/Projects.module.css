@@ -153,16 +153,25 @@
     gap: 1rem;
 }
 
-.iconLink {
-    color: var(--text-muted);
-    transition: all 0.3s ease;
+/* Featured glow animation background */
+.featuredGlow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
 }
 
-/* Projects grid */
+.featured>*:not(.featuredGlow):not(.featuredCorner) {
+    position: relative;
+    z-index: 1;
+}
+
+/* Projects grid with 3D perspective */
 .projectsGrid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
+    perspective: 1000px;
 }
 
 .projectCard {
@@ -173,6 +182,22 @@
     display: flex;
     flex-direction: column;
     transition: all 0.3s ease;
+    transform-style: preserve-3d;
+    position: relative;
+    overflow: hidden;
+}
+
+.projectCard:hover {
+    border-color: var(--petronas-teal);
+}
+
+/* Shine effect on card hover */
+.cardShine {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 10;
 }
 
 .cardHeader {
