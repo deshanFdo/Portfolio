@@ -49,16 +49,44 @@ const SKILL_CATEGORIES = [
   },
   {
     id: "tools",
-    category: "Database & Tools",
-    icon: "🗄️",
-    description: "Infrastructure & more",
+    category: "DevOps & Tools",
+    icon: "🛠️",
+    description: "Infrastructure & workflows",
     skills: [
-      { name: "MySQL", level: 88, icon: "MY", projects: ["Smart Employee System"] },
-      { name: "MongoDB", level: 85, icon: "MG", projects: ["LawLinkLK"] },
-      { name: "PostgreSQL", level: 88, icon: "PG", projects: ["NexusLink"] },
-      { name: "Git", level: 95, icon: "GT", projects: ["NexusLink", "Smart Employee System", "LawLinkLK", "Airline Seat Booking"] },
-      { name: "Postman", level: 90, icon: "PM", projects: ["Smart Employee System", "Airline Seat Booking"] },
-      { name: "Supabase", level: 85, icon: "SB", projects: ["NexusLink"] }
+      { name: "Git & GitHub", level: 95, icon: "GT", projects: ["NexusLink", "Smart Employee System"] },
+      { name: "Postman", level: 92, icon: "PM", projects: ["Smart Employee System", "Airline Seat Booking"] },
+      { name: "Azure (Fund.)", level: 80, icon: "AZ", projects: [] },
+      { name: "Linux", level: 75, icon: "LX", projects: [] },
+      { name: "Vercel/Render", level: 85, icon: "DP", projects: ["LawLinkLK"] },
+      { name: "Jira", level: 88, icon: "JA", projects: ["Smart Employee System"] }
+    ]
+  },
+  {
+    id: "data",
+    category: "Data & Analytics",
+    icon: "📊",
+    description: "Analysis & Intelligence",
+    skills: [
+      { name: "Python", level: 90, icon: "PY", projects: [] },
+      { name: "pandas", level: 85, icon: "PD", projects: [] },
+      { name: "NumPy", level: 82, icon: "NP", projects: [] },
+      { name: "EDA", level: 88, icon: "DA", projects: [] },
+      { name: "SQL", level: 90, icon: "DB", projects: ["NexusLink", "Smart Employee System"] },
+      { name: "Machine Learning", level: 70, icon: "ML", projects: [] }
+    ]
+  },
+  {
+    id: "certs",
+    category: "Certifications",
+    icon: "📜",
+    description: "Professional Achievements",
+    skills: [
+      { name: "Postman Student Expert", level: 100, icon: "🏆", projects: [] },
+      { name: "Azure Fundamentals (AZ-900)", level: 100, icon: "☁️", projects: [] },
+      { name: "Python for Data Analysis", level: 100, icon: "🐍", projects: [] },
+      { name: "Meta Database Intro", level: 100, icon: "🗄️", projects: [] },
+      { name: "Cloud Computing Core", level: 100, icon: "☁️", projects: [] },
+      { name: "IEEE Xtreme Leader", level: 100, icon: "🥇", projects: [] }
     ]
   }
 ];
@@ -71,7 +99,7 @@ const PROJECT_DETAILS = {
     image: "/images/projects/smart-employee.png"
   },
   "LawLinkLK": {
-    role: "Full-Stack Developer", 
+    role: "Full-Stack Developer",
     description: "Real-time legal consultation platform with AI-powered assistant",
     image: "/images/projects/lawlink.png"
   },
@@ -115,7 +143,7 @@ export default function Skills() {
     <section className={styles.skills} id="skills" ref={ref}>
       <div className={styles.inner}>
         {/* Section header */}
-        <motion.div 
+        <motion.div
           className={styles.header}
           initial={{ opacity: 0, x: -50 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -129,7 +157,7 @@ export default function Skills() {
         {/* Selected skill project popup */}
         <AnimatePresence>
           {selectedSkill && selectedSkill.projects.length > 0 && (
-            <motion.div 
+            <motion.div
               className={styles.projectsPopup}
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -144,16 +172,16 @@ export default function Skills() {
                     <span className={styles.popupSubtitle}>Used in {selectedSkill.projects.length} project{selectedSkill.projects.length > 1 ? 's' : ''}</span>
                   </div>
                 </div>
-                <button 
+                <button
                   className={styles.popupClose}
                   onClick={() => setSelectedSkill(null)}
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M18 6L6 18M6 6l12 12"/>
+                    <path d="M18 6L6 18M6 6l12 12" />
                   </svg>
                 </button>
               </div>
-              
+
               <div className={styles.popupProjects}>
                 {selectedSkill.projects.map((projectName, i) => {
                   const projectInfo = PROJECT_DETAILS[projectName];
@@ -169,8 +197,8 @@ export default function Skills() {
                     >
                       <div className={styles.projectThumbnail}>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <rect x="2" y="3" width="20" height="14" rx="2"/>
-                          <path d="M8 21h8M12 17v4"/>
+                          <rect x="2" y="3" width="20" height="14" rx="2" />
+                          <path d="M8 21h8M12 17v4" />
                         </svg>
                       </div>
                       <div className={styles.projectInfo}>
@@ -179,14 +207,14 @@ export default function Skills() {
                       </div>
                       <div className={styles.projectArrow}>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M5 12h14M12 5l7 7-7 7"/>
+                          <path d="M5 12h14M12 5l7 7-7 7" />
                         </svg>
                       </div>
                     </motion.button>
                   );
                 })}
               </div>
-              
+
               <div className={styles.popupFooter}>
                 <span className={styles.popupHint}>Click a project to navigate →</span>
               </div>
@@ -197,7 +225,7 @@ export default function Skills() {
         {/* Main content grid */}
         <div className={styles.mainGrid}>
           {/* Category selector - left side */}
-          <motion.div 
+          <motion.div
             className={styles.categorySelector}
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -207,7 +235,7 @@ export default function Skills() {
               <span>SELECT_MODULE</span>
               <span className={styles.blinkingDot} />
             </div>
-            
+
             {SKILL_CATEGORIES.map((cat, i) => (
               <motion.button
                 key={cat.id}
@@ -226,14 +254,14 @@ export default function Skills() {
                 </div>
                 <div className={styles.categoryArrow}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M9 18l6-6-6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M9 18l6-6-6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
               </motion.button>
             ))}
 
             {/* Stats summary */}
-            <motion.div 
+            <motion.div
               className={styles.statsSummary}
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -251,7 +279,7 @@ export default function Skills() {
           </motion.div>
 
           {/* Skills display - right side */}
-          <motion.div 
+          <motion.div
             className={styles.skillsDisplay}
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -262,7 +290,7 @@ export default function Skills() {
               <div className={styles.displayTitle}>
                 <span className={styles.moduleLabel}>MODULE:</span>
                 <AnimatePresence mode="wait">
-                  <motion.span 
+                  <motion.span
                     key={activeCategory}
                     className={styles.moduleName}
                     initial={{ opacity: 0, y: 10 }}
@@ -281,22 +309,22 @@ export default function Skills() {
             </div>
 
             {/* Skill hint */}
-            <motion.div 
+            <motion.div
               className={styles.skillHint}
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ delay: 0.6 }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M12 16v-4M12 8h.01"/>
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 16v-4M12 8h.01" />
               </svg>
               <span>Click a skill to see related projects</span>
             </motion.div>
 
             {/* Skills grid */}
             <AnimatePresence mode="wait">
-              <motion.div 
+              <motion.div
                 key={activeCategory}
                 className={styles.skillsGrid}
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -326,16 +354,16 @@ export default function Skills() {
                     {/* Progress ring background */}
                     <div className={styles.progressRing}>
                       <svg viewBox="0 0 100 100">
-                        <circle 
+                        <circle
                           className={styles.progressBg}
                           cx="50" cy="50" r="42"
                         />
-                        <motion.circle 
+                        <motion.circle
                           className={styles.progressFill}
                           cx="50" cy="50" r="42"
                           initial={{ strokeDashoffset: 264 }}
-                          animate={isInView ? { 
-                            strokeDashoffset: 264 - (264 * skill.level / 100) 
+                          animate={isInView ? {
+                            strokeDashoffset: 264 - (264 * skill.level / 100)
                           } : {}}
                           transition={{ delay: 0.5 + i * 0.1, duration: 1, ease: "easeOut" }}
                         />
@@ -344,11 +372,11 @@ export default function Skills() {
                         <span>{skill.icon}</span>
                       </div>
                     </div>
-                    
+
                     <div className={styles.skillInfo}>
                       <span className={styles.skillName}>{skill.name}</span>
                       <div className={styles.levelBar}>
-                        <motion.div 
+                        <motion.div
                           className={styles.levelFill}
                           initial={{ width: 0 }}
                           animate={isInView ? { width: `${skill.level}%` } : {}}
@@ -362,7 +390,7 @@ export default function Skills() {
                     {skill.projects.length > 0 && (
                       <div className={styles.clickIndicator}>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                          <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
                         </svg>
                       </div>
                     )}
@@ -372,7 +400,7 @@ export default function Skills() {
             </AnimatePresence>
 
             {/* Terminal-style footer */}
-            <motion.div 
+            <motion.div
               className={styles.terminalFooter}
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}

@@ -16,12 +16,51 @@ const TERMINAL_MESSAGES = [
   { text: "READY_TO_LAUNCH →", delay: 3600, type: "final" },
 ];
 
+function Particle({ index }) {
+  const [particleStyles] = useState(() => ({
+    left: `${Math.random() * 100}%`,
+    top: `${Math.random() * 100}%`,
+    duration: 3 + Math.random() * 2,
+    delay: Math.random() * 2
+  }));
+
+  return (
+    <motion.div
+      className={styles.particle}
+      style={{
+        left: particleStyles.left,
+        top: particleStyles.top,
+        position: 'absolute',
+        width: '3px',
+        height: '3px',
+        background: 'var(--petronas-teal)',
+        borderRadius: '50%',
+        boxShadow: '0 0 10px var(--petronas-teal)',
+      }}
+      animate={{
+        y: [0, -100],
+        opacity: [0, 0.8, 0],
+      }}
+      transition={{
+        duration: particleStyles.duration,
+        repeat: Infinity,
+        delay: particleStyles.delay,
+      }}
+    />
+  );
+}
+
 export default function Preloader({ onComplete }) {
   const [stage, setStage] = useState("loading");
   const [loadProgress, setLoadProgress] = useState(0);
   const [messages, setMessages] = useState([]);
   const [glitchActive, setGlitchActive] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const terminalRef = useRef(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     // Random glitch effect on logo
@@ -123,24 +162,8 @@ export default function Preloader({ onComplete }) {
 
           {/* Floating particles */}
           <div className={styles.particleField}>
-            {Array.from({ length: 15 }).map((_, i) => (
-              <motion.div
-                key={i}
-                className={styles.particle}
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                }}
-                animate={{
-                  y: [0, -100],
-                  opacity: [0, 0.8, 0],
-                }}
-                transition={{
-                  duration: 3 + Math.random() * 2,
-                  repeat: Infinity,
-                  delay: Math.random() * 2,
-                }}
-              />
+            {mounted && Array.from({ length: 15 }).map((_, i) => (
+              <Particle key={i} index={i} />
             ))}
           </div>
 

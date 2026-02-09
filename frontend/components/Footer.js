@@ -5,21 +5,23 @@ import styles from "./Footer.module.css";
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  // Use environment variables
-  const github = process.env.NEXT_PUBLIC_GITHUB_URL || "#";
-  const linkedin = process.env.NEXT_PUBLIC_LINKEDIN_URL || "#";
-  const email = process.env.NEXT_PUBLIC_EMAIL || "#";
+  // Use details from CV
+  const github = "https://github.com/deshanFdo";
+  const linkedin = "https://linkedin.com/in/DeshanFdo31";
+  const email = "deshanfernando67@gmail.com";
+  const phone = "+94 76 910 6285";
 
   const socialLinks = [
     { name: "GitHub", href: github, icon: "🐙" },
     { name: "LinkedIn", href: linkedin, icon: "💼" },
     { name: "Email", href: `mailto:${email}`, icon: "📧" },
+    { name: "Phone", href: `tel:${phone.replace(/\s/g, '')}`, icon: "📞" },
   ];
 
   return (
     <footer className={styles.footer}>
       <div className={styles.topBorder} />
-      
+
       <div className={styles.inner}>
         <div className={styles.content}>
           {/* Logo & tagline */}

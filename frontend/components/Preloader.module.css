@@ -481,36 +481,36 @@
   background: linear-gradient(180deg, var(--petronas-teal), transparent);
 }
 
-.topLeft {
+.cornerTL {
   top: 1.5rem;
   left: 1.5rem;
 }
 
-.topLeft .cornerLine {
+.cornerTL .cornerLine {
   order: 2;
 }
 
-.topRight {
+.cornerTR {
   top: 1.5rem;
   right: 1.5rem;
 }
 
-.topRight .cornerLine {
+.cornerTR .cornerLine {
   background: linear-gradient(90deg, transparent, var(--petronas-teal));
 }
 
-.bottomLeft {
+.cornerBL {
   bottom: 1.5rem;
   left: 1.5rem;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.bottomLeft .cornerLineV {
+.cornerBL .cornerLineV {
   background: linear-gradient(180deg, transparent, var(--petronas-teal));
 }
 
-.bottomRight {
+.cornerBR {
   bottom: 1.5rem;
   right: 1.5rem;
   flex-direction: column;

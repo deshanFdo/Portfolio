@@ -1,16 +1,17 @@
 "use client";
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 import styles from "./About.module.css";
 
 export default function About() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  // Use environment variables
-  const fullName = process.env.NEXT_PUBLIC_FULL_NAME || "Your Name";
-  const location = process.env.NEXT_PUBLIC_LOCATION || "Location";
-  const jobTitle = process.env.NEXT_PUBLIC_JOB_TITLE || "Software Engineer";
+  // Use environment variables or defaults from CV
+  const fullName = "Deshan Fernando";
+  const location = "Sri Lanka";
+  const jobTitle = "Software Engineering Intern | Data-Oriented Software Engineer";
 
   const stats = [
     { value: "5+", label: "Projects Shipped" },
@@ -36,7 +37,7 @@ export default function About() {
     <section className={styles.about} id="about" ref={ref}>
       <div className={styles.inner}>
         {/* Section header */}
-        <motion.div 
+        <motion.div
           className={styles.header}
           initial={{ opacity: 0, x: -50 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -47,7 +48,7 @@ export default function About() {
           <div className={styles.titleLine} />
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className={styles.grid}
           variants={containerVariants}
           initial="hidden"
@@ -56,16 +57,29 @@ export default function About() {
           {/* Profile card */}
           <motion.div className={styles.profileCard} variants={itemVariants}>
             <div className={styles.imageContainer}>
-              {/* Placeholder for profile image */}
+              {/* User Image - Place your image at public/images/profile.jpg */}
               <div className={styles.imagePlaceholder}>
-                <span className={styles.initials}>
+                <Image
+                  src="/images/profile.jpg"
+                  alt={fullName}
+                  fill
+                  className={styles.profileImage}
+                  style={{ objectFit: 'cover', borderRadius: '50%' }}
+                  priority
+                  onError={(e) => {
+                    // Fallback to placeholder if image not found
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.parentElement.classList.add(styles.showInitials);
+                  }}
+                />
+                <span className={styles.initials} style={{ position: 'absolute', zIndex: -1 }}>
                   {fullName.split(" ").map(n => n[0]).join("")}
                 </span>
                 <div className={styles.imageGlow} />
               </div>
               <div className={styles.imageFrame} />
             </div>
-            
+
             <div className={styles.profileInfo}>
               <h3 className={styles.profileName}>{fullName}</h3>
               <p className={styles.profileRole}>{jobTitle}</p>
@@ -78,8 +92,8 @@ export default function About() {
             {/* Stats */}
             <div className={styles.statsGrid}>
               {stats.map((stat, i) => (
-                <motion.div 
-                  key={i} 
+                <motion.div
+                  key={i}
                   className={styles.statItem}
                   whileHover={{ scale: 1.05, borderColor: "var(--petronas-teal)" }}
                 >
@@ -98,58 +112,41 @@ export default function About() {
                 whoami
               </h4>
               <p className={styles.bioText}>
-                Results-oriented Computer Science undergraduate at the University of Westminster 
-                with proven expertise in building scalable full-stack applications. Currently 
-                interning at Sri Lanka Telecom, where I architect high-performance systems 
-                and solve complex architectural challenges.
+                Detail-oriented software engineering undergraduate with hands-on experience in full-stack development,
+                RESTful API design, secure authentication systems, and data-oriented application development.
+                Strong foundation in backend engineering, frontend frameworks, databases, and Python-based data analysis.
               </p>
             </div>
 
             <div className={styles.bioSection}>
               <h4 className={styles.bioTitle}>
                 <span className={styles.bioIcon}>{">"}</span>
-                what_i_do
+                career_objective
               </h4>
               <p className={styles.bioText}>
-                I specialize in React, Node.js, and MySQL — crafting seamless user experiences 
-                and robust backend systems. From data isolation mechanisms to performance 
-                optimization, I deliver production-ready solutions.
+                Seeking an internship opportunity to contribute to scalable enterprise systems while growing skills
+                in software engineering and data-driven technologies.
               </p>
             </div>
 
-            <div className={styles.bioSection}>
-              <h4 className={styles.bioTitle}>
-                <span className={styles.bioIcon}>{">"}</span>
-                achievements
-              </h4>
-              <ul className={styles.achievementList}>
-                <li>
-                  <span className={styles.achieveIcon}>🏆</span>
-                  Top 10 Finalist - IEEE Xtreme Encode (Region 10)
-                </li>
-                <li>
-                  <span className={styles.achieveIcon}>🎓</span>
-                  Foundation Certificate - Distinction
-                </li>
-                <li>
-                  <span className={styles.achieveIcon}>📜</span>
-                  Postman API Fundamentals Student Expert
-                </li>
-              </ul>
-            </div>
+            {/* Achievements section removed as requested */}
 
             {/* Download CV button */}
-            <motion.a 
-              href="#" 
+
+            {/* Download CV button */}
+            <motion.a
+              href="/Deshan_Fernando_CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className={styles.downloadBtn}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               <span>Download CV</span>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="7 10 12 15 17 10"/>
-                <line x1="12" y1="15" x2="12" y2="3"/>
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
             </motion.a>
           </motion.div>

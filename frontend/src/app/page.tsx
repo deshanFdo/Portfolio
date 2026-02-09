@@ -10,9 +10,9 @@ import Projects from "../../components/Projects";
 import Experience from "../../components/Experience";
 import Contact from "../../components/Contact";
 import Footer from "../../components/Footer";
+import SpaceBackground from "../../components/SpaceBackground";
 
 // Dynamic imports for client-only components
-const Scene3D = dynamic(() => import("../../components/Scene3D"), { ssr: false });
 const CustomCursor = dynamic(() => import("../../components/CustomCursor"), { ssr: false });
 const MiniGame = dynamic(() => import("../../components/MiniGame"), { ssr: false });
 
@@ -42,8 +42,8 @@ export default function Home() {
 
       {/* Main content */}
       <main style={{ position: "relative", minHeight: "100vh" }}>
-        {/* 3D Particle Background */}
-        {mounted && !showPreloader && <Scene3D />}
+        {/* Space Background */}
+        <SpaceBackground />
 
         {/* Content */}
         <div style={{ position: "relative", zIndex: 10 }}>
@@ -57,7 +57,7 @@ export default function Home() {
           <Footer />
         </div>
 
-        {/* Snake Game */}
+        {/* Snake Game (only shows when triggered) */}
         {mounted && !showPreloader && <MiniGame />}
       </main>
     </>

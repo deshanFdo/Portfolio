@@ -101,32 +101,52 @@ function MagneticButton({ children, href, className, onHover }) {
   );
 }
 
+function HeroParticle({ index }) {
+  const [particleProps] = useState(() => ({
+    x: Math.random() * 100 + '%',
+    y: Math.random() * 100 + '%',
+    scale: Math.random() * 0.5 + 0.5,
+    opacity: Math.random() * 0.5 + 0.1,
+    duration: Math.random() * 10 + 10,
+    delay: Math.random() * 10
+  }));
+
+  return (
+    <motion.div
+      className={styles.particle}
+      initial={{
+        x: particleProps.x,
+        y: particleProps.y,
+        scale: particleProps.scale,
+        opacity: particleProps.opacity,
+      }}
+      animate={{
+        y: [null, '-20%'],
+        opacity: [null, 0],
+      }}
+      transition={{
+        duration: particleProps.duration,
+        repeat: Infinity,
+        repeatType: 'loop',
+        ease: 'linear',
+        delay: particleProps.delay,
+      }}
+    />
+  );
+}
+
 // Animated particles background
 function ParticleField() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <div className={styles.particleField}>
-      {Array.from({ length: 50 }).map((_, i) => (
-        <motion.div
-          key={i}
-          className={styles.particle}
-          initial={{
-            x: Math.random() * 100 + '%',
-            y: Math.random() * 100 + '%',
-            scale: Math.random() * 0.5 + 0.5,
-            opacity: Math.random() * 0.5 + 0.1,
-          }}
-          animate={{
-            y: [null, '-20%'],
-            opacity: [null, 0],
-          }}
-          transition={{
-            duration: Math.random() * 10 + 10,
-            repeat: Infinity,
-            repeatType: 'loop',
-            ease: 'linear',
-            delay: Math.random() * 10,
-          }}
-        />
+      {mounted && Array.from({ length: 50 }).map((_, i) => (
+        <HeroParticle key={i} index={i} />
       ))}
     </div>
   );
