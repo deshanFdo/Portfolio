@@ -43,15 +43,9 @@ export default function MiniGame() {
     gameLoopRef.current = setInterval(() => {
       setSnake(prev => {
         const newHead = {
-          x: prev[0].x + directionRef.current.x,
-          y: prev[0].y + directionRef.current.y,
+          x: (prev[0].x + directionRef.current.x + GRID_SIZE) % GRID_SIZE,
+          y: (prev[0].y + directionRef.current.y + GRID_SIZE) % GRID_SIZE,
         };
-
-        // Wall collision
-        if (newHead.x < 0 || newHead.x >= GRID_SIZE || newHead.y < 0 || newHead.y >= GRID_SIZE) {
-          setGameState("gameover");
-          return prev;
-        }
 
         // Self collision
         if (prev.some(s => s.x === newHead.x && s.y === newHead.y)) {
@@ -101,6 +95,7 @@ export default function MiniGame() {
 
       const newDir = keyMap[e.key];
       if (newDir) {
+        e.preventDefault(); // Prevent page scrolling
         // Prevent reversing
         if (directionRef.current.x + newDir.x !== 0 || directionRef.current.y + newDir.y !== 0) {
           directionRef.current = newDir;
