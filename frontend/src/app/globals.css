@@ -59,8 +59,12 @@ body {
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
-  cursor: none;
   position: relative;
+}
+
+/* Only hide cursor when custom cursor JS is active */
+body.custom-cursor-active {
+  cursor: none;
 }
 
 /* Subtle ambient glow */
@@ -381,6 +385,16 @@ section {
   51%,
   100% {
     opacity: 0;
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

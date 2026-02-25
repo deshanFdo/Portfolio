@@ -67,14 +67,21 @@ export default function Preloader({ onComplete }) {
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    // Skip preloader for repeat visitors
+    if (typeof window !== "undefined" && sessionStorage.getItem("preloader_seen")) {
+      if (onComplete) onComplete();
+    }
+  }, [onComplete]);
 
   const handleEnter = useCallback(() => {
-    if (stage === "ready") {
+    if (stage === "ready" || stage === "loading") {
       setStage("exit");
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem("preloader_seen", "1");
+      }
       setTimeout(() => {
         if (onComplete) onComplete();
-      }, 1200);
+      }, stage === "loading" ? 400 : 1200);
     }
   }, [stage, onComplete]);
 
@@ -314,6 +321,21 @@ export default function Preloader({ onComplete }) {
               )}
             </AnimatePresence>
           </motion.div>
+
+          {/* Skip button */}
+          {stage === "loading" && (
+            <motion.button
+              className={styles.skipButton}
+              onClick={(e) => { e.stopPropagation(); handleEnter(); }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.6 }}
+              whileHover={{ opacity: 1 }}
+              transition={{ delay: 2, duration: 0.5 }}
+              aria-label="Skip preloader"
+            >
+              SKIP →
+            </motion.button>
+          )}
 
           {/* Corner decorations */}
           <div className={`${styles.corner} ${styles.cornerTL}`}>

@@ -16,6 +16,9 @@ export default function CustomCursor() {
   }, []);
 
   useEffect(() => {
+    // Enable custom cursor styling on body
+    document.body.classList.add("custom-cursor-active");
+
     window.addEventListener("mousemove", onMouseMove);
     document.addEventListener("mouseleave", onMouseLeave);
 
@@ -37,6 +40,7 @@ export default function CustomCursor() {
     observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
+      document.body.classList.remove("custom-cursor-active");
       window.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseleave", onMouseLeave);
       observer.disconnect();

@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import ErrorBoundary from "../../components/ErrorBoundary";
 import Navbar from "../../components/Navbar";
 import Preloader from "../../components/Preloader";
 import Hero from "../../components/Hero";
@@ -31,7 +32,7 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <ErrorBoundary>
       {/* Custom cursor - desktop only */}
       {mounted && isDesktop && <CustomCursor />}
 
@@ -60,6 +61,6 @@ export default function Home() {
         {/* Snake Game (only shows when triggered) */}
         {mounted && !showPreloader && <MiniGame />}
       </main>
-    </>
+    </ErrorBoundary>
   );
 }

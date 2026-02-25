@@ -248,6 +248,9 @@ export default function Projects() {
               <motion.a
                 href={featuredProject.github}
                 className={styles.iconLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View source code on GitHub"
                 whileHover={{ scale: 1.2, color: "var(--petronas-teal)", rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -258,6 +261,9 @@ export default function Projects() {
               <motion.a
                 href={featuredProject.link}
                 className={styles.iconLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View live demo"
                 whileHover={{ scale: 1.2, color: "var(--petronas-teal)", rotate: -5 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -294,6 +300,9 @@ export default function Projects() {
                   <motion.a
                     href={project.github}
                     className={styles.cardLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View source code on GitHub"
                     whileHover={{ scale: 1.2, color: "var(--petronas-teal)" }}
                   >
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -303,6 +312,9 @@ export default function Projects() {
                   <motion.a
                     href={project.link}
                     className={styles.cardLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View live demo"
                     whileHover={{ scale: 1.2, color: "var(--petronas-teal)" }}
                   >
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

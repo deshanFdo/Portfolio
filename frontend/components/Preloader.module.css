@@ -625,3 +625,25 @@
     height: 20px;
   }
 }
+
+/* Skip button */
+.skipButton {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 100;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0.4rem 1rem;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.skipButton:hover {
+  border-color: var(--petronas-teal, #00D2BE);
+  color: var(--petronas-teal, #00D2BE);
+}
