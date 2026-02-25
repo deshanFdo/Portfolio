@@ -60,7 +60,7 @@ export default function About() {
               {/* User Image - Place your image at public/images/profile.jpg */}
               <div className={styles.imagePlaceholder}>
                 <Image
-                  src="/images/profile.jpg"
+                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/profile.jpg`}
                   alt={fullName}
                   fill
                   className={styles.profileImage}
@@ -133,7 +133,7 @@ export default function About() {
 
             {/* Download CV button */}
             <motion.a
-              href="/Deshan_Fernando_CV.pdf"
+              href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/Deshan_Fernando_CV.pdf`}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.downloadBtn}
