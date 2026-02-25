@@ -22,13 +22,23 @@ const TERMINAL_MESSAGES = [
   { text: "Nobody wanted me anyway. Welcome to my portfolio \u2192", delay: 13800, type: "final" },
 ];
 
+function seededRandom(seed) {
+  const x = Math.sin(seed * 9301 + 49297) * 233280;
+  return x - Math.floor(x);
+}
+
+let particleCounter = 0;
+
 function Particle() {
-  const [particleStyles] = useState(() => ({
-    left: `${Math.random() * 100}%`,
-    top: `${Math.random() * 100}%`,
-    duration: 3 + Math.random() * 2,
-    delay: Math.random() * 2
-  }));
+  const [particleStyles] = useState(() => {
+    const id = particleCounter++;
+    return {
+      left: `${seededRandom(id * 4 + 1) * 100}%`,
+      top: `${seededRandom(id * 4 + 2) * 100}%`,
+      duration: 3 + seededRandom(id * 4 + 3) * 2,
+      delay: seededRandom(id * 4 + 4) * 2
+    };
+  });
 
   return (
     <motion.div
@@ -272,7 +282,7 @@ export default function Preloader({ onComplete }) {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <span className={styles.terminalTime}>
+                    <span className={styles.terminalTime} suppressHydrationWarning>
                       [{new Date().toLocaleTimeString('en-US', { hour12: false })}]
                     </span>
                     <span className={styles.terminalPrefix}>
@@ -352,7 +362,7 @@ export default function Preloader({ onComplete }) {
           </div>
           <div className={`${styles.corner} ${styles.cornerBR}`}>
             <span>STATUS: {stage === "ready" ? "LOCALLY HOSTED" : rejectionCount > 0 ? `${rejectionCount} REJECTED` : "CONTACTING..."}</span>
-            <span>© {new Date().getFullYear()}</span>
+            <span suppressHydrationWarning>© {new Date().getFullYear()}</span>
           </div>
         </motion.div>
       )}

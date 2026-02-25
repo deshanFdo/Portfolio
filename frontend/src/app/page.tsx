@@ -12,6 +12,7 @@ import Experience from "../../components/Experience";
 import Contact from "../../components/Contact";
 import Footer from "../../components/Footer";
 import SpaceBackground from "../../components/SpaceBackground";
+import F1Divider from "../../components/F1Divider";
 
 // Dynamic imports for client-only components
 const CustomCursor = dynamic(() => import("../../components/CustomCursor"), { ssr: false });
@@ -50,10 +51,15 @@ export default function Home() {
         <div style={{ position: "relative", zIndex: 10 }}>
           <Navbar />
           <Hero />
+          <F1Divider />
           <About />
+          <F1Divider flip />
           <Skills />
+          <F1Divider />
           <Projects />
+          <F1Divider flip />
           <Experience />
+          <F1Divider />
           <Contact />
           <Footer />
         </div>

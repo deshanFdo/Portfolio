@@ -64,7 +64,7 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className={styles.bottom}>
-          <p>© {currentYear} {process.env.NEXT_PUBLIC_FULL_NAME || "Deshan Fernando"}. All rights reserved.</p>
+          <p suppressHydrationWarning>© {currentYear} {process.env.NEXT_PUBLIC_FULL_NAME || "Deshan Fernando"}. All rights reserved.</p>
           <p className={styles.made}>
             Made with <span className={styles.heart}>💚</span> in Sri Lanka
           </p>

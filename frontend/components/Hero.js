@@ -110,14 +110,19 @@ function MagneticButton({ children, href, className, onHover }) {
   );
 }
 
+function seededRandom(seed) {
+  const x = Math.sin(seed * 9301 + 49297) * 233280;
+  return x - Math.floor(x);
+}
+
 function HeroParticle({ index }) {
   const [particleProps] = useState(() => ({
-    x: Math.random() * 100 + '%',
-    y: Math.random() * 100 + '%',
-    scale: Math.random() * 0.5 + 0.5,
-    opacity: Math.random() * 0.5 + 0.1,
-    duration: Math.random() * 10 + 10,
-    delay: Math.random() * 10
+    x: seededRandom(index * 6 + 1) * 100 + '%',
+    y: seededRandom(index * 6 + 2) * 100 + '%',
+    scale: seededRandom(index * 6 + 3) * 0.5 + 0.5,
+    opacity: seededRandom(index * 6 + 4) * 0.5 + 0.1,
+    duration: seededRandom(index * 6 + 5) * 10 + 10,
+    delay: seededRandom(index * 6 + 6) * 10
   }));
 
   return (
@@ -465,7 +470,7 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
       >
-        <span>© {new Date().getFullYear()}</span>
+        <span suppressHydrationWarning>© {new Date().getFullYear()}</span>
         <span>PORTFOLIO v2.0</span>
       </motion.div>
     </section>
