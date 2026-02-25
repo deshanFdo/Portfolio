@@ -1,11 +1,21 @@
 "use client";
 import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import styles from "./F1Divider.module.css";
 
 export default function F1Divider({ flip = false }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  // Track scroll progress: 0 when divider enters bottom of viewport → 1 when it leaves top
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  // Map scroll progress to car left position: -10% → 105% of parent width
+  const leftPercent = useTransform(scrollYProgress, [0, 1], [-10, 105]);
+  const leftString = useTransform(leftPercent, (v) => `${v}%`);
+  // Speed lines fade in at the middle of the scroll range
+  const speedLineOpacity = useTransform(scrollYProgress, [0.1, 0.3, 0.7, 0.9], [0, 0.6, 0.6, 0]);
 
   return (
     <div
@@ -16,12 +26,10 @@ export default function F1Divider({ flip = false }) {
       {/* Track line */}
       <div className={styles.trackLine} />
 
-      {/* F1 Car racing across */}
+      {/* F1 Car - position driven by scroll */}
       <motion.div
         className={styles.carContainer}
-        initial={{ x: "-120%" }}
-        animate={isInView ? { x: "calc(100vw + 120%)" } : { x: "-120%" }}
-        transition={{ duration: 2.5, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 }}
+        style={{ left: leftString }}
       >
         {/* Tire marks / trail behind the car */}
         <div className={styles.trail}>
@@ -123,12 +131,10 @@ export default function F1Divider({ flip = false }) {
         </svg>
       </motion.div>
 
-      {/* Speed lines that appear during animation */}
+      {/* Speed lines driven by scroll */}
       <motion.div
         className={styles.speedLines}
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: [0, 0.6, 0] } : { opacity: 0 }}
-        transition={{ duration: 2.5, delay: 0.3 }}
+        style={{ opacity: speedLineOpacity }}
       >
         {[...Array(5)].map((_, i) => (
           <div
