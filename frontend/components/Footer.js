@@ -5,17 +5,15 @@ import styles from "./Footer.module.css";
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  // Use details from CV
-  const github = "https://github.com/deshanFdo";
-  const linkedin = "https://linkedin.com/in/DeshanFdo31";
-  const email = "deshanfernando67@gmail.com";
-  const phone = "+94 76 910 6285";
+  // Use environment variables or hardcoded details
+  const github = process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/deshanFdo";
+  const linkedin = process.env.NEXT_PUBLIC_LINKEDIN_URL || "https://linkedin.com/in/DeshanFdo31";
+  const email = process.env.NEXT_PUBLIC_EMAIL || "deshanfernando67@gmail.com";
 
   const socialLinks = [
     { name: "GitHub", href: github, icon: "🐙" },
     { name: "LinkedIn", href: linkedin, icon: "💼" },
     { name: "Email", href: `mailto:${email}`, icon: "📧" },
-    { name: "Phone", href: `tel:${phone.replace(/\s/g, '')}`, icon: "📞" },
   ];
 
   return (
@@ -41,7 +39,9 @@ export default function Footer() {
             <ul>
               <li><a href="#home">Home</a></li>
               <li><a href="#about">About</a></li>
+              <li><a href="#skills">Skills</a></li>
               <li><a href="#projects">Projects</a></li>
+              <li><a href="#experience">Experience</a></li>
               <li><a href="#contact">Contact</a></li>
             </ul>
           </div>
@@ -64,7 +64,7 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className={styles.bottom}>
-          <p>© {currentYear} {process.env.NEXT_PUBLIC_FULL_NAME || "Developer"}. All rights reserved.</p>
+          <p>© {currentYear} {process.env.NEXT_PUBLIC_FULL_NAME || "Deshan Fernando"}. All rights reserved.</p>
           <p className={styles.made}>
             Made with <span className={styles.heart}>💚</span> in Sri Lanka
           </p>

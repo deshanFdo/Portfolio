@@ -1,22 +1,28 @@
 "use client";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./Preloader.module.css";
 
 const TERMINAL_MESSAGES = [
   { text: "SYSTEM_BOOT_SEQUENCE_INITIATED", delay: 0, type: "system" },
-  { text: "Loading core modules...", delay: 400, type: "loading" },
-  { text: "Establishing secure connection", delay: 800, type: "loading" },
-  { text: "CONNECTION_ESTABLISHED ✓", delay: 1200, type: "success" },
-  { text: "Initializing visual interface...", delay: 1600, type: "loading" },
-  { text: "Compiling creative assets...", delay: 2000, type: "loading" },
-  { text: "CREATIVE_ENGINE_ONLINE ✓", delay: 2400, type: "success" },
-  { text: "Calibrating experience parameters", delay: 2800, type: "loading" },
-  { text: "ALL_SYSTEMS_NOMINAL ✓", delay: 3200, type: "success" },
-  { text: "READY_TO_LAUNCH →", delay: 3600, type: "final" },
+  { text: "Loading career credentials...", delay: 500, type: "loading" },
+  { text: "Contacting Mercedes-AMG PETRONAS F1 Team...", delay: 1200, type: "loading" },
+  { text: "REQUEST_DENIED: \"We already have enough engineers\"", delay: 2400, type: "error" },
+  { text: "Contacting FIA Headquarters...", delay: 3200, type: "loading" },
+  { text: "REQUEST_DENIED: \"We don\u2019t hire people who question our decisions\"", delay: 4400, type: "error" },
+  { text: "Contacting Red Bull Racing...", delay: 5200, type: "loading" },
+  { text: "REQUEST_DENIED: \"Position filled by someone with more energy drinks\"", delay: 6400, type: "error" },
+  { text: "Contacting McLaren F1...", delay: 7200, type: "loading" },
+  { text: "REQUEST_DENIED: \"Our papaya budget is maxed out\"", delay: 8200, type: "error" },
+  { text: "Contacting Ferrari Scuderia...", delay: 9000, type: "loading" },
+  { text: "REQUEST_DENIED: \"Our strategy team said no... then yes... then no\"", delay: 10200, type: "error" },
+  { text: "ALL_REMOTE_HOSTS_REJECTED.", delay: 11200, type: "system" },
+  { text: "Fine. Loading portfolio from localhost...", delay: 12000, type: "warning" },
+  { text: "LOCALHOST_PORTFOLIO_LOADED \u2713", delay: 13000, type: "success" },
+  { text: "Nobody wanted me anyway. Welcome to my portfolio \u2192", delay: 13800, type: "final" },
 ];
 
-function Particle({ index }) {
+function Particle() {
   const [particleStyles] = useState(() => ({
     left: `${Math.random() * 100}%`,
     top: `${Math.random() * 100}%`,
@@ -56,25 +62,36 @@ export default function Preloader({ onComplete }) {
   const [messages, setMessages] = useState([]);
   const [glitchActive, setGlitchActive] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [rejectionCount, setRejectionCount] = useState(0);
   const terminalRef = useRef(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  const handleEnter = useCallback(() => {
+    if (stage === "ready") {
+      setStage("exit");
+      setTimeout(() => {
+        if (onComplete) onComplete();
+      }, 1200);
+    }
+  }, [stage, onComplete]);
+
   useEffect(() => {
     // Random glitch effect on logo
     const glitchInterval = setInterval(() => {
-      if (Math.random() > 0.75) {
+      if (Math.random() > 0.65) {
         setGlitchActive(true);
-        setTimeout(() => setGlitchActive(false), 100);
+        setTimeout(() => setGlitchActive(false), 120);
       }
     }, 400);
 
-    // Progress bar
+    // Progress bar - paced to match the messages
     let progress = 0;
+    const totalDuration = 14000;
     const progressInterval = setInterval(() => {
-      progress += Math.random() * 8 + 3;
+      progress += (100 / (totalDuration / 150));
       if (progress >= 100) {
         progress = 100;
         setLoadProgress(100);
@@ -82,17 +99,20 @@ export default function Preloader({ onComplete }) {
       } else {
         setLoadProgress(Math.floor(progress));
       }
-    }, 200);
+    }, 150);
 
     // Terminal messages
-    TERMINAL_MESSAGES.forEach((msg, i) => {
-      setTimeout(() => {
+    const timeouts = TERMINAL_MESSAGES.map((msg) => {
+      return setTimeout(() => {
         setMessages(prev => [...prev, msg]);
+        if (msg.type === "error") {
+          setRejectionCount(prev => prev + 1);
+        }
         if (terminalRef.current) {
           terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
         }
         if (msg.type === "final") {
-          setTimeout(() => setStage("ready"), 300);
+          setTimeout(() => setStage("ready"), 500);
         }
       }, msg.delay);
     });
@@ -100,28 +120,19 @@ export default function Preloader({ onComplete }) {
     return () => {
       clearInterval(progressInterval);
       clearInterval(glitchInterval);
+      timeouts.forEach(clearTimeout);
     };
   }, []);
 
-  const handleEnter = () => {
-    if (stage === "ready") {
-      setStage("exit");
-      // Trigger the curtain exit
-      setTimeout(() => {
-        if (onComplete) onComplete();
-      }, 1200); // Match animation duration
-    }
-  };
-
-  // Auto-enter after ready state
+  // Auto-enter after ready
   useEffect(() => {
     if (stage === "ready") {
       const autoEnter = setTimeout(() => {
         handleEnter();
-      }, 800);
+      }, 4000);
       return () => clearTimeout(autoEnter);
     }
-  }, [stage]);
+  }, [stage, handleEnter]);
 
   return (
     <AnimatePresence mode="wait">
@@ -135,13 +146,13 @@ export default function Preloader({ onComplete }) {
           }}
           transition={{
             duration: 1.2,
-            ease: [0.76, 0, 0.24, 1], // Expo ease
+            ease: [0.76, 0, 0.24, 1],
           }}
         >
           {/* Animated grid background */}
           <div className={styles.gridBackground} />
 
-          {/* Curtain panels for dramatic reveal */}
+          {/* Curtain panels */}
           <motion.div
             className={styles.curtainLeft}
             animate={stage === "exit" ? { x: "-100%" } : { x: "0%" }}
@@ -153,7 +164,7 @@ export default function Preloader({ onComplete }) {
             transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
           />
 
-          {/* Scanning line effect */}
+          {/* Scanning line */}
           <motion.div
             className={styles.scanLine}
             animate={stage === "exit" ? { opacity: 0 } : { y: ["0%", "100%"] }}
@@ -163,7 +174,7 @@ export default function Preloader({ onComplete }) {
           {/* Floating particles */}
           <div className={styles.particleField}>
             {mounted && Array.from({ length: 15 }).map((_, i) => (
-              <Particle key={i} index={i} />
+              <Particle key={i} />
             ))}
           </div>
 
@@ -179,7 +190,6 @@ export default function Preloader({ onComplete }) {
           >
             {/* Logo section with rotating rings */}
             <div className={styles.logoSection}>
-              {/* Ring 1 - Outer */}
               <div className={styles.ringContainer}>
                 <motion.div
                   className={`${styles.ring} ${styles.ringOuter}`}
@@ -187,8 +197,6 @@ export default function Preloader({ onComplete }) {
                   transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
                 />
               </div>
-
-              {/* Ring 2 - Middle */}
               <div className={styles.ringContainer}>
                 <motion.div
                   className={`${styles.ring} ${styles.ringMiddle}`}
@@ -196,8 +204,6 @@ export default function Preloader({ onComplete }) {
                   transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
                 />
               </div>
-
-              {/* Ring 3 - Inner */}
               <div className={styles.ringContainer}>
                 <motion.div
                   className={`${styles.ring} ${styles.ringInner}`}
@@ -206,7 +212,6 @@ export default function Preloader({ onComplete }) {
                 />
               </div>
 
-              {/* Logo with glitch effect */}
               <motion.span
                 className={`${styles.logo} ${glitchActive ? styles.glitchActive : ''}`}
                 data-text="DF"
@@ -221,19 +226,32 @@ export default function Preloader({ onComplete }) {
               >
                 DF
               </motion.span>
+
+              {/* Rejection counter */}
+              {rejectionCount > 0 && (
+                <motion.div
+                  className={styles.rejectionCounter}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  key={rejectionCount}
+                >
+                  <span className={styles.rejectionLabel}>REJECTIONS</span>
+                  <span className={styles.rejectionValue}>{rejectionCount}</span>
+                </motion.div>
+              )}
             </div>
 
             {/* Terminal section */}
             <div className={styles.terminal}>
               <div className={styles.terminalHeader}>
                 <div className={styles.terminalDots}>
-                  <span className={styles.dotRed}></span>
-                  <span className={styles.dotYellow}></span>
-                  <span className={styles.dotGreen}></span>
+                  <span className={styles.terminalDot} style={{ background: '#EF4444' }}></span>
+                  <span className={styles.terminalDot} style={{ background: '#F59E0B' }}></span>
+                  <span className={styles.terminalDot} style={{ background: '#22C55E' }}></span>
                 </div>
-                <span className={styles.terminalTitle}>deshan@portfolio ~ system</span>
-                <span className={styles.liveStatus}>
-                  <span className={styles.liveDot}></span>
+                <span className={styles.terminalTitle}>deshan@portfolio ~ career-applications</span>
+                <span className={styles.terminalStatus}>
+                  <span className={styles.statusPulse}></span>
                   LIVE
                 </span>
               </div>
@@ -247,14 +265,16 @@ export default function Preloader({ onComplete }) {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <span className={styles.timestamp}>
+                    <span className={styles.terminalTime}>
                       [{new Date().toLocaleTimeString('en-US', { hour12: false })}]
                     </span>
-                    <span className={styles.prompt}>$</span>
-                    <span className={styles.message}>
+                    <span className={styles.terminalPrefix}>
+                      {msg.type === "error" ? "\u2717" : msg.type === "success" ? "\u2713" : "$"}
+                    </span>
+                    <span className={styles.terminalText}>
                       {msg.text}
                       {msg.type === "loading" && (
-                        <span className={styles.loadingDots}>...</span>
+                        <span className={styles.cursor}>...</span>
                       )}
                     </span>
                   </motion.div>
@@ -272,23 +292,23 @@ export default function Preloader({ onComplete }) {
                   transition={{ duration: 0.3 }}
                 />
               </div>
-              <span className={styles.progressText}>{loadProgress}%</span>
+              <span className={styles.progressValue}>{loadProgress}%</span>
             </div>
 
             {/* Enter prompt */}
             <AnimatePresence>
               {stage === "ready" && (
                 <motion.div
-                  className={styles.enterPrompt}
+                  className={styles.readyIndicator}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
                 >
                   <motion.span
-                    animate={{ opacity: [1, 0.5, 1] }}
-                    transition={{ duration: 1, repeat: Infinity }}
+                    animate={{ opacity: [1, 0.4, 1] }}
+                    transition={{ duration: 1.2, repeat: Infinity }}
                   >
-                    [ CLICK TO ENTER ]
+                    {"[ CLICK ANYWHERE TO ENTER... they can\u2019t reject that ]"}
                   </motion.span>
                 </motion.div>
               )}
@@ -297,7 +317,7 @@ export default function Preloader({ onComplete }) {
 
           {/* Corner decorations */}
           <div className={`${styles.corner} ${styles.cornerTL}`}>
-            <span>SYS.BOOT</span>
+            <span>GRID.INIT</span>
             <span>v2.0.1</span>
           </div>
           <div className={`${styles.corner} ${styles.cornerTR}`}>
@@ -309,8 +329,8 @@ export default function Preloader({ onComplete }) {
             <span>LON 79.8612°</span>
           </div>
           <div className={`${styles.corner} ${styles.cornerBR}`}>
-            <span>STATUS: {stage === "ready" ? "READY" : "LOADING"}</span>
-            <span>© 2024</span>
+            <span>STATUS: {stage === "ready" ? "LOCALLY HOSTED" : rejectionCount > 0 ? `${rejectionCount} REJECTED` : "CONTACTING..."}</span>
+            <span>© {new Date().getFullYear()}</span>
           </div>
         </motion.div>
       )}

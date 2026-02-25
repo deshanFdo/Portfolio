@@ -27,10 +27,15 @@ export default function SpaceBackground() {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.size = Math.random() * 2;
-                this.color = Math.random() > 0.5 ? "rgba(0, 210, 190, " : "rgba(100, 255, 218, "; // Teal variations
+                this.vx = (Math.random() - 0.5) * 0.3;
+                this.vy = (Math.random() - 0.5) * 0.3;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.opacity = Math.random() * 0.4 + 0.1;
+                this.color = Math.random() > 0.7
+                    ? `rgba(0, 210, 190, `
+                    : Math.random() > 0.5
+                        ? `rgba(200, 200, 220, `
+                        : `rgba(100, 255, 218, `;
             }
 
             update() {
@@ -44,7 +49,7 @@ export default function SpaceBackground() {
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = this.color + "0.5)";
+                ctx.fillStyle = this.color + this.opacity + ")";
                 ctx.fill();
             }
         }
@@ -52,7 +57,7 @@ export default function SpaceBackground() {
         // Initialize particles
         const init = () => {
             particles = [];
-            const count = Math.min(window.innerWidth * 0.05, 100); // Responsive count
+            const count = Math.min(Math.floor(window.innerWidth * 0.04), 80);
             for (let i = 0; i < count; i++) {
                 particles.push(new Particle());
             }
@@ -65,8 +70,7 @@ export default function SpaceBackground() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             // Draw connections
-            ctx.strokeStyle = "rgba(0, 210, 190, 0.05)";
-            ctx.lineWidth = 0.5;
+            ctx.lineWidth = 0.3;
 
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
@@ -74,7 +78,9 @@ export default function SpaceBackground() {
                     const dy = particles[i].y - particles[j].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < 150) {
+                    if (distance < 120) {
+                        const opacity = (1 - distance / 120) * 0.08;
+                        ctx.strokeStyle = `rgba(0, 210, 190, ${opacity})`;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
@@ -102,6 +108,7 @@ export default function SpaceBackground() {
 
     return (
         <div className={styles.background}>
+            <div className={styles.meshGradient} />
             <canvas ref={canvasRef} className={styles.canvas} />
             <div className={styles.overlay} />
         </div>

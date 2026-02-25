@@ -97,6 +97,11 @@
     color: var(--black);
 }
 
+.showInitials .initials {
+    z-index: 5;
+    position: relative;
+}
+
 .imageGlow {
     position: absolute;
     inset: -10px;

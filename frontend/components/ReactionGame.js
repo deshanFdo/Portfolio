@@ -122,7 +122,7 @@ export default function ReactionGame() {
                   <div className={styles.gameContent}>
                     <span className={styles.bigIcon}>⏳</span>
                     <p>Wait for GREEN...</p>
-                    <span className={styles.warning}>Don't click yet!</span>
+                    <span className={styles.warning}>Don&apos;t click yet!</span>
                   </div>
                 )}
 

@@ -4,12 +4,21 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from "fram
 import dynamic from 'next/dynamic';
 import styles from "./Hero.module.css";
 
-// Sound effects hook
+// Sound effects hook - singleton AudioContext
+let audioContext = null;
+function getAudioContext() {
+  if (typeof window === 'undefined') return null;
+  if (!audioContext) {
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  return audioContext;
+}
+
 function useSounds() {
   const playHover = () => {
-    if (typeof window === 'undefined') return;
     try {
-      const context = new (window.AudioContext || window.webkitAudioContext)();
+      const context = getAudioContext();
+      if (!context) return;
       const oscillator = context.createOscillator();
       const gainNode = context.createGain();
       oscillator.connect(gainNode);
@@ -24,9 +33,9 @@ function useSounds() {
   };
 
   const playClick = () => {
-    if (typeof window === 'undefined') return;
     try {
-      const context = new (window.AudioContext || window.webkitAudioContext)();
+      const context = getAudioContext();
+      if (!context) return;
       const oscillator = context.createOscillator();
       const gainNode = context.createGain();
       oscillator.connect(gainNode);
@@ -173,8 +182,8 @@ export default function Hero() {
   const lastName = fullName.split(" ").slice(1).join(" ").toUpperCase() || "FERNANDO";
   const jobTitle = process.env.NEXT_PUBLIC_JOB_TITLE || "Software Engineer";
   const company = process.env.NEXT_PUBLIC_COMPANY || "Sri Lanka Telecom";
-  const github = process.env.NEXT_PUBLIC_GITHUB_URL || "#";
-  const linkedin = process.env.NEXT_PUBLIC_LINKEDIN_URL || "#";
+  const github = process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/deshanFdo";
+  const linkedin = process.env.NEXT_PUBLIC_LINKEDIN_URL || "https://linkedin.com/in/DeshanFdo31";
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -256,7 +265,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              Hello, I'm
+              Hello, I&apos;m
             </motion.h1>
 
             <h2 className={styles.name} data-text={firstName}>
@@ -456,7 +465,7 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
       >
-        <span>© 2024</span>
+        <span>© {new Date().getFullYear()}</span>
         <span>PORTFOLIO v2.0</span>
       </motion.div>
     </section>

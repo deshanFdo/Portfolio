@@ -9,9 +9,9 @@ export default function About() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   // Use environment variables or defaults from CV
-  const fullName = "Deshan Fernando";
+  const fullName = process.env.NEXT_PUBLIC_FULL_NAME || "Deshan Fernando";
   const location = "Sri Lanka";
-  const jobTitle = "Software Engineering Intern | Data-Oriented Software Engineer";
+  const jobTitle = process.env.NEXT_PUBLIC_JOB_TITLE || "Software Engineer";
 
   const stats = [
     { value: "5+", label: "Projects Shipped" },
@@ -130,8 +130,6 @@ export default function About() {
             </div>
 
             {/* Achievements section removed as requested */}
-
-            {/* Download CV button */}
 
             {/* Download CV button */}
             <motion.a

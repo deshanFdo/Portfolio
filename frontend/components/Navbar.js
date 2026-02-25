@@ -59,7 +59,7 @@ export default function Navbar() {
           transition={{ delay: 0.6 }}
           whileHover={{ scale: 1.05 }}
         >
-          Let's Talk
+          Let&apos;s Talk
         </motion.a>
 
         {/* Mobile toggle */}

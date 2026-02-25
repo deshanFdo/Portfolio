@@ -67,11 +67,11 @@ const SKILL_CATEGORIES = [
     icon: "📊",
     description: "Analysis & Intelligence",
     skills: [
-      { name: "Python", level: 90, icon: "PY", projects: [] },
       { name: "pandas", level: 85, icon: "PD", projects: [] },
       { name: "NumPy", level: 82, icon: "NP", projects: [] },
       { name: "EDA", level: 88, icon: "DA", projects: [] },
-      { name: "SQL", level: 90, icon: "DB", projects: ["NexusLink", "Smart Employee System"] },
+      { name: "Matplotlib", level: 80, icon: "MP", projects: [] },
+      { name: "Jupyter", level: 85, icon: "JP", projects: [] },
       { name: "Machine Learning", level: 70, icon: "ML", projects: [] }
     ]
   },
@@ -272,8 +272,8 @@ export default function Skills() {
                 <span className={styles.statLabel}>Technologies</span>
               </div>
               <div className={styles.statItem}>
-                <span className={styles.statValue}>4+</span>
-                <span className={styles.statLabel}>Years Exp</span>
+                <span className={styles.statValue}>3+</span>
+                <span className={styles.statLabel}>Years Learning</span>
               </div>
             </motion.div>
           </motion.div>
@@ -409,7 +409,7 @@ export default function Skills() {
               <div className={styles.terminalLine}>
                 <span className={styles.terminalPrompt}>$</span>
                 <span className={styles.terminalCommand}>
-                  skills --list "{activeData?.category}" --format=visual
+                  skills --list &quot;{activeData?.category}&quot; --format=visual
                 </span>
                 <span className={styles.terminalCursor}>|</span>
               </div>

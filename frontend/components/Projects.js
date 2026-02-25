@@ -16,8 +16,8 @@ const PROJECTS = [
       "Secure email invitations with Google SMTP"
     ],
     featured: true,
-    link: "#",
-    github: "#",
+    link: "https://github.com/deshanFdo",
+    github: "https://github.com/deshanFdo",
     color: "#00D2BE"
   },
   {
@@ -31,8 +31,8 @@ const PROJECTS = [
       "SMART status tracking"
     ],
     featured: false,
-    link: "#",
-    github: "#",
+    link: "https://github.com/deshanFdo",
+    github: "https://github.com/deshanFdo",
     color: "#00A89A"
   },
   {
@@ -46,8 +46,8 @@ const PROJECTS = [
       "JWT secure authentication"
     ],
     featured: false,
-    link: "#",
-    github: "#",
+    link: "https://github.com/deshanFdo",
+    github: "https://github.com/deshanFdo",
     color: "#00F5DD"
   },
   {
@@ -61,9 +61,9 @@ const PROJECTS = [
       "Data consistency"
     ],
     featured: false,
-    link: "#",
-    github: "#",
-    color: "#8A8A8A"
+    link: "https://github.com/deshanFdo",
+    github: "https://github.com/deshanFdo",
+    color: "#00A89A"
   }
 ];
 

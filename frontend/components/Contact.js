@@ -10,9 +10,9 @@ export default function Contact() {
   const [status, setStatus] = useState('idle');
 
   // Use environment variables with fallbacks
-  const email = process.env.NEXT_PUBLIC_EMAIL || "your@email.com";
-  const linkedin = process.env.NEXT_PUBLIC_LINKEDIN_URL || "#";
-  const github = process.env.NEXT_PUBLIC_GITHUB_URL || "#";
+  const email = process.env.NEXT_PUBLIC_EMAIL || "deshanfernando67@gmail.com";
+  const linkedin = process.env.NEXT_PUBLIC_LINKEDIN_URL || "https://linkedin.com/in/DeshanFdo31";
+  const github = process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/deshanFdo";
   const phone = process.env.NEXT_PUBLIC_PHONE || "";
 
   const handleSubmit = (e) => {
@@ -56,10 +56,10 @@ export default function Contact() {
             transition={{ delay: 0.2, duration: 0.5 }}
           >
             <h3 className={styles.contentTitle}>
-              Let's build something <span>amazing</span> together.
+              Let&apos;s build something <span>amazing</span> together.
             </h3>
             <p className={styles.contentDesc}>
-              I'm currently open to new opportunities and collaborations.
+              I&apos;m currently open to new opportunities and collaborations.
               Whether you have a project in mind, want to discuss technology,
               or just want to say hi — my inbox is always open.
             </p>
