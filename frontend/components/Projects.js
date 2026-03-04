@@ -5,6 +5,41 @@ import styles from "./Projects.module.css";
 
 const PROJECTS = [
   {
+    title: "AI Floorplan-to-3D House Generator",
+    role: "Full-Stack + ML Engineer",
+    tech: ["Python", "PyTorch", "YOLO", "OpenCV", "React", "Vite", "REST API"],
+    desc: "End-to-end application converting 2D floorplan images into structured data and 3D house models. Multi-stage AI pipeline combining YOLO detection, segmentation, and geometric post-processing to extract walls, doors, and windows — then procedurally generates a 3D representation. Phase 2 targets AR/VR walkthrough.",
+    features: [
+      "Multi-stage ML pipeline (detection → segmentation → extraction → 3D generation)",
+      "YOLO-based architectural element detection with custom training workflows",
+      "Robust geometric post-processing for clean building primitives",
+      "Artifact-driven debugging with visual overlays & JSON outputs",
+      "Security-focused upload validation & cached inference results",
+      "Colab-ready training notebooks with dataset augmentation pipelines"
+    ],
+    featured: true,
+    link: "https://github.com/deshanFdo",
+    github: "https://github.com/deshanFdo",
+    color: "#00D2BE"
+  },
+  {
+    title: "Enterprise Developer API Portal",
+    role: "Full-Stack Developer",
+    tech: ["React 19", "Vite", "Node.js", "Express 5", "WSO2 API Manager", "Docker", "GitHub Actions"],
+    desc: "Full-stack real-time API dashboard aggregating live Weather, Stock Market, and Cryptocurrency data from multiple external APIs. Showcases enterprise API management patterns with WSO2 API Manager as gateway, CI/CD pipelines, and dual deployment strategy.",
+    features: [
+      "Live data from 3 API domains (Weather, Stocks, Crypto)",
+      "WSO2 API Manager 4.3 gateway with JWT validation",
+      "CI/CD: GitHub Actions build + auto-deploy to GitHub Pages",
+      "Dual deployment: Render (full-stack) + GitHub Pages (static fallback)",
+      "Glassmorphism dark-theme responsive dashboard UI"
+    ],
+    featured: false,
+    link: "https://api-portal-2maq.onrender.com",
+    github: "https://github.com/deshanFdo/apiPortal",
+    color: "#00F5DD"
+  },
+  {
     title: "NexusLink",
     role: "Full-Stack Developer",
     tech: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Zustand", "Tailwind CSS"],
@@ -15,10 +50,10 @@ const PROJECTS = [
       "Version history & document tracking",
       "Secure email invitations with Google SMTP"
     ],
-    featured: true,
+    featured: false,
     link: "https://github.com/deshanFdo",
     github: "https://github.com/deshanFdo",
-    color: "#00D2BE"
+    color: "#00A89A"
   },
   {
     title: "Smart Employee System",
@@ -48,7 +83,7 @@ const PROJECTS = [
     featured: false,
     link: "https://github.com/deshanFdo",
     github: "https://github.com/deshanFdo",
-    color: "#00F5DD"
+    color: "#00D2BE"
   },
   {
     title: "Airline Seat Booking",
