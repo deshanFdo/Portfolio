@@ -11,10 +11,11 @@ const EXPERIENCE = [
     period: "Jun 2025 - Present",
     current: true,
     highlights: [
-      "Engineered high-performance RESTful API endpoints for 'Smart Employee' platform using Node.js",
-      "Architected strict server-client panel isolation mechanism for 100% data privacy compliance",
-      "Revamped assessor frontend using React with local caching and parallel data prefetching",
-      "Led migration from legacy database structures to robust, normalized schemas"
+      "Engineered RESTful backend endpoints using Node.js and Express.js for the Smart Employee System, enabling assessment creation, RBAC-controlled data access, and status management for 8+ user roles",
+      "Implemented secure role-based access control (RBAC) using JWT authentication with middleware-level route protection and dynamic permission resolution across admin and assessor panels",
+      "Refactored and optimized React components across assessor-facing panels, introducing local caching strategies, parallel data prefetching, and debounced API calls, reducing load times and improving UI responsiveness",
+      "Improved API response efficiency by restructuring database queries, applying selective field projection, and implementing paginated endpoints, reducing average response time by approximately 40%",
+      "Followed Agile workflow with Jira for sprint planning and task tracking, participated in daily standups and code reviews, and maintained clean documentation for all developed modules"
     ]
   }
 ];
@@ -22,14 +23,14 @@ const EXPERIENCE = [
 const EDUCATION = [
   {
     degree: "BSc (Hons) in Computer Science",
-    institution: "University of Westminster, UK",
+    institution: "University of Westminster, UK (at IIT, Sri Lanka)",
     period: "Jan 2023 - Present",
     status: "Reading",
-    coursework: ["Advanced Algorithms", "Database Architecture", "OOP"]
+    coursework: ["Software Engineering", "Database Systems", "Algorithms & Data Structures", "OOP"]
   },
   {
     degree: "Foundation Certificate in Higher Education IT",
-    institution: "IIT, Sri Lanka",
+    institution: "Informatics Institute of Technology, Sri Lanka",
     period: "Jan 2023 - Sep 2023",
     status: "Distinction"
   }

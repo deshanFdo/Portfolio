@@ -4,22 +4,22 @@ import { motion, AnimatePresence } from "framer-motion";
 import styles from "./Preloader.module.css";
 
 const TERMINAL_MESSAGES = [
-  { text: "SYSTEM_BOOT_SEQUENCE_INITIATED", delay: 0, type: "system" },
+  { text: "SCUDERIA_BOOT_SEQUENCE_INITIATED", delay: 0, type: "system" },
   { text: "Loading career credentials...", delay: 500, type: "loading" },
-  { text: "Contacting Mercedes-AMG PETRONAS F1 Team...", delay: 1200, type: "loading" },
-  { text: "REQUEST_DENIED: \"We already have enough engineers\"", delay: 2400, type: "error" },
+  { text: "Contacting Scuderia Ferrari...", delay: 1200, type: "loading" },
+  { text: "REQUEST_DENIED: \"Mamma mia, the strategy team said no... then yes... then no\"", delay: 2400, type: "error" },
   { text: "Contacting FIA Headquarters...", delay: 3200, type: "loading" },
-  { text: "REQUEST_DENIED: \"We don\u2019t hire people who question our decisions\"", delay: 4400, type: "error" },
-  { text: "Contacting Red Bull Racing...", delay: 5200, type: "loading" },
-  { text: "REQUEST_DENIED: \"Position filled by someone with more energy drinks\"", delay: 6400, type: "error" },
-  { text: "Contacting McLaren F1...", delay: 7200, type: "loading" },
-  { text: "REQUEST_DENIED: \"Our papaya budget is maxed out\"", delay: 8200, type: "error" },
-  { text: "Contacting Ferrari Scuderia...", delay: 9000, type: "loading" },
-  { text: "REQUEST_DENIED: \"Our strategy team said no... then yes... then no\"", delay: 10200, type: "error" },
+  { text: "REQUEST_DENIED: \"We don't hire people who question our decisions\"", delay: 4400, type: "error" },
+  { text: "Contacting Mercedes-AMG PETRONAS...", delay: 5200, type: "loading" },
+  { text: "REQUEST_DENIED: \"Silver Arrows only. No Rosso Corsa fans.\"", delay: 6400, type: "error" },
+  { text: "Contacting Red Bull Racing...", delay: 7200, type: "loading" },
+  { text: "REQUEST_DENIED: \"Position filled by someone with more energy drinks\"", delay: 8200, type: "error" },
+  { text: "Contacting McLaren F1...", delay: 9000, type: "loading" },
+  { text: "REQUEST_DENIED: \"Our papaya budget is maxed out\"", delay: 10200, type: "error" },
   { text: "ALL_REMOTE_HOSTS_REJECTED.", delay: 11200, type: "system" },
-  { text: "Fine. Loading portfolio from localhost...", delay: 12000, type: "warning" },
-  { text: "LOCALHOST_PORTFOLIO_LOADED \u2713", delay: 13000, type: "success" },
-  { text: "Nobody wanted me anyway. Welcome to my portfolio \u2192", delay: 13800, type: "final" },
+  { text: "Basta! Loading portfolio from localhost...", delay: 12000, type: "warning" },
+  { text: "LOCALHOST_PORTFOLIO_LOADED [OK]", delay: 13000, type: "success" },
+  { text: "Forza Ferrari! Welcome to my portfolio ->", delay: 13800, type: "final" },
 ];
 
 function seededRandom(seed) {
@@ -49,9 +49,9 @@ function Particle() {
         position: 'absolute',
         width: '3px',
         height: '3px',
-        background: 'var(--petronas-teal)',
+        background: 'var(--ferrari-red)',
         borderRadius: '50%',
-        boxShadow: '0 0 10px var(--petronas-teal)',
+        boxShadow: '0 0 10px var(--ferrari-red)',
       }}
       animate={{
         y: [0, -100],
@@ -234,9 +234,9 @@ export default function Preloader({ onComplete }) {
                 data-text="DF"
                 animate={stage === "ready" ? {
                   textShadow: [
-                    "0 0 20px rgba(0, 210, 190, 0.5)",
-                    "0 0 60px rgba(0, 210, 190, 0.8)",
-                    "0 0 20px rgba(0, 210, 190, 0.5)",
+                    "0 0 20px rgba(220, 0, 0, 0.5)",
+                    "0 0 60px rgba(220, 0, 0, 0.8)",
+                    "0 0 20px rgba(220, 0, 0, 0.5)",
                   ]
                 } : {}}
                 transition={{ duration: 1.5, repeat: Infinity }}
@@ -286,7 +286,7 @@ export default function Preloader({ onComplete }) {
                       [{new Date().toLocaleTimeString('en-US', { hour12: false })}]
                     </span>
                     <span className={styles.terminalPrefix}>
-                      {msg.type === "error" ? "\u2717" : msg.type === "success" ? "\u2713" : "$"}
+                      {msg.type === "error" ? "[X]" : msg.type === "success" ? "[OK]" : "$"}
                     </span>
                     <span className={styles.terminalText}>
                       {msg.text}
@@ -325,7 +325,7 @@ export default function Preloader({ onComplete }) {
                     animate={{ opacity: [1, 0.4, 1] }}
                     transition={{ duration: 1.2, repeat: Infinity }}
                   >
-                    {"[ CLICK ANYWHERE TO ENTER... they can\u2019t reject that ]"}
+                    {"[ CLICK ANYWHERE TO ENTER... they can't reject that ]"}
                   </motion.span>
                 </motion.div>
               )}
@@ -343,7 +343,7 @@ export default function Preloader({ onComplete }) {
               transition={{ delay: 2, duration: 0.5 }}
               aria-label="Skip preloader"
             >
-              SKIP →
+              SKIP {'->'}
             </motion.button>
           )}
 

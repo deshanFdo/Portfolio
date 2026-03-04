@@ -1,7 +1,7 @@
 .contact {
     padding: 8rem 2rem;
     position: relative;
-    background: linear-gradient(180deg, transparent 0%, rgba(0, 210, 190, 0.02) 50%, transparent 100%);
+    background: linear-gradient(180deg, transparent 0%, rgba(220, 0, 0, 0.02) 50%, transparent 100%);
 }
 
 .inner {
@@ -21,10 +21,10 @@
     font-family: 'Orbitron', sans-serif;
     font-size: 0.9rem;
     font-weight: 700;
-    color: var(--petronas-teal);
+    color: var(--ferrari-red);
     padding: 0.5rem 1rem;
-    background: rgba(0, 210, 190, 0.1);
-    border: 1px solid var(--border-teal);
+    background: rgba(220, 0, 0, 0.1);
+    border: 1px solid var(--border-accent);
     border-radius: 6px;
 }
 
@@ -39,7 +39,7 @@
 .titleLine {
     flex: 1;
     height: 1px;
-    background: linear-gradient(90deg, var(--border-teal), transparent);
+    background: linear-gradient(90deg, var(--border-accent), transparent);
 }
 
 /* Grid */
@@ -64,7 +64,7 @@
 }
 
 .contentTitle span {
-    color: var(--petronas-teal);
+    color: var(--ferrari-red);
 }
 
 .contentDesc {
@@ -123,11 +123,11 @@
 
 .contactMethod:hover .methodArrow {
     transform: translateX(4px);
-    color: var(--petronas-teal);
+    color: var(--ferrari-red);
 }
 
 .contactMethod:hover .methodValue {
-    color: var(--petronas-teal);
+    color: var(--ferrari-red);
 }
 
 /* Form */
@@ -146,7 +146,7 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--petronas-teal), var(--petronas-teal-light));
+    background: linear-gradient(90deg, var(--ferrari-red), var(--ferrari-red-light));
     border-radius: 20px 20px 0 0;
 }
 
@@ -161,7 +161,7 @@
 }
 
 .formIcon {
-    color: var(--petronas-teal);
+    color: var(--ferrari-red);
 }
 
 .inputGroup {
@@ -199,8 +199,8 @@
 .inputGroup input:focus,
 .inputGroup textarea:focus {
     outline: none;
-    border-color: var(--petronas-teal);
-    box-shadow: 0 0 0 3px rgba(0, 210, 190, 0.1);
+    border-color: var(--ferrari-red);
+    box-shadow: 0 0 0 3px rgba(220, 0, 0, 0.1);
 }
 
 .inputGroup textarea {
@@ -216,7 +216,7 @@
     justify-content: center;
     gap: 0.75rem;
     padding: 1rem 2rem;
-    background: var(--petronas-teal);
+    background: var(--ferrari-red);
     color: var(--black);
     font-size: 1rem;
     font-weight: 700;
@@ -244,7 +244,7 @@
 }
 
 .submitBtn:hover {
-    box-shadow: 0 0 30px var(--petronas-glow);
+    box-shadow: 0 0 30px var(--ferrari-glow);
 }
 
 .submitBtn:disabled {

@@ -32,7 +32,7 @@ class ErrorBoundary extends React.Component {
             padding: "2rem",
           }}
         >
-          <h1 style={{ fontSize: "2rem", marginBottom: "1rem", color: "#00D2BE" }}>
+          <h1 style={{ fontSize: "2rem", marginBottom: "1rem", color: "#DC0000" }}>
             Something went wrong
           </h1>
           <p style={{ color: "rgba(255,255,255,0.6)", marginBottom: "2rem", maxWidth: "400px" }}>
@@ -42,8 +42,8 @@ class ErrorBoundary extends React.Component {
             onClick={() => window.location.reload()}
             style={{
               background: "transparent",
-              border: "1px solid #00D2BE",
-              color: "#00D2BE",
+              border: "1px solid #DC0000",
+              color: "#DC0000",
               padding: "0.8rem 2rem",
               fontFamily: "'Orbitron', monospace",
               fontSize: "0.9rem",

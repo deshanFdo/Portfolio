@@ -23,7 +23,7 @@
 .gridLineV,
 .gridLineH {
     position: absolute;
-    background: rgba(0, 210, 190, 0.03);
+    background: rgba(220, 0, 0, 0.03);
 }
 
 .gridLineV {
@@ -50,7 +50,7 @@
 .corner::after {
     content: '';
     position: absolute;
-    background: var(--petronas-teal);
+    background: var(--ferrari-red);
     opacity: 0.3;
 }
 

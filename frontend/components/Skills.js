@@ -8,94 +8,99 @@ const SKILL_CATEGORIES = [
   {
     id: "languages",
     category: "Languages",
-    icon: "⚡",
+    icon: "\u26A1",
     description: "Core programming languages",
     skills: [
-      { name: "JavaScript", level: 95, icon: "JS", projects: ["NexusLink", "Smart Employee System", "LawLinkLK"] },
+      { name: "JavaScript", level: 95, icon: "JS", projects: ["API Portal", "Smart Employee System", "LawLinkLK"] },
       { name: "TypeScript", level: 90, icon: "TS", projects: ["NexusLink", "Smart Employee System"] },
       { name: "Java", level: 85, icon: "JV", projects: ["Airline Seat Booking"] },
-      { name: "Python", level: 80, icon: "PY", projects: [] },
+      { name: "Python", level: 80, icon: "PY", projects: ["AI Floorplan Generator"] },
       { name: "C#", level: 75, icon: "C#", projects: [] },
-      { name: "SQL", level: 85, icon: "DB", projects: ["NexusLink", "Smart Employee System"] }
+      { name: "SQL", level: 85, icon: "DB", projects: ["Smart Employee System", "NexusLink"] }
     ]
   },
   {
     id: "frontend",
     category: "Frontend",
-    icon: "🎨",
+    icon: "\uD83C\uDFA8",
     description: "UI/UX development",
     skills: [
-      { name: "React.js", level: 95, icon: "RE", projects: ["NexusLink", "Smart Employee System", "LawLinkLK"] },
-      { name: "HTML5", level: 95, icon: "HT", projects: ["NexusLink", "Smart Employee System", "LawLinkLK"] },
-      { name: "CSS3", level: 92, icon: "CS", projects: ["NexusLink", "Smart Employee System", "LawLinkLK"] },
+      { name: "React.js", level: 95, icon: "RE", projects: ["API Portal", "Smart Employee System", "LawLinkLK"] },
+      { name: "HTML5", level: 95, icon: "HT", projects: ["API Portal", "Smart Employee System", "LawLinkLK"] },
+      { name: "CSS3", level: 92, icon: "CS", projects: ["API Portal", "Smart Employee System", "LawLinkLK"] },
       { name: "Tailwind", level: 88, icon: "TW", projects: ["NexusLink"] },
-      { name: "Bootstrap", level: 85, icon: "BS", projects: [] },
-      { name: "Material-UI", level: 82, icon: "MU", projects: ["LawLinkLK"] }
+      { name: "Material UI", level: 82, icon: "MU", projects: ["LawLinkLK"] },
+      { name: "Axios", level: 90, icon: "AX", projects: ["API Portal", "Smart Employee System"] }
     ]
   },
   {
     id: "backend",
     category: "Backend",
-    icon: "⚙️",
+    icon: "\u2699\uFE0F",
     description: "Server-side development",
     skills: [
-      { name: "Node.js", level: 92, icon: "ND", projects: ["Smart Employee System", "LawLinkLK"] },
-      { name: "Express", level: 90, icon: "EX", projects: ["LawLinkLK"] },
-      { name: "ASP.NET", level: 78, icon: "NT", projects: [] },
-      { name: "REST APIs", level: 95, icon: "AP", projects: ["Smart Employee System", "Airline Seat Booking"] },
-      { name: "Socket.io", level: 85, icon: "IO", projects: ["LawLinkLK"] },
-      { name: "JWT Auth", level: 88, icon: "JW", projects: ["LawLinkLK"] }
+      { name: "Node.js", level: 92, icon: "ND", projects: ["API Portal", "Smart Employee System", "LawLinkLK"] },
+      { name: "Express.js", level: 90, icon: "EX", projects: ["API Portal", "LawLinkLK"] },
+      { name: "REST APIs", level: 95, icon: "AP", projects: ["API Portal", "Smart Employee System", "Airline Seat Booking"] },
+      { name: "JWT & RBAC", level: 88, icon: "JW", projects: ["Smart Employee System", "LawLinkLK"] },
+      { name: "MVC Pattern", level: 85, icon: "MV", projects: ["Smart Employee System", "LawLinkLK"] },
+      { name: "Socket.io", level: 85, icon: "IO", projects: ["LawLinkLK"] }
+    ]
+  },
+  {
+    id: "api",
+    category: "API & Databases",
+    icon: "\uD83D\uDD17",
+    description: "API management & data stores",
+    skills: [
+      { name: "WSO2 API Manager", level: 82, icon: "W2", projects: ["API Portal"] },
+      { name: "OpenAPI 3.0", level: 80, icon: "OA", projects: ["API Portal"] },
+      { name: "MySQL", level: 88, icon: "MY", projects: ["Smart Employee System"] },
+      { name: "MongoDB", level: 82, icon: "MG", projects: ["LawLinkLK"] },
+      { name: "Postman", level: 92, icon: "PM", projects: ["API Portal", "Smart Employee System"] },
+      { name: "PostgreSQL", level: 78, icon: "PG", projects: ["NexusLink"] }
     ]
   },
   {
     id: "tools",
     category: "DevOps & Tools",
-    icon: "🛠️",
+    icon: "\uD83D\uDEE0\uFE0F",
     description: "Infrastructure & workflows",
     skills: [
-      { name: "Git & GitHub", level: 95, icon: "GT", projects: ["NexusLink", "Smart Employee System"] },
-      { name: "Postman", level: 92, icon: "PM", projects: ["Smart Employee System", "Airline Seat Booking"] },
-      { name: "Azure (Fund.)", level: 80, icon: "AZ", projects: [] },
-      { name: "Linux", level: 75, icon: "LX", projects: [] },
-      { name: "Vercel/Render", level: 85, icon: "DP", projects: ["LawLinkLK"] },
-      { name: "Jira", level: 88, icon: "JA", projects: ["Smart Employee System"] }
-    ]
-  },
-  {
-    id: "data",
-    category: "Data & Analytics",
-    icon: "📊",
-    description: "Analysis & Intelligence",
-    skills: [
-      { name: "pandas", level: 85, icon: "PD", projects: [] },
-      { name: "NumPy", level: 82, icon: "NP", projects: [] },
-      { name: "EDA", level: 88, icon: "DA", projects: [] },
-      { name: "Matplotlib", level: 80, icon: "MP", projects: [] },
-      { name: "Jupyter", level: 85, icon: "JP", projects: [] },
-      { name: "Machine Learning", level: 70, icon: "ML", projects: [] }
+      { name: "Git & GitHub", level: 95, icon: "GT", projects: ["API Portal", "Smart Employee System"] },
+      { name: "Docker", level: 78, icon: "DK", projects: ["API Portal"] },
+      { name: "CI/CD (GitHub Actions)", level: 80, icon: "CI", projects: ["API Portal"] },
+      { name: "Jira", level: 88, icon: "JA", projects: ["Smart Employee System"] },
+      { name: "Vercel / Render", level: 85, icon: "DP", projects: ["API Portal", "LawLinkLK"] },
+      { name: "Linux", level: 75, icon: "LX", projects: [] }
     ]
   },
   {
     id: "certs",
     category: "Certifications",
-    icon: "📜",
+    icon: "\uD83D\uDCDC",
     description: "Professional Achievements",
     skills: [
-      { name: "Postman Student Expert", level: 100, icon: "🏆", projects: [] },
-      { name: "Azure Fundamentals (AZ-900)", level: 100, icon: "☁️", projects: [] },
-      { name: "Python for Data Analysis", level: 100, icon: "🐍", projects: [] },
-      { name: "Meta Database Intro", level: 100, icon: "🗄️", projects: [] },
-      { name: "Cloud Computing Core", level: 100, icon: "☁️", projects: [] },
-      { name: "IEEE Xtreme Leader", level: 100, icon: "🥇", projects: [] }
+      { name: "Postman Student Expert", level: 100, icon: "\uD83C\uDFC6", projects: [] },
+      { name: "Azure Fundamentals (AZ-900)", level: 100, icon: "\u2601\uFE0F", projects: [] },
+      { name: "Python for Data Analysis", level: 100, icon: "\uD83D\uDC0D", projects: [] },
+      { name: "Meta Database Intro", level: 100, icon: "\uD83D\uDDC4\uFE0F", projects: [] },
+      { name: "Cloud Computing Core", level: 100, icon: "\u2601\uFE0F", projects: [] },
+      { name: "IEEE Xtreme Leader (10th Region 10)", level: 100, icon: "\uD83E\uDD47", projects: [] }
     ]
   }
 ];
 
 // Project details for the popup
 const PROJECT_DETAILS = {
+  "API Portal": {
+    role: "Full-Stack Developer",
+    description: "Enterprise API dashboard with WSO2 gateway, live data from Weather, Stocks & Crypto APIs",
+    image: "/images/projects/api-portal.png"
+  },
   "Smart Employee System": {
     role: "Full-Stack Developer",
-    description: "Comprehensive RBAC system for employee assessments at Sri Lanka Telecom",
+    description: "RBAC system for employee assessments at Sri Lanka Telecom with 8+ user roles",
     image: "/images/projects/smart-employee.png"
   },
   "LawLinkLK": {
@@ -112,6 +117,11 @@ const PROJECT_DETAILS = {
     role: "Full-Stack Developer",
     description: "Knowledge-Graph Driven Collaboration Platform with real-time visualization",
     image: "/images/projects/nexuslink.png"
+  },
+  "AI Floorplan Generator": {
+    role: "Full-Stack + ML Engineer",
+    description: "Multi-stage AI pipeline converting 2D floorplans into 3D house models",
+    image: "/images/projects/ai-floorplan.png"
   }
 };
 
@@ -193,7 +203,7 @@ export default function Skills() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.1 }}
-                      whileHover={{ x: 5, backgroundColor: 'rgba(0, 210, 190, 0.1)' }}
+                      whileHover={{ x: 5, backgroundColor: 'rgba(220, 0, 0, 0.1)' }}
                     >
                       <div className={styles.projectThumbnail}>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -216,7 +226,7 @@ export default function Skills() {
               </div>
 
               <div className={styles.popupFooter}>
-                <span className={styles.popupHint}>Click a project to navigate →</span>
+                <span className={styles.popupHint}>Click a project to navigate {'->'}</span>
               </div>
             </motion.div>
           )}
@@ -414,7 +424,7 @@ export default function Skills() {
                 <span className={styles.terminalCursor}>|</span>
               </div>
               <div className={styles.outputLine}>
-                <span className={styles.outputSuccess}>✓</span>
+                <span className={styles.outputSuccess}>[OK]</span>
                 <span>Loaded {activeData?.skills.length} skills successfully</span>
               </div>
             </motion.div>

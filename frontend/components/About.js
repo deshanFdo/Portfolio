@@ -11,7 +11,7 @@ export default function About() {
   // Use environment variables or defaults from CV
   const fullName = process.env.NEXT_PUBLIC_FULL_NAME || "Deshan Fernando";
   const location = "Sri Lanka";
-  const jobTitle = process.env.NEXT_PUBLIC_JOB_TITLE || "Software Engineer";
+  const jobTitle = process.env.NEXT_PUBLIC_JOB_TITLE || "Software Engineering Intern";
 
   const stats = [
     { value: "5+", label: "Projects Shipped" },
@@ -95,7 +95,7 @@ export default function About() {
                 <motion.div
                   key={i}
                   className={styles.statItem}
-                  whileHover={{ scale: 1.05, borderColor: "var(--petronas-teal)" }}
+                  whileHover={{ scale: 1.05, borderColor: "var(--ferrari-red)" }}
                 >
                   <span className={styles.statValue}>{stat.value}</span>
                   <span className={styles.statLabel}>{stat.label}</span>
@@ -112,9 +112,10 @@ export default function About() {
                 whoami
               </h4>
               <p className={styles.bioText}>
-                Detail-oriented software engineering undergraduate with hands-on experience in full-stack development,
-                RESTful API design, secure authentication systems, and data-oriented application development.
-                Strong foundation in backend engineering, frontend frameworks, databases, and Python-based data analysis.
+                Software engineering undergraduate with internship experience building secure,
+                production-oriented web applications. Skilled in REST API design, API gateway patterns,
+                authentication/authorization (JWT, RBAC), and working with SQL/NoSQL databases.
+                Strong foundation in backend engineering, frontend frameworks, and Python-based data analysis.
               </p>
             </div>
 
@@ -124,8 +125,8 @@ export default function About() {
                 career_objective
               </h4>
               <p className={styles.bioText}>
-                Seeking an internship opportunity to contribute to scalable enterprise systems while growing skills
-                in software engineering and data-driven technologies.
+                Seeking opportunities to contribute to scalable enterprise systems while growing skills
+                in software engineering, API management, and data-driven technologies.
               </p>
             </div>
 

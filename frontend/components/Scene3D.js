@@ -29,7 +29,7 @@ function ParticleField({ count = 5000 }) {
       <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
-          color="#00D2BE"
+          color="#DC0000"
           size={0.02}
           sizeAttenuation={true}
           depthWrite={false}
@@ -55,7 +55,7 @@ function FloatingGeometry() {
     <mesh ref={meshRef} position={[2, 0, -2]}>
       <icosahedronGeometry args={[1, 1]} />
       <meshBasicMaterial 
-        color="#00D2BE" 
+        color="#DC0000" 
         wireframe 
         transparent 
         opacity={0.3}
@@ -77,7 +77,7 @@ function TorusRing() {
   return (
     <mesh ref={meshRef} position={[-2, 0, -3]}>
       <torusGeometry args={[1.5, 0.02, 16, 100]} />
-      <meshBasicMaterial color="#00D2BE" transparent opacity={0.4} />
+      <meshBasicMaterial color="#DC0000" transparent opacity={0.4} />
     </mesh>
   );
 }

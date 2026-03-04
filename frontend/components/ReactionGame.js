@@ -56,8 +56,8 @@ export default function ReactionGame() {
 
   const getTimeRating = (time) => {
     if (time < 200) return { text: "INSANE! 🏆", color: "#FFD700" };
-    if (time < 250) return { text: "EXCELLENT! ⚡", color: "#00D2BE" };
-    if (time < 300) return { text: "GREAT! 🔥", color: "#00D2BE" };
+    if (time < 250) return { text: "EXCELLENT! ⚡", color: "#DC0000" };
+    if (time < 300) return { text: "GREAT! 🔥", color: "#DC0000" };
     if (time < 400) return { text: "GOOD 👍", color: "#8A8A8A" };
     return { text: "KEEP TRYING 💪", color: "#8A8A8A" };
   };

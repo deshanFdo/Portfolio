@@ -14,7 +14,7 @@ export function SplineScene({ scene, className }: SplineSceneProps) {
             fallback={
                 <div className="w-full h-full flex items-center justify-center">
                     <div className="animate-pulse">
-                        <div className="w-16 h-16 border-2 border-t-transparent border-[#00D2BE] rounded-full animate-spin"></div>
+                        <div className="w-16 h-16 border-2 border-t-transparent border-[#DC0000] rounded-full animate-spin"></div>
                     </div>
                 </div>
             }

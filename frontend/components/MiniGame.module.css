@@ -7,18 +7,18 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1.25rem;
-    background: var(--petronas-teal);
+    background: var(--ferrari-red);
     color: var(--black);
     border: none;
     border-radius: 50px;
     font-weight: 600;
     font-size: 0.9rem;
     cursor: pointer;
-    box-shadow: 0 4px 20px var(--petronas-glow);
+    box-shadow: 0 4px 20px var(--ferrari-glow);
 }
 
 .floatingBtn:hover {
-    box-shadow: 0 4px 30px var(--petronas-glow), 0 0 40px var(--petronas-glow);
+    box-shadow: 0 4px 30px var(--ferrari-glow), 0 0 40px var(--ferrari-glow);
 }
 
 .gameIcon {
@@ -73,7 +73,7 @@
 }
 
 .closeBtn:hover {
-    background: var(--petronas-teal);
+    background: var(--ferrari-red);
     color: var(--black);
 }
 
@@ -117,14 +117,14 @@
 }
 
 .cell.snake {
-    background: var(--petronas-teal);
-    box-shadow: 0 0 5px var(--petronas-glow);
+    background: var(--ferrari-red);
+    box-shadow: 0 0 5px var(--ferrari-glow);
     border-radius: 3px;
 }
 
 .cell.head {
-    background: var(--petronas-teal-light);
-    box-shadow: 0 0 10px var(--petronas-glow);
+    background: var(--ferrari-red-light);
+    box-shadow: 0 0 10px var(--ferrari-glow);
 }
 
 .cell.food {
@@ -154,12 +154,12 @@
 
 .finalScore {
     font-size: 1.25rem;
-    color: var(--petronas-teal);
+    color: var(--ferrari-red);
 }
 
 .startBtn {
     padding: 0.75rem 2rem;
-    background: var(--petronas-teal);
+    background: var(--ferrari-red);
     color: var(--black);
     border: none;
     border-radius: 8px;
@@ -169,7 +169,7 @@
 }
 
 .startBtn:hover {
-    box-shadow: 0 0 20px var(--petronas-glow);
+    box-shadow: 0 0 20px var(--ferrari-glow);
 }
 
 /* Mobile controls */
@@ -193,7 +193,7 @@
 }
 
 .mobileControls button:active {
-    background: var(--petronas-teal);
+    background: var(--ferrari-red);
     color: var(--black);
 }
 
@@ -236,5 +236,5 @@
     font-family: 'Orbitron', sans-serif;
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--petronas-teal);
+    color: var(--ferrari-red);
 }

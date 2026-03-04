@@ -13,7 +13,7 @@ export default function Contact() {
   const email = process.env.NEXT_PUBLIC_EMAIL || "deshanfernando67@gmail.com";
   const linkedin = process.env.NEXT_PUBLIC_LINKEDIN_URL || "https://linkedin.com/in/DeshanFdo31";
   const github = process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/deshanFdo";
-  const phone = process.env.NEXT_PUBLIC_PHONE || "";
+  const phone = process.env.NEXT_PUBLIC_PHONE || "+94 76 910 6285";
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -61,7 +61,7 @@ export default function Contact() {
             <p className={styles.contentDesc}>
               I&apos;m currently open to new opportunities and collaborations.
               Whether you have a project in mind, want to discuss technology,
-              or just want to say hi — my inbox is always open.
+              or just want to say hi -- my inbox is always open.
             </p>
 
             <div className={styles.contactMethods}>
@@ -75,14 +75,14 @@ export default function Contact() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ delay: 0.4 + (i * 0.1), duration: 0.4 }}
-                  whileHover={{ x: 10, borderColor: "var(--petronas-teal)" }}
+                  whileHover={{ x: 10, borderColor: "var(--ferrari-red)" }}
                 >
                   <span className={styles.methodIcon}>{method.icon}</span>
                   <div className={styles.methodInfo}>
                     <span className={styles.methodLabel}>{method.label}</span>
                     <span className={styles.methodValue}>{method.value}</span>
                   </div>
-                  <span className={styles.methodArrow}>→</span>
+                  <span className={styles.methodArrow}>{'->'}</span>
                 </motion.a>
               ))}
             </div>
@@ -156,7 +156,7 @@ export default function Contact() {
               {status === 'sent' && (
                 <>
                   <span>Message Sent!</span>
-                  <span className={styles.btnIcon}>✓</span>
+                  <span className={styles.btnIcon}>[OK]</span>
                 </>
               )}
             </motion.button>

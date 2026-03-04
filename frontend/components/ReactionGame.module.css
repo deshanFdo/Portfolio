@@ -7,19 +7,19 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1.25rem;
-    background: var(--petronas-teal);
+    background: var(--ferrari-red);
     color: var(--black);
     border: none;
     border-radius: 50px;
     font-weight: 600;
     font-size: 0.9rem;
     cursor: pointer;
-    box-shadow: 0 4px 20px var(--petronas-glow);
+    box-shadow: 0 4px 20px var(--ferrari-glow);
     transition: box-shadow 0.3s ease;
 }
 
 .floatingBtn:hover {
-    box-shadow: 0 4px 30px var(--petronas-glow), 0 0 40px var(--petronas-glow);
+    box-shadow: 0 4px 30px var(--ferrari-glow), 0 0 40px var(--ferrari-glow);
 }
 
 .gameIcon {
@@ -81,9 +81,9 @@
 }
 
 .closeBtn:hover {
-    background: var(--petronas-teal);
+    background: var(--ferrari-red);
     color: var(--black);
-    border-color: var(--petronas-teal);
+    border-color: var(--ferrari-red);
 }
 
 .header {
@@ -139,8 +139,8 @@
 }
 
 .gameArea.ready {
-    background: linear-gradient(135deg, var(--petronas-teal-dark), var(--petronas-teal));
-    border: 2px solid var(--petronas-teal-light);
+    background: linear-gradient(135deg, var(--ferrari-red-dark), var(--ferrari-red));
+    border: 2px solid var(--ferrari-red-light);
     animation: pulseGreen 0.3s ease-in-out infinite;
 }
 
@@ -148,11 +148,11 @@
 
     0%,
     100% {
-        box-shadow: 0 0 30px var(--petronas-glow);
+        box-shadow: 0 0 30px var(--ferrari-glow);
     }
 
     50% {
-        box-shadow: 0 0 60px var(--petronas-glow);
+        box-shadow: 0 0 60px var(--ferrari-glow);
     }
 }
 
@@ -189,10 +189,10 @@
     font-family: 'Orbitron', sans-serif;
     font-size: 4rem;
     font-weight: 900;
-    color: var(--petronas-teal);
+    color: var(--ferrari-red);
     display: block;
     margin-bottom: 0.5rem;
-    text-shadow: 0 0 30px var(--petronas-glow);
+    text-shadow: 0 0 30px var(--ferrari-glow);
 }
 
 .tooEarly {
@@ -232,5 +232,5 @@
     font-family: 'Orbitron', sans-serif;
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--petronas-teal);
+    color: var(--ferrari-red);
 }

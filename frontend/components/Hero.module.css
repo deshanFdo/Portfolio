@@ -20,16 +20,16 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  background: radial-gradient(circle at center, rgba(0, 210, 190, 0.05), transparent);
+  background: radial-gradient(circle at center, rgba(220, 0, 0, 0.05), transparent);
 }
 
 .loaderOrb {
   width: 80px;
   height: 80px;
-  border: 2px solid rgba(0, 210, 190, 0.3);
-  border-top-color: var(--petronas-teal);
+  border: 2px solid rgba(220, 0, 0, 0.3);
+  border-top-color: var(--ferrari-red);
   border-radius: 50%;
-  box-shadow: 0 0 20px rgba(0, 210, 190, 0.2);
+  box-shadow: 0 0 20px rgba(220, 0, 0, 0.2);
 }
 
 .loaderText {
@@ -53,7 +53,7 @@
   left: -10%;
   width: 60%;
   height: 60%;
-  background: radial-gradient(circle, rgba(0, 210, 190, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(220, 0, 0, 0.15) 0%, transparent 70%);
   animation: floatOrb1 15s ease-in-out infinite;
   filter: blur(60px);
 }
@@ -64,7 +64,7 @@
   right: -10%;
   width: 50%;
   height: 50%;
-  background: radial-gradient(circle, rgba(0, 210, 190, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(220, 0, 0, 0.1) 0%, transparent 70%);
   animation: floatOrb2 18s ease-in-out infinite;
   filter: blur(80px);
 }
@@ -132,9 +132,9 @@
   position: absolute;
   width: 2px;
   height: 2px;
-  background: var(--petronas-teal);
+  background: var(--ferrari-red);
   border-radius: 50%;
-  box-shadow: 0 0 6px var(--petronas-glow);
+  box-shadow: 0 0 6px var(--ferrari-glow);
 }
 
 /* Grid overlay with perspective */
@@ -153,9 +153,9 @@
   height: 1px;
   background: linear-gradient(90deg,
       transparent 0%,
-      rgba(0, 210, 190, 0.03) 20%,
-      rgba(0, 210, 190, 0.08) 50%,
-      rgba(0, 210, 190, 0.03) 80%,
+      rgba(220, 0, 0, 0.03) 20%,
+      rgba(220, 0, 0, 0.08) 50%,
+      rgba(220, 0, 0, 0.03) 80%,
       transparent 100%);
 }
 
@@ -187,12 +187,12 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.6rem 1.5rem;
-  background: rgba(0, 210, 190, 0.08);
-  border: 1px solid rgba(0, 210, 190, 0.25);
+  background: rgba(220, 0, 0, 0.08);
+  border: 1px solid rgba(220, 0, 0, 0.25);
   border-radius: 50px;
   margin-bottom: 2rem;
   font-size: 0.85rem;
-  color: var(--petronas-teal);
+  color: var(--ferrari-red);
   letter-spacing: 0.05em;
   backdrop-filter: blur(10px);
 }
@@ -200,7 +200,7 @@
 .statusDot {
   width: 8px;
   height: 8px;
-  background: var(--petronas-teal);
+  background: var(--ferrari-red);
   border-radius: 50%;
 }
 
@@ -229,11 +229,11 @@
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(3rem, 10vw, 6rem);
   font-weight: 900;
-  color: var(--petronas-teal);
+  color: var(--ferrari-red);
   letter-spacing: 0.05em;
   text-shadow:
-    0 0 30px var(--petronas-glow),
-    0 0 50px var(--petronas-glow);
+    0 0 30px var(--ferrari-glow),
+    0 0 50px var(--ferrari-glow);
 }
 
 .nameChar {
@@ -292,7 +292,7 @@
 }
 
 .atSymbol {
-  color: var(--petronas-teal);
+  color: var(--ferrari-red);
   font-weight: 700;
 }
 
@@ -328,9 +328,9 @@
 }
 
 .ctaPrimary {
-  background: linear-gradient(135deg, var(--petronas-teal), var(--petronas-teal-dark));
+  background: linear-gradient(135deg, var(--ferrari-red), var(--ferrari-red-dark));
   color: var(--black);
-  box-shadow: 0 4px 20px rgba(0, 210, 190, 0.3);
+  box-shadow: 0 4px 20px rgba(220, 0, 0, 0.3);
 }
 
 .ctaPrimary::before {
@@ -349,7 +349,7 @@
 }
 
 .ctaPrimary:hover {
-  box-shadow: 0 6px 30px rgba(0, 210, 190, 0.5);
+  box-shadow: 0 6px 30px rgba(220, 0, 0, 0.5);
   transform: translateY(-2px);
 }
 
@@ -360,9 +360,9 @@
 }
 
 .ctaSecondary:hover {
-  border-color: var(--petronas-teal);
-  color: var(--petronas-teal);
-  background: rgba(0, 210, 190, 0.05);
+  border-color: var(--ferrari-red);
+  color: var(--ferrari-red);
+  background: rgba(220, 0, 0, 0.05);
 }
 
 /* Socials */
@@ -394,7 +394,7 @@
   min-height: 500px;
   /* Visualizing the reaction range */
   background: rgba(0, 20, 30, 0.4);
-  border: 1px solid rgba(0, 210, 190, 0.1);
+  border: 1px solid rgba(220, 0, 0, 0.1);
   border-radius: 20px;
   backdrop-filter: blur(5px);
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.3) inset;
@@ -407,7 +407,7 @@
   inset: -1px;
   border-radius: 20px;
   padding: 1px;
-  background: linear-gradient(45deg, var(--petronas-teal), transparent 40%, transparent 60%, var(--petronas-teal));
+  background: linear-gradient(45deg, var(--ferrari-red), transparent 40%, transparent 60%, var(--ferrari-red));
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
@@ -426,13 +426,13 @@
   font-family: 'Orbitron', sans-serif;
   font-size: 0.6rem;
   letter-spacing: 0.2em;
-  color: var(--petronas-teal);
+  color: var(--ferrari-red);
   opacity: 0.6;
   pointer-events: none;
   background: rgba(0, 0, 0, 0.6);
   padding: 0.2rem 0.6rem;
   border-radius: 4px;
-  border: 1px solid rgba(0, 210, 190, 0.2);
+  border: 1px solid rgba(220, 0, 0, 0.2);
 }
 
 .splineWrapper {
@@ -457,8 +457,8 @@
 .loaderRing {
   width: 60px;
   height: 60px;
-  border: 3px solid rgba(0, 210, 190, 0.2);
-  border-top-color: var(--petronas-teal);
+  border: 3px solid rgba(220, 0, 0, 0.2);
+  border-top-color: var(--ferrari-red);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -475,7 +475,7 @@
   left: 50%;
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle, rgba(0, 210, 190, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(220, 0, 0, 0.15) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
   filter: blur(30px);
@@ -511,7 +511,7 @@
   transform: translateX(-50%);
   width: 4px;
   height: 8px;
-  background: var(--petronas-teal);
+  background: var(--ferrari-red);
   border-radius: 2px;
 }
 

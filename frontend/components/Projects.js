@@ -8,9 +8,9 @@ const PROJECTS = [
     title: "AI Floorplan-to-3D House Generator",
     role: "Full-Stack + ML Engineer",
     tech: ["Python", "PyTorch", "YOLO", "OpenCV", "React", "Vite", "REST API"],
-    desc: "End-to-end application converting 2D floorplan images into structured data and 3D house models. Multi-stage AI pipeline combining YOLO detection, segmentation, and geometric post-processing to extract walls, doors, and windows — then procedurally generates a 3D representation. Phase 2 targets AR/VR walkthrough.",
+    desc: "End-to-end application converting 2D floorplan images into structured data and 3D house models. Multi-stage AI pipeline combining YOLO detection, segmentation, and geometric post-processing to extract walls, doors, and windows -- then procedurally generates a 3D representation. Phase 2 targets AR/VR walkthrough.",
     features: [
-      "Multi-stage ML pipeline (detection → segmentation → extraction → 3D generation)",
+      "Multi-stage ML pipeline (detection -> segmentation -> extraction -> 3D generation)",
       "YOLO-based architectural element detection with custom training workflows",
       "Robust geometric post-processing for clean building primitives",
       "Artifact-driven debugging with visual overlays & JSON outputs",
@@ -20,7 +20,7 @@ const PROJECTS = [
     featured: true,
     link: "https://github.com/deshanFdo",
     github: "https://github.com/deshanFdo",
-    color: "#00D2BE"
+    color: "#DC0000"
   },
   {
     title: "Enterprise Developer API Portal",
@@ -37,7 +37,7 @@ const PROJECTS = [
     featured: false,
     link: "https://api-portal-2maq.onrender.com",
     github: "https://github.com/deshanFdo/apiPortal",
-    color: "#00F5DD"
+    color: "#FF2800"
   },
   {
     title: "NexusLink",
@@ -53,37 +53,39 @@ const PROJECTS = [
     featured: false,
     link: "https://github.com/deshanFdo",
     github: "https://github.com/deshanFdo",
-    color: "#00A89A"
+    color: "#A00000"
   },
   {
     title: "Smart Employee System",
     role: "Full-Stack Developer",
-    tech: ["Node.js", "React", "MySQL", "TypeScript"],
-    desc: "Comprehensive Role-Based Access Control (RBAC) system for employee assessments at Sri Lanka Telecom. Enables granular permission management and automated workflows for training assignments.",
+    tech: ["Node.js", "Express.js", "React", "MySQL", "JWT", "RBAC"],
+    desc: "Comprehensive Role-Based Access Control (RBAC) system for employee assessments at Sri Lanka Telecom. Supports 8+ user roles with middleware-level route protection, dynamic permission resolution, paginated endpoints, and optimized database queries reducing response times by ~40%.",
     features: [
-      "RBAC permission management",
-      "Automated training workflows",
-      "SMART status tracking"
+      "RESTful backend with RBAC for 8+ user roles",
+      "JWT authentication with middleware-level route protection",
+      "React assessor panels with local caching and prefetching",
+      "Paginated endpoints reducing avg response time by ~40%"
     ],
     featured: false,
     link: "https://github.com/deshanFdo",
     github: "https://github.com/deshanFdo",
-    color: "#00A89A"
+    color: "#A00000"
   },
   {
     title: "LawLinkLK",
     role: "Full-Stack Developer",
-    tech: ["MERN Stack", "OpenAI API", "Socket.io"],
-    desc: "Real-time legal consultation platform with AI-powered assistant and secure instant messaging between clients and lawyers.",
+    tech: ["MERN Stack", "OpenAI API", "Socket.io", "JWT"],
+    desc: "Real-time legal consultation platform with AI-powered assistant and secure instant messaging between clients and lawyers. Features end-to-end JWT authentication and live case management.",
     features: [
       "Real-time chat with Socket.io",
-      "AI-powered legal assistant",
-      "JWT secure authentication"
+      "AI-powered legal assistant (OpenAI)",
+      "JWT secure authentication",
+      "Live case management dashboard"
     ],
     featured: false,
-    link: "https://github.com/deshanFdo",
+    link: "https://lawlinklk.com",
     github: "https://github.com/deshanFdo",
-    color: "#00D2BE"
+    color: "#DC0000"
   },
   {
     title: "Airline Seat Booking",
@@ -98,7 +100,7 @@ const PROJECTS = [
     featured: false,
     link: "https://github.com/deshanFdo",
     github: "https://github.com/deshanFdo",
-    color: "#00A89A"
+    color: "#A00000"
   }
 ];
 
@@ -145,7 +147,7 @@ function TiltCard({ children, className, index, isInView }) {
       onMouseLeave={handleMouseLeave}
       whileHover={{
         scale: 1.02,
-        boxShadow: "0 25px 50px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 210, 190, 0.15)"
+        boxShadow: "0 25px 50px rgba(0, 0, 0, 0.3), 0 0 30px rgba(220, 0, 0, 0.15)"
       }}
     >
       {children}
@@ -192,7 +194,7 @@ export default function Projects() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.2, duration: 0.6 }}
             whileHover={{
-              boxShadow: `0 30px 60px rgba(0, 210, 190, 0.2), 0 0 0 1px rgba(0, 210, 190, 0.3)`
+              boxShadow: `0 30px 60px rgba(220, 0, 0, 0.2), 0 0 0 1px rgba(220, 0, 0, 0.3)`
             }}
           >
             {/* Animated background gradient */}
@@ -200,9 +202,9 @@ export default function Projects() {
               className={styles.featuredGlow}
               animate={{
                 background: [
-                  `radial-gradient(circle at 0% 0%, rgba(0, 210, 190, 0.15), transparent 50%)`,
-                  `radial-gradient(circle at 100% 100%, rgba(0, 210, 190, 0.15), transparent 50%)`,
-                  `radial-gradient(circle at 0% 0%, rgba(0, 210, 190, 0.15), transparent 50%)`,
+                  `radial-gradient(circle at 0% 0%, rgba(220, 0, 0, 0.15), transparent 50%)`,
+                  `radial-gradient(circle at 100% 100%, rgba(220, 0, 0, 0.15), transparent 50%)`,
+                  `radial-gradient(circle at 0% 0%, rgba(220, 0, 0, 0.15), transparent 50%)`,
                 ]
               }}
               transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
@@ -213,9 +215,9 @@ export default function Projects() {
                 className={styles.featuredBadge}
                 animate={{
                   boxShadow: [
-                    "0 0 10px rgba(0, 210, 190, 0.3)",
-                    "0 0 20px rgba(0, 210, 190, 0.5)",
-                    "0 0 10px rgba(0, 210, 190, 0.3)",
+                    "0 0 10px rgba(220, 0, 0, 0.3)",
+                    "0 0 20px rgba(220, 0, 0, 0.5)",
+                    "0 0 10px rgba(220, 0, 0, 0.3)",
                   ]
                 }}
                 transition={{ duration: 2, repeat: Infinity }}
@@ -228,7 +230,7 @@ export default function Projects() {
             <motion.h3
               className={styles.featuredTitle}
               whileHover={{
-                textShadow: "0 0 30px rgba(0, 210, 190, 0.5)",
+                textShadow: "0 0 30px rgba(220, 0, 0, 0.5)",
                 x: 5
               }}
             >
@@ -244,12 +246,12 @@ export default function Projects() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ delay: 0.5 + i * 0.1 }}
-                  whileHover={{ x: 5, color: "var(--petronas-teal)" }}
+                  whileHover={{ x: 5, color: "var(--ferrari-red)" }}
                 >
                   <motion.span
                     className={styles.featureIcon}
                     animate={{
-                      color: ["var(--petronas-teal)", "var(--petronas-teal-light)", "var(--petronas-teal)"]
+                      color: ["var(--ferrari-red)", "var(--ferrari-red-light)", "var(--ferrari-red)"]
                     }}
                     transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
                   >
@@ -270,8 +272,8 @@ export default function Projects() {
                   transition={{ delay: 0.6 + i * 0.05 }}
                   whileHover={{
                     scale: 1.1,
-                    backgroundColor: "rgba(0, 210, 190, 0.2)",
-                    borderColor: "var(--petronas-teal)"
+                    backgroundColor: "rgba(220, 0, 0, 0.2)",
+                    borderColor: "var(--ferrari-red)"
                   }}
                 >
                   {t}
@@ -286,7 +288,7 @@ export default function Projects() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="View source code on GitHub"
-                whileHover={{ scale: 1.2, color: "var(--petronas-teal)", rotate: 5 }}
+                whileHover={{ scale: 1.2, color: "var(--ferrari-red)", rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
               >
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
@@ -299,7 +301,7 @@ export default function Projects() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="View live demo"
-                whileHover={{ scale: 1.2, color: "var(--petronas-teal)", rotate: -5 }}
+                whileHover={{ scale: 1.2, color: "var(--ferrari-red)", rotate: -5 }}
                 whileTap={{ scale: 0.9 }}
               >
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -338,7 +340,7 @@ export default function Projects() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="View source code on GitHub"
-                    whileHover={{ scale: 1.2, color: "var(--petronas-teal)" }}
+                    whileHover={{ scale: 1.2, color: "var(--ferrari-red)" }}
                   >
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
@@ -350,7 +352,7 @@ export default function Projects() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="View live demo"
-                    whileHover={{ scale: 1.2, color: "var(--petronas-teal)" }}
+                    whileHover={{ scale: 1.2, color: "var(--ferrari-red)" }}
                   >
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
@@ -363,7 +365,7 @@ export default function Projects() {
 
               <motion.h4
                 className={styles.cardTitle}
-                whileHover={{ color: "var(--petronas-teal)" }}
+                whileHover={{ color: "var(--ferrari-red)" }}
               >
                 {project.title}
               </motion.h4>
@@ -374,7 +376,7 @@ export default function Projects() {
                 {project.tech.map((t, j) => (
                   <motion.span
                     key={j}
-                    whileHover={{ color: "var(--petronas-teal)" }}
+                    whileHover={{ color: "var(--ferrari-red)" }}
                   >
                     {t}
                   </motion.span>

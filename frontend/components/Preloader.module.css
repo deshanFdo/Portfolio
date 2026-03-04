@@ -23,12 +23,12 @@
 
 .curtainLeft {
   left: 0;
-  border-right: 1px solid rgba(0, 210, 190, 0.2);
+  border-right: 1px solid rgba(220, 0, 0, 0.2);
 }
 
 .curtainRight {
   right: 0;
-  border-left: 1px solid rgba(0, 210, 190, 0.2);
+  border-left: 1px solid rgba(220, 0, 0, 0.2);
 }
 
 /* Grid background with animated opacity */
@@ -36,8 +36,8 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(0, 210, 190, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 210, 190, 0.04) 1px, transparent 1px);
+    linear-gradient(rgba(220, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(220, 0, 0, 0.04) 1px, transparent 1px);
   background-size: 60px 60px;
   animation: gridPulse 3s ease-in-out infinite;
 }
@@ -62,7 +62,7 @@
   height: 2px;
   background: linear-gradient(90deg,
       transparent,
-      var(--petronas-teal),
+      var(--ferrari-red),
       transparent);
   opacity: 0.3;
   pointer-events: none;
@@ -79,9 +79,9 @@
   position: absolute;
   width: 3px;
   height: 3px;
-  background: var(--petronas-teal);
+  background: var(--ferrari-red);
   border-radius: 50%;
-  box-shadow: 0 0 10px var(--petronas-teal);
+  box-shadow: 0 0 10px var(--ferrari-red);
 }
 
 /* Content - side by side */
@@ -122,31 +122,31 @@
 .ringOuter {
   width: 200px;
   height: 200px;
-  border-top: 2px solid var(--petronas-teal);
+  border-top: 2px solid var(--ferrari-red);
   border-right: 2px solid transparent;
-  border-bottom: 2px solid rgba(0, 210, 190, 0.3);
+  border-bottom: 2px solid rgba(220, 0, 0, 0.3);
   border-left: 2px solid transparent;
-  filter: drop-shadow(0 0 20px var(--petronas-glow));
+  filter: drop-shadow(0 0 20px var(--ferrari-glow));
 }
 
 .ringMiddle {
   width: 160px;
   height: 160px;
   border-top: 2px solid transparent;
-  border-right: 2px solid var(--petronas-teal);
+  border-right: 2px solid var(--ferrari-red);
   border-bottom: 2px solid transparent;
-  border-left: 2px solid rgba(0, 210, 190, 0.5);
-  filter: drop-shadow(0 0 15px var(--petronas-glow));
+  border-left: 2px solid rgba(220, 0, 0, 0.5);
+  filter: drop-shadow(0 0 15px var(--ferrari-glow));
 }
 
 .ringInner {
   width: 120px;
   height: 120px;
-  border-top: 2px solid rgba(0, 210, 190, 0.5);
-  border-right: 2px solid var(--petronas-teal);
-  border-bottom: 2px solid rgba(0, 210, 190, 0.5);
-  border-left: 2px solid var(--petronas-teal);
-  filter: drop-shadow(0 0 10px var(--petronas-glow));
+  border-top: 2px solid rgba(220, 0, 0, 0.5);
+  border-right: 2px solid var(--ferrari-red);
+  border-bottom: 2px solid rgba(220, 0, 0, 0.5);
+  border-left: 2px solid var(--ferrari-red);
+  filter: drop-shadow(0 0 10px var(--ferrari-glow));
 }
 
 /* Logo with glitch effect */
@@ -154,10 +154,10 @@
   font-family: 'Orbitron', sans-serif;
   font-size: 4rem;
   font-weight: 900;
-  color: var(--petronas-teal);
+  color: var(--ferrari-red);
   text-shadow:
-    0 0 30px var(--petronas-glow),
-    0 0 60px var(--petronas-glow);
+    0 0 30px var(--ferrari-glow),
+    0 0 60px var(--ferrari-glow);
   letter-spacing: 0.15em;
   position: relative;
   z-index: 10;
@@ -253,7 +253,7 @@
 
 .progressFill {
   height: 100%;
-  background: var(--petronas-teal);
+  background: var(--ferrari-red);
   position: absolute;
   left: 0;
   top: 0;
@@ -261,7 +261,7 @@
 
 .progressGlow {
   height: 100%;
-  background: linear-gradient(90deg, transparent, var(--petronas-teal-light), transparent);
+  background: linear-gradient(90deg, transparent, var(--ferrari-red-light), transparent);
   position: absolute;
   left: 0;
   top: 0;
@@ -271,7 +271,7 @@
 .progressValue {
   font-family: 'Orbitron', sans-serif;
   font-size: 0.85rem;
-  color: var(--petronas-teal);
+  color: var(--ferrari-red);
   min-width: 45px;
   text-align: right;
   font-weight: 600;
@@ -288,7 +288,7 @@
   border-radius: 12px;
   overflow: hidden;
   box-shadow:
-    0 0 0 1px rgba(0, 210, 190, 0.1),
+    0 0 0 1px rgba(220, 0, 0, 0.1),
     0 20px 50px rgba(0, 0, 0, 0.5);
 }
 
@@ -344,7 +344,7 @@
   height: 320px;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: var(--petronas-teal) transparent;
+  scrollbar-color: var(--ferrari-red) transparent;
 }
 
 .terminalLine {
@@ -367,7 +367,7 @@
 }
 
 .terminalLine.success {
-  color: var(--petronas-teal);
+  color: var(--ferrari-red);
 }
 
 .terminalLine.loading {
@@ -383,12 +383,12 @@
 }
 
 .terminalLine.final {
-  color: var(--petronas-teal);
+  color: var(--ferrari-red);
   font-weight: 600;
 }
 
 .terminalPrefix {
-  color: var(--petronas-teal);
+  color: var(--ferrari-red);
   flex-shrink: 0;
   min-width: 12px;
 }
@@ -406,7 +406,7 @@
 }
 
 .cursor {
-  color: var(--petronas-teal);
+  color: var(--ferrari-red);
   animation: blink 1s step-end infinite;
 }
 
@@ -431,9 +431,9 @@
 .readyIndicator span {
   font-family: 'Orbitron', sans-serif;
   font-size: 0.8rem;
-  color: var(--petronas-teal);
+  color: var(--ferrari-red);
   letter-spacing: 0.2em;
-  text-shadow: 0 0 20px var(--petronas-glow);
+  text-shadow: 0 0 20px var(--ferrari-glow);
   white-space: nowrap;
 }
 
@@ -467,7 +467,7 @@
 .pulseRing,
 .pulseRingOuter {
   position: absolute;
-  border: 2px solid var(--petronas-teal);
+  border: 2px solid var(--ferrari-red);
   border-radius: 50%;
   animation: ripple 2s ease-out infinite;
 }
@@ -513,13 +513,13 @@
 .cornerLine {
   width: 40px;
   height: 1px;
-  background: linear-gradient(90deg, var(--petronas-teal), transparent);
+  background: linear-gradient(90deg, var(--ferrari-red), transparent);
 }
 
 .cornerLineV {
   width: 1px;
   height: 30px;
-  background: linear-gradient(180deg, var(--petronas-teal), transparent);
+  background: linear-gradient(180deg, var(--ferrari-red), transparent);
 }
 
 .cornerTL {
@@ -537,7 +537,7 @@
 }
 
 .cornerTR .cornerLine {
-  background: linear-gradient(90deg, transparent, var(--petronas-teal));
+  background: linear-gradient(90deg, transparent, var(--ferrari-red));
 }
 
 .cornerBL {
@@ -548,7 +548,7 @@
 }
 
 .cornerBL .cornerLineV {
-  background: linear-gradient(180deg, transparent, var(--petronas-teal));
+  background: linear-gradient(180deg, transparent, var(--ferrari-red));
 }
 
 .cornerBR {
@@ -644,6 +644,6 @@
 }
 
 .skipButton:hover {
-  border-color: var(--petronas-teal, #00D2BE);
-  color: var(--petronas-teal, #00D2BE);
+  border-color: var(--ferrari-red, #DC0000);
+  color: var(--ferrari-red, #DC0000);
 }

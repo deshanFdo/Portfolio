@@ -35,14 +35,14 @@
   font-family: 'Orbitron', sans-serif;
   font-size: 1.75rem;
   font-weight: 900;
-  color: var(--petronas-teal);
+  color: var(--ferrari-red);
   letter-spacing: 0.05em;
 }
 
 .logoDot {
   width: 8px;
   height: 8px;
-  background: var(--petronas-teal);
+  background: var(--ferrari-red);
   border-radius: 50%;
   animation: pulse 2s ease-in-out infinite;
 }
@@ -89,13 +89,13 @@
   left: 50%;
   width: 0;
   height: 2px;
-  background: var(--petronas-teal);
+  background: var(--ferrari-red);
   transform: translateX(-50%);
   transition: width 0.3s ease;
 }
 
 .links a:hover {
-  color: var(--petronas-teal);
+  color: var(--ferrari-red);
 }
 
 .links a:hover::after {
@@ -108,14 +108,14 @@
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--black);
-  background: var(--petronas-teal);
+  background: var(--ferrari-red);
   border-radius: 8px;
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
 .cta:hover {
-  box-shadow: 0 0 20px var(--petronas-glow);
+  box-shadow: 0 0 20px var(--ferrari-glow);
 }
 
 /* Toggle */
@@ -140,7 +140,7 @@
 
 .toggle.open span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
-  background: var(--petronas-teal);
+  background: var(--ferrari-red);
 }
 
 .toggle.open span:nth-child(2) {
@@ -149,7 +149,7 @@
 
 .toggle.open span:nth-child(3) {
   transform: rotate(-45deg) translate(5px, -5px);
-  background: var(--petronas-teal);
+  background: var(--ferrari-red);
 }
 
 /* Mobile menu */
@@ -188,9 +188,9 @@
 }
 
 .mobileMenu a:hover {
-  color: var(--petronas-teal);
-  background: rgba(0, 210, 190, 0.05);
-  border-left-color: var(--petronas-teal);
+  color: var(--ferrari-red);
+  background: rgba(220, 0, 0, 0.05);
+  border-left-color: var(--ferrari-red);
   padding-left: 1.5rem;
 }
 

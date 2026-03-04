@@ -15,11 +15,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Deshan Fernando | Software Engineer Portfolio",
   description:
-    "Software Engineer portfolio — Full-stack development, RESTful APIs, and data-driven applications.",
+    "Software Engineer portfolio -- Full-stack development, RESTful APIs, and data-driven applications.",
   openGraph: {
     title: "Deshan Fernando | Software Engineer Portfolio",
     description:
-      "Software Engineer portfolio — Full-stack development, RESTful APIs, and data-driven applications.",
+      "Software Engineer portfolio -- Full-stack development, RESTful APIs, and data-driven applications.",
     type: "website",
     locale: "en_US",
     siteName: "Deshan Fernando",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Deshan Fernando | Software Engineer Portfolio",
     description:
-      "Software Engineer portfolio — Full-stack development, RESTful APIs, and data-driven applications.",
+      "Software Engineer portfolio -- Full-stack development, RESTful APIs, and data-driven applications.",
   },
   icons: {
     icon: "/favicon.ico",

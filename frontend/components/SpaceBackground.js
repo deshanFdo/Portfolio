@@ -32,10 +32,10 @@ export default function SpaceBackground() {
                 this.size = Math.random() * 1.5 + 0.5;
                 this.opacity = Math.random() * 0.4 + 0.1;
                 this.color = Math.random() > 0.7
-                    ? `rgba(0, 210, 190, `
+                    ? `rgba(220, 0, 0, `
                     : Math.random() > 0.5
                         ? `rgba(200, 200, 220, `
-                        : `rgba(100, 255, 218, `;
+                        : `rgba(255, 40, 0, `;
             }
 
             update() {
@@ -80,7 +80,7 @@ export default function SpaceBackground() {
 
                     if (distance < 120) {
                         const opacity = (1 - distance / 120) * 0.08;
-                        ctx.strokeStyle = `rgba(0, 210, 190, ${opacity})`;
+                        ctx.strokeStyle = `rgba(220, 0, 0, ${opacity})`;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);

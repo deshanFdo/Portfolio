@@ -20,8 +20,8 @@ function AnimatedSphere({ position = [0, 0, 0] }) {
             <mesh ref={meshRef} position={position}>
                 <icosahedronGeometry args={[2, 20]} />
                 <MeshDistortMaterial
-                    color="#00D2BE"
-                    emissive="#00D2BE"
+                    color="#DC0000"
+                    emissive="#DC0000"
                     emissiveIntensity={0.3}
                     roughness={0.1}
                     metalness={0.8}
@@ -36,7 +36,7 @@ function AnimatedSphere({ position = [0, 0, 0] }) {
 }
 
 // Orbiting ring
-function OrbitRing({ radius = 3, speed = 1, color = "#00D2BE" }) {
+function OrbitRing({ radius = 3, speed = 1, color = "#DC0000" }) {
     const ringRef = useRef();
 
     useFrame(({ clock }) => {
@@ -89,7 +89,7 @@ function Particles({ count = 100 }) {
                 />
             </bufferGeometry>
             <pointsMaterial
-                color="#00D2BE"
+                color="#DC0000"
                 size={0.05}
                 transparent
                 opacity={0.8}
@@ -113,16 +113,16 @@ export default function Hero3DScene() {
         >
             {/* Lighting */}
             <ambientLight intensity={0.2} />
-            <pointLight position={[10, 10, 10]} intensity={1} color="#00D2BE" />
-            <pointLight position={[-10, -10, -10]} intensity={0.5} color="#00F5DD" />
+            <pointLight position={[10, 10, 10]} intensity={1} color="#DC0000" />
+            <pointLight position={[-10, -10, -10]} intensity={0.5} color="#FF2800" />
 
             {/* Main sphere */}
             <AnimatedSphere />
 
             {/* Orbit rings */}
-            <OrbitRing radius={3} speed={0.5} color="#00D2BE" />
-            <OrbitRing radius={3.5} speed={-0.3} color="#00A89A" />
-            <OrbitRing radius={4} speed={0.2} color="#00F5DD" />
+            <OrbitRing radius={3} speed={0.5} color="#DC0000" />
+            <OrbitRing radius={3.5} speed={-0.3} color="#A00000" />
+            <OrbitRing radius={4} speed={0.2} color="#FF2800" />
 
             {/* Particles */}
             <Particles count={80} />

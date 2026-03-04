@@ -6,7 +6,7 @@
 
 .topBorder {
     height: 3px;
-    background: linear-gradient(90deg, var(--petronas-teal), var(--petronas-teal-light), var(--petronas-teal));
+    background: linear-gradient(90deg, var(--ferrari-red), var(--ferrari-red-light), var(--ferrari-red));
 }
 
 .inner {
@@ -38,13 +38,13 @@
     font-family: 'Orbitron', sans-serif;
     font-size: 2.5rem;
     font-weight: 900;
-    color: var(--petronas-teal);
+    color: var(--ferrari-red);
 }
 
 .logoDot {
     width: 8px;
     height: 8px;
-    background: var(--petronas-teal);
+    background: var(--ferrari-red);
     border-radius: 50%;
 }
 
@@ -84,7 +84,7 @@
 }
 
 .linksSection a:hover {
-    color: var(--petronas-teal);
+    color: var(--ferrari-red);
 }
 
 /* Bottom */

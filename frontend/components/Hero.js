@@ -185,7 +185,7 @@ export default function Hero() {
   const fullName = process.env.NEXT_PUBLIC_FULL_NAME || "Deshan Fernando";
   const firstName = fullName.split(" ")[0]?.toUpperCase() || "DESHAN";
   const lastName = fullName.split(" ").slice(1).join(" ").toUpperCase() || "FERNANDO";
-  const jobTitle = process.env.NEXT_PUBLIC_JOB_TITLE || "Software Engineer";
+  const jobTitle = process.env.NEXT_PUBLIC_JOB_TITLE || "Software Engineering Intern";
   const company = process.env.NEXT_PUBLIC_COMPANY || "Sri Lanka Telecom";
   const github = process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/deshanFdo";
   const linkedin = process.env.NEXT_PUBLIC_LINKEDIN_URL || "https://linkedin.com/in/DeshanFdo31";
@@ -250,8 +250,8 @@ export default function Hero() {
               className={styles.statusDot}
               animate={{
                 boxShadow: [
-                  "0 0 0 0 rgba(0, 210, 190, 0.7)",
-                  "0 0 0 8px rgba(0, 210, 190, 0)",
+                  "0 0 0 0 rgba(220, 0, 0, 0.7)",
+                  "0 0 0 8px rgba(220, 0, 0, 0)",
                 ]
               }}
               transition={{ duration: 1.5, repeat: Infinity }}
@@ -286,8 +286,8 @@ export default function Hero() {
                     className={styles.nameChar}
                     whileHover={{
                       y: -10,
-                      color: '#00F5DD',
-                      textShadow: '0 0 30px rgba(0, 210, 190, 0.8)'
+                      color: '#FF2800',
+                      textShadow: '0 0 30px rgba(220, 0, 0, 0.8)'
                     }}
                     transition={{ type: "spring", stiffness: 300 }}
                     onMouseEnter={playHover}
@@ -325,7 +325,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 1.1 }}
-            whileHover={{ scale: 1.05, borderColor: 'var(--petronas-teal)' }}
+            whileHover={{ scale: 1.05, borderColor: 'var(--ferrari-red)' }}
             onMouseEnter={playHover}
           >
             <span className={styles.atSymbol}>@</span>
@@ -339,8 +339,9 @@ export default function Hero() {
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2 }}
           >
-            Building digital experiences that push boundaries.
-            Passionate about clean code, innovative solutions, and turning ideas into reality.
+            Software engineering undergraduate with internship experience building secure,
+            production-oriented web applications. Skilled in REST API design, API gateway patterns,
+            and full-stack development with modern frameworks.
           </motion.p>
 
           {/* CTAs */}
@@ -379,7 +380,7 @@ export default function Hero() {
             <motion.a
               href={github}
               className={styles.socialLink}
-              whileHover={{ color: 'var(--petronas-teal)' }}
+              whileHover={{ color: 'var(--ferrari-red)' }}
               onMouseEnter={playHover}
               target="_blank"
               rel="noopener noreferrer"
@@ -390,7 +391,7 @@ export default function Hero() {
             <motion.a
               href={linkedin}
               className={styles.socialLink}
-              whileHover={{ color: 'var(--petronas-teal)' }}
+              whileHover={{ color: 'var(--ferrari-red)' }}
               onMouseEnter={playHover}
               target="_blank"
               rel="noopener noreferrer"
