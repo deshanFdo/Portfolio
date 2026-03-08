@@ -21,10 +21,10 @@
     font-family: 'Orbitron', sans-serif;
     font-size: 0.9rem;
     font-weight: 700;
-    color: var(--ferrari-red);
+    color: var(--ferrari-yellow);
     padding: 0.5rem 1rem;
-    background: rgba(220, 0, 0, 0.1);
-    border: 1px solid var(--border-accent);
+    background: rgba(255, 242, 0, 0.08);
+    border: 1px solid rgba(255, 242, 0, 0.2);
     border-radius: 6px;
 }
 
@@ -64,7 +64,8 @@
 }
 
 .contentTitle span {
-    color: var(--ferrari-red);
+    color: var(--ferrari-yellow);
+    text-shadow: 0 0 10px rgba(255, 242, 0, 0.3);
 }
 
 .contentDesc {
@@ -146,7 +147,7 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--ferrari-red), var(--ferrari-red-light));
+    background: linear-gradient(90deg, var(--ferrari-blue), var(--ferrari-white), var(--ferrari-red));
     border-radius: 20px 20px 0 0;
 }
 
@@ -199,8 +200,8 @@
 .inputGroup input:focus,
 .inputGroup textarea:focus {
     outline: none;
-    border-color: var(--ferrari-red);
-    box-shadow: 0 0 0 3px rgba(220, 0, 0, 0.1);
+    border-color: var(--ferrari-blue);
+    box-shadow: 0 0 0 3px rgba(0, 43, 92, 0.2);
 }
 
 .inputGroup textarea {

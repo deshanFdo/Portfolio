@@ -115,11 +115,11 @@ export default function F1Divider({ flip = false }) {
           <circle cx="95" cy="26" r="1.5" fill="#444" />
 
           {/* Ferrari red accent stripe */}
-          <line x1="10" y1="14" x2="110" y2="14" stroke="#DC0000" strokeWidth="1.5" opacity="0.8" />
+          <line x1="10" y1="14" x2="110" y2="14" stroke="#FFFFFF" strokeWidth="1" opacity="0.7" />
 
-          {/* Ferrari yellow side accent */}
-          <path d="M35 6 L85 5 L85 7 L35 8 Z" fill="#DC0000" opacity="0.3" />
-          <path d="M35 22 L85 23 L85 21 L35 20 Z" fill="#DC0000" opacity="0.3" />
+          {/* White side accents - like SF-24 livery */}
+          <path d="M35 6 L85 5 L85 7 L35 8 Z" fill="#FFFFFF" opacity="0.25" />
+          <path d="M35 22 L85 23 L85 21 L35 20 Z" fill="#FFFFFF" opacity="0.25" />
 
           <defs>
             <linearGradient id="carGradient" x1="0" y1="0" x2="120" y2="0">

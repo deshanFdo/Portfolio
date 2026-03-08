@@ -25,6 +25,23 @@
   );
 }
 
+/* White dashed center line */
+.trackLine::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.15) 0px,
+    rgba(255, 255, 255, 0.15) 12px,
+    transparent 12px,
+    transparent 24px
+  );
+}
+
 /* Car wrapper */
 .carContainer {
   position: absolute;

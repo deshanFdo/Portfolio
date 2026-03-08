@@ -60,7 +60,7 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--ferrari-red), var(--ferrari-red-light), var(--ferrari-red));
+    background: linear-gradient(90deg, var(--ferrari-red), var(--ferrari-white), var(--ferrari-blue));
 }
 
 .featuredCorner {
@@ -83,12 +83,13 @@
     font-family: 'Orbitron', sans-serif;
     font-size: 0.7rem;
     font-weight: 600;
-    color: var(--ferrari-red);
+    color: var(--carbon);
     padding: 0.35rem 0.75rem;
-    background: rgba(220, 0, 0, 0.1);
-    border: 1px solid var(--border-accent);
+    background: var(--ferrari-yellow);
+    border: 1px solid var(--ferrari-yellow-dark);
     border-radius: 4px;
     letter-spacing: 0.1em;
+    box-shadow: 0 0 12px rgba(255, 242, 0, 0.3);
 }
 
 .featuredRole {
@@ -142,9 +143,9 @@
     font-size: 0.75rem;
     padding: 0.5rem 1rem;
     background: var(--carbon);
-    border: 1px solid var(--border-subtle);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 6px;
-    color: var(--ferrari-red);
+    color: var(--ferrari-white-soft);
     letter-spacing: 0.05em;
 }
 
@@ -234,7 +235,7 @@
 
 .cardRole {
     font-size: 0.8rem;
-    color: var(--ferrari-red);
+    color: var(--ferrari-white-soft);
     margin-bottom: 0.75rem;
 }
 

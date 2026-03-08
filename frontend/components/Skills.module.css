@@ -568,13 +568,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--ferrari-red);
+  background: var(--ferrari-yellow);
   border-radius: 50%;
   font-family: 'Orbitron', sans-serif;
   font-size: 0.65rem;
   font-weight: 700;
   color: var(--carbon);
-  box-shadow: 0 0 15px var(--ferrari-glow);
+  box-shadow: 0 0 15px rgba(255, 242, 0, 0.4);
   animation: badgePulse 3s ease-in-out infinite;
 }
 
@@ -695,7 +695,7 @@
 
 .levelFill {
   height: 100%;
-  background: linear-gradient(90deg, var(--ferrari-red-dark), var(--ferrari-red));
+  background: linear-gradient(90deg, var(--ferrari-red-dark), var(--ferrari-red), var(--ferrari-yellow));
   border-radius: 2px;
   box-shadow: 0 0 10px var(--ferrari-glow);
 }

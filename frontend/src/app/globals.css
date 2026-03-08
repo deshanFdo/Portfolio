@@ -11,6 +11,17 @@
 
   /* Ferrari Yellow / Accents */
   --ferrari-yellow: #FFF200;
+  --ferrari-yellow-dark: #D4CA00;
+
+  /* Italian Tricolore Blue */
+  --ferrari-blue: #002B5C;
+  --ferrari-blue-light: #1E3A5F;
+  --ferrari-blue-glow: rgba(0, 43, 92, 0.4);
+
+  /* White accents - Ferrari livery */
+  --ferrari-white: #FFFFFF;
+  --ferrari-white-soft: rgba(255, 255, 255, 0.9);
+
   --silver: #C6C6C6;
   --silver-light: #E8E8E8;
   --silver-dark: #8A8A8A;
@@ -78,7 +89,7 @@ body::before {
   bottom: 0;
   background:
     radial-gradient(ellipse 60% 40% at 25% 35%, rgba(220, 0, 0, 0.05) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 35% at 75% 65%, rgba(0, 168, 154, 0.03) 0%, transparent 50%);
+    radial-gradient(ellipse 50% 35% at 75% 65%, rgba(0, 43, 92, 0.04) 0%, transparent 50%);
   pointer-events: none;
   z-index: -1;
 }

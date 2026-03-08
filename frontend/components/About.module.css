@@ -67,7 +67,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--ferrari-red), var(--ferrari-red-dark));
+    background: linear-gradient(90deg, var(--ferrari-red), var(--ferrari-white), var(--ferrari-blue));
 }
 
 /* Image container */
@@ -206,8 +206,9 @@
     font-family: 'Orbitron', sans-serif;
     font-size: 1.75rem;
     font-weight: 700;
-    color: var(--ferrari-red);
+    color: var(--ferrari-yellow);
     margin-bottom: 0.25rem;
+    text-shadow: 0 0 10px rgba(255, 242, 0, 0.3);
 }
 
 .statLabel {
@@ -284,9 +285,9 @@
     gap: 0.75rem;
     padding: 1rem 2rem;
     background: transparent;
-    border: 1px solid var(--ferrari-red);
+    border: 1px solid var(--ferrari-white);
     border-radius: 8px;
-    color: var(--ferrari-red);
+    color: var(--ferrari-white);
     font-weight: 600;
     text-decoration: none;
     transition: all 0.3s ease;
@@ -294,9 +295,9 @@
 }
 
 .downloadBtn:hover {
-    background: var(--ferrari-red);
-    color: var(--black);
-    box-shadow: 0 0 20px var(--ferrari-glow);
+    background: var(--ferrari-white);
+    color: var(--ferrari-red);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
 /* Responsive */

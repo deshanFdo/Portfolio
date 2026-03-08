@@ -6,7 +6,7 @@
 
 .topBorder {
     height: 3px;
-    background: linear-gradient(90deg, var(--ferrari-red), var(--ferrari-red-light), var(--ferrari-red));
+    background: linear-gradient(90deg, var(--ferrari-blue), var(--ferrari-white), var(--ferrari-red), var(--ferrari-white), var(--ferrari-blue));
 }
 
 .inner {

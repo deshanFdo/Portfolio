@@ -250,8 +250,8 @@ export default function Hero() {
               className={styles.statusDot}
               animate={{
                 boxShadow: [
-                  "0 0 0 0 rgba(220, 0, 0, 0.7)",
-                  "0 0 0 8px rgba(220, 0, 0, 0)",
+                  "0 0 0 0 rgba(255, 242, 0, 0.7)",
+                  "0 0 0 8px rgba(255, 242, 0, 0)",
                 ]
               }}
               transition={{ duration: 1.5, repeat: Infinity }}
@@ -286,8 +286,8 @@ export default function Hero() {
                     className={styles.nameChar}
                     whileHover={{
                       y: -10,
-                      color: '#FF2800',
-                      textShadow: '0 0 30px rgba(220, 0, 0, 0.8)'
+                      color: '#FFF200',
+                      textShadow: '0 0 30px rgba(255, 242, 0, 0.6)'
                     }}
                     transition={{ type: "spring", stiffness: 300 }}
                     onMouseEnter={playHover}

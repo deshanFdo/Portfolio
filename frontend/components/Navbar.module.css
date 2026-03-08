@@ -42,9 +42,10 @@
 .logoDot {
   width: 8px;
   height: 8px;
-  background: var(--ferrari-red);
+  background: var(--ferrari-yellow);
   border-radius: 50%;
   animation: pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(255, 242, 0, 0.6);
 }
 
 @keyframes pulse {
@@ -107,14 +108,16 @@
   padding: 0.6rem 1.25rem;
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--black);
-  background: var(--ferrari-red);
+  color: var(--ferrari-red);
+  background: var(--ferrari-white);
   border-radius: 8px;
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
 .cta:hover {
+  background: var(--ferrari-red);
+  color: var(--ferrari-white);
   box-shadow: 0 0 20px var(--ferrari-glow);
 }
 

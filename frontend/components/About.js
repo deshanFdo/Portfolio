@@ -134,9 +134,8 @@ export default function About() {
 
             {/* Download CV button */}
             <motion.a
-              href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/Deshan_Fernando_CV.pdf`}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/Deshan_Fernando_Software_Engineer_Intern_CV.pdf`}
+              download="Deshan_Fernando_CV.pdf"
               className={styles.downloadBtn}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}

@@ -54,6 +54,14 @@
     opacity: 0.3;
 }
 
+.topRight::before,
+.topRight::after,
+.bottomLeft::before,
+.bottomLeft::after {
+    background: var(--ferrari-blue) !important;
+    opacity: 0.25;
+}
+
 .topLeft {
     top: 0;
     left: 0;
