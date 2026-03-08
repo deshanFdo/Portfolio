@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect, Suspense } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import dynamic from 'next/dynamic';
 import styles from "./Hero.module.css";
+import NorrisText from "./NorrisText";
 
 // Lazy load Spline (using local embed to bypass package export issues)
 const Spline = dynamic(
@@ -164,7 +165,7 @@ export default function Hero() {
   }, [mouseX, mouseY]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setHeroReady(true), 140);
+    const timer = setTimeout(() => setHeroReady(true), 40);
     return () => clearTimeout(timer);
   }, []);
 
@@ -259,20 +260,11 @@ export default function Hero() {
                 animate={{ opacity: 1, y: 0, skewY: 0 }}
                 transition={{ delay: 0.7, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >
-                {firstName.split('').map((char, i) => (
-                  <motion.span
-                    key={i}
-                    className={styles.nameChar}
-                    whileHover={{
-                      y: -8,
-                      color: 'var(--ferrari-blue-light)',
-                      textShadow: '0 0 24px rgba(122, 215, 240, 0.45)'
-                    }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    {char}
-                  </motion.span>
-                ))}
+                <NorrisText
+                  text={firstName}
+                  className={styles.norrisName}
+                  charClassName={styles.nameChar}
+                />
               </motion.span>
               <motion.span
                 className={styles.nameLast}
@@ -280,7 +272,11 @@ export default function Hero() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.9, duration: 0.6 }}
               >
-                {lastName}
+                <NorrisText
+                  text={lastName}
+                  className={styles.norrisSurname}
+                  charClassName={styles.nameLastChar}
+                />
               </motion.span>
             </h2>
           </motion.div>

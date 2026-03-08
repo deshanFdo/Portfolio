@@ -266,7 +266,13 @@
 
 .nameChar {
   display: inline-block;
-  cursor: default;
+  min-width: 0.58em;
+}
+
+.norrisName {
+  --c-primary: var(--ferrari-white);
+  --c-secondary: var(--ferrari-blue-light);
+  align-items: flex-start;
 }
 
 .nameLast {
@@ -279,6 +285,18 @@
   background: linear-gradient(90deg, var(--silver-dark), var(--silver), var(--silver-dark));
   -webkit-background-clip: text;
   background-clip: text;
+}
+
+.norrisSurname {
+  --c-primary: var(--silver);
+  --c-secondary: var(--ferrari-yellow);
+  display: inline-flex;
+  letter-spacing: 0.28em;
+  text-shadow: 0 0 18px rgba(247, 204, 92, 0.12);
+}
+
+.nameLastChar {
+  min-width: 0.82em;
 }
 
 /* Role */

@@ -30,22 +30,49 @@
 .logo {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.5rem;
     margin-bottom: 1rem;
 }
 
+.logoTextWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
 .logoText {
+    --c-primary: var(--ferrari-white);
+    --c-secondary: var(--ferrari-blue-light);
     font-family: 'Orbitron', sans-serif;
-    font-size: 2.5rem;
+    font-size: clamp(1.4rem, 4vw, 2.35rem);
     font-weight: 900;
-    color: var(--ferrari-red);
+    text-shadow: 0 0 24px rgba(136, 168, 255, 0.2);
+}
+
+.logoTextSecondary {
+    --c-primary: var(--silver);
+    --c-secondary: var(--ferrari-yellow);
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(0.78rem, 2vw, 1.05rem);
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-shadow: 0 0 18px rgba(247, 204, 92, 0.1);
+}
+
+.logoChar {
+    min-width: 0.62em;
+}
+
+.logoSecondaryChar {
+    min-width: 0.82em;
 }
 
 .logoDot {
     width: 8px;
     height: 8px;
-    background: var(--ferrari-red);
+    background: var(--ferrari-blue-light);
     border-radius: 50%;
+    box-shadow: 0 0 14px rgba(122, 215, 240, 0.45);
 }
 
 .tagline {
@@ -101,6 +128,24 @@
     font-size: 0.85rem;
 }
 
+.copyright {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.copyrightName {
+    --c-primary: var(--text-secondary);
+    --c-secondary: var(--ferrari-blue-light);
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+}
+
+.copyrightChar {
+    min-width: 0.72em;
+}
+
 .made {
     display: flex;
     align-items: center;
@@ -150,6 +195,10 @@
     }
 
     .logo {
+        justify-content: center;
+    }
+
+    .copyright {
         justify-content: center;
     }
 }

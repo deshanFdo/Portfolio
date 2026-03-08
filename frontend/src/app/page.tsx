@@ -22,9 +22,10 @@ const MiniGame = dynamic(() => import("../../components/MiniGame"), { ssr: false
 
 export default function Home() {
   const [showPreloader, setShowPreloader] = useState(true);
+  const [revealContent, setRevealContent] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
-  const contentReady = mounted && !showPreloader;
+  const contentReady = mounted && (revealContent || !showPreloader);
 
   useEffect(() => {
     setMounted(true);
@@ -42,7 +43,10 @@ export default function Home() {
 
       {/* Preloader */}
       {showPreloader && (
-        <Preloader onComplete={() => setShowPreloader(false)} />
+        <Preloader
+          onExitStart={() => setRevealContent(true)}
+          onComplete={() => setShowPreloader(false)}
+        />
       )}
 
       {/* Main content */}

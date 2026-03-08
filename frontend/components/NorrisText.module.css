@@ -1,0 +1,61 @@
+.norrisText {
+  --c-primary: var(--ferrari-white);
+  --c-secondary: var(--ferrari-blue-light);
+  --a-unit: 10ms;
+  --a-time: calc(var(--a-unit) * 3);
+  --a-delay: calc(var(--a-unit) * 5);
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  overflow: hidden;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.char {
+  position: relative;
+  display: inline-block;
+  color: transparent;
+}
+
+.char::before,
+.char::after {
+  content: attr(data-char);
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--c-primary);
+  transition:
+    transform ease-out calc(var(--a-time) * 10),
+    color ease-out calc(var(--a-time) * 10),
+    text-shadow ease-out calc(var(--a-time) * 10);
+  transition-delay: calc(var(--char-index) * var(--a-delay));
+}
+
+.char::before {
+  transform: translateY(0);
+}
+
+.char::after {
+  transform: translateY(100%);
+}
+
+.norrisText:hover {
+  cursor: default;
+}
+
+.norrisText:hover .char::before,
+.norrisText:hover .char::after {
+  color: var(--c-secondary);
+  text-shadow: 0 0 24px rgba(122, 215, 240, 0.45);
+}
+
+.norrisText:hover .char::before {
+  transform: translateY(-100%);
+}
+
+.norrisText:hover .char::after {
+  transform: translateY(0);
+}

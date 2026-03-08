@@ -4,20 +4,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import styles from "./Preloader.module.css";
 
 const TERMINAL_MESSAGES = [
-  { text: "boot sequence initiated", type: "system", speed: 24, hold: 260 },
-  { text: "loading candidate profile bundle...", type: "loading", speed: 18, hold: 220 },
-  { text: "requesting remote runtime from careers.deshan.dev", type: "loading", speed: 18, hold: 260 },
-  { text: "error 503: remote runtime unavailable", type: "error", speed: 16, hold: 380 },
-  { text: "retrying with motion layer package...", type: "loading", speed: 18, hold: 220 },
-  { text: "error 403: animation package rejected by gateway", type: "error", speed: 16, hold: 420 },
-  { text: "falling back to localhost render pipeline", type: "warning", speed: 19, hold: 280 },
-  { text: "injecting hero viewport...", type: "loading", speed: 18, hold: 180 },
-  { text: "hero robot scene mounted", type: "success", speed: 20, hold: 180 },
-  { text: "syncing scroll surfaces and ambient halo", type: "loading", speed: 18, hold: 180 },
-  { text: "ui motion layer online", type: "success", speed: 20, hold: 160 },
-  { text: "verifying final route /", type: "loading", speed: 18, hold: 200 },
-  { text: "localhost portfolio loaded [ok]", type: "success", speed: 20, hold: 250 },
-  { text: "opening portfolio viewport...", type: "final", speed: 22, hold: 500 },
+  { text: "boot sequence initiated", type: "system", speed: 18, hold: 120 },
+  { text: "loading candidate profile bundle...", type: "loading", speed: 14, hold: 110 },
+  { text: "error 503: remote runtime unavailable", type: "error", speed: 13, hold: 170 },
+  { text: "switching to local render pipeline", type: "warning", speed: 14, hold: 120 },
+  { text: "hero scene mounted", type: "success", speed: 15, hold: 100 },
+  { text: "ui motion layer online", type: "success", speed: 15, hold: 100 },
+  { text: "portfolio loaded [ok]", type: "success", speed: 16, hold: 130 },
+  { text: "opening viewport...", type: "final", speed: 18, hold: 180 },
 ];
 
 const MESSAGE_PREFIX = {
@@ -30,8 +24,8 @@ const MESSAGE_PREFIX = {
 };
 
 function seededRandom(seed) {
-  const x = Math.sin(seed * 9301 + 49297) * 233280;
-  return x - Math.floor(x);
+  const value = Math.sin(seed * 9301 + 49297) * 233280;
+  return value - Math.floor(value);
 }
 
 let particleCounter = 0;
@@ -43,7 +37,7 @@ function Particle() {
       left: `${seededRandom(id * 4 + 1) * 100}%`,
       top: `${seededRandom(id * 4 + 2) * 100}%`,
       duration: 3 + seededRandom(id * 4 + 3) * 2,
-      delay: seededRandom(id * 4 + 4) * 2
+      delay: seededRandom(id * 4 + 4) * 2,
     };
   });
 
@@ -53,17 +47,14 @@ function Particle() {
       style={{
         left: particleStyles.left,
         top: particleStyles.top,
-        position: 'absolute',
-        width: '3px',
-        height: '3px',
-        background: 'var(--ferrari-blue)',
-        borderRadius: '50%',
-        boxShadow: '0 0 10px var(--ferrari-blue)',
+        position: "absolute",
+        width: "3px",
+        height: "3px",
+        background: "var(--ferrari-blue)",
+        borderRadius: "50%",
+        boxShadow: "0 0 10px var(--ferrari-blue)",
       }}
-      animate={{
-        y: [0, -100],
-        opacity: [0, 0.8, 0],
-      }}
+      animate={{ y: [0, -100], opacity: [0, 0.8, 0] }}
       transition={{
         duration: particleStyles.duration,
         repeat: Infinity,
@@ -73,7 +64,7 @@ function Particle() {
   );
 }
 
-export default function Preloader({ onComplete }) {
+export default function Preloader({ onComplete, onExitStart }) {
   const [stage, setStage] = useState("loading");
   const [loadProgress, setLoadProgress] = useState(0);
   const [messages, setMessages] = useState([]);
@@ -83,31 +74,43 @@ export default function Preloader({ onComplete }) {
   const [mounted, setMounted] = useState(false);
   const [rejectionCount, setRejectionCount] = useState(0);
   const terminalRef = useRef(null);
+  const exitStartedRef = useRef(false);
+  const completeTimeoutRef = useRef(null);
 
   useEffect(() => {
     setMounted(true);
-  }, [onComplete]);
+
+    return () => {
+      if (completeTimeoutRef.current) {
+        clearTimeout(completeTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const beginExit = useCallback(() => {
-    setStage((currentStage) => {
-      if (currentStage === "exit") return currentStage;
+    if (exitStartedRef.current) {
+      return;
+    }
 
-      setTimeout(() => {
-        if (onComplete) onComplete();
-      }, 1200);
+    exitStartedRef.current = true;
+    setStage("exit");
 
-      return "exit";
-    });
-  }, [onComplete]);
+    if (onExitStart) {
+      onExitStart();
+    }
+
+    completeTimeoutRef.current = setTimeout(() => {
+      if (onComplete) onComplete();
+    }, 720);
+  }, [onComplete, onExitStart]);
 
   useEffect(() => {
-    // Random glitch effect on logo
     const glitchInterval = setInterval(() => {
-      if (Math.random() > 0.65) {
+      if (Math.random() > 0.72) {
         setGlitchActive(true);
-        setTimeout(() => setGlitchActive(false), 120);
+        setTimeout(() => setGlitchActive(false), 90);
       }
-    }, 400);
+    }, 420);
 
     return () => {
       clearInterval(glitchInterval);
@@ -119,7 +122,10 @@ export default function Preloader({ onComplete }) {
     if (!currentMessage || stage === "exit") return;
 
     const textLength = currentMessage.text.length;
-    const normalizedProgress = (currentMessageIndex + Math.min(typedLength / Math.max(textLength, 1), 1)) / TERMINAL_MESSAGES.length;
+    const normalizedProgress =
+      (currentMessageIndex + Math.min(typedLength / Math.max(textLength, 1), 1)) /
+      TERMINAL_MESSAGES.length;
+
     setLoadProgress(Math.min(100, Math.floor(normalizedProgress * 100)));
 
     if (typedLength < textLength) {
@@ -145,7 +151,7 @@ export default function Preloader({ onComplete }) {
 
       if (currentMessageIndex === TERMINAL_MESSAGES.length - 1) {
         setLoadProgress(100);
-        setTimeout(() => beginExit(), 280);
+        setTimeout(() => beginExit(), 120);
         return;
       }
 
@@ -165,42 +171,37 @@ export default function Preloader({ onComplete }) {
         <motion.div
           className={styles.preloader}
           initial={{ opacity: 1 }}
-          exit={{
-            clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)",
-          }}
-          transition={{
-            duration: 1.2,
-            ease: [0.76, 0, 0.24, 1],
-          }}
+          animate={stage === "exit" ? { opacity: 0, scale: 1.02 } : { opacity: 1, scale: 1 }}
+          transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
         >
-          {/* Animated grid background */}
           <div className={styles.gridBackground} />
 
-          {/* Scanning line */}
           <motion.div
             className={styles.scanLine}
             animate={stage === "exit" ? { opacity: 0 } : { y: ["0%", "100%"] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 2.4, repeat: Infinity, ease: "linear" }}
           />
 
-          {/* Floating particles */}
           <div className={styles.particleField}>
-            {mounted && Array.from({ length: 15 }).map((_, i) => (
+            {mounted && Array.from({ length: 12 }).map((_, i) => (
               <Particle key={i} />
             ))}
           </div>
 
-          {/* Main content */}
           <motion.div
             className={styles.content}
-            animate={stage === "exit" ? {
-              scale: 1.1,
-              opacity: 0,
-              filter: "blur(10px)"
-            } : {}}
-            transition={{ duration: 0.6 }}
+            animate={
+              stage === "exit"
+                ? {
+                    scale: 1.03,
+                    y: -18,
+                    opacity: 0,
+                    filter: "blur(8px)",
+                  }
+                : {}
+            }
+            transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
           >
-            {/* Logo section with rotating rings */}
             <div className={styles.logoSection}>
               <div className={styles.ringContainer}>
                 <motion.div
@@ -225,21 +226,24 @@ export default function Preloader({ onComplete }) {
               </div>
 
               <motion.span
-                className={`${styles.logo} ${glitchActive ? styles.glitchActive : ''}`}
+                className={`${styles.logo} ${glitchActive ? styles.glitchActive : ""}`}
                 data-text="DF"
-                animate={stage === "ready" ? {
-                  textShadow: [
-                    "0 0 20px rgba(136, 168, 255, 0.35)",
-                    "0 0 60px rgba(122, 215, 240, 0.45)",
-                    "0 0 20px rgba(136, 168, 255, 0.35)",
-                  ]
-                } : {}}
+                animate={
+                  stage !== "loading"
+                    ? {
+                        textShadow: [
+                          "0 0 20px rgba(136, 168, 255, 0.35)",
+                          "0 0 60px rgba(122, 215, 240, 0.45)",
+                          "0 0 20px rgba(136, 168, 255, 0.35)",
+                        ],
+                      }
+                    : {}
+                }
                 transition={{ duration: 1.5, repeat: Infinity }}
               >
                 DF
               </motion.span>
 
-              {/* Rejection counter */}
               {rejectionCount > 0 && (
                 <motion.div
                   className={styles.rejectionCounter}
@@ -253,13 +257,12 @@ export default function Preloader({ onComplete }) {
               )}
             </div>
 
-            {/* Terminal section */}
             <div className={styles.terminal}>
               <div className={styles.terminalHeader}>
                 <div className={styles.terminalDots}>
-                  <span className={styles.terminalDot} style={{ background: '#EF4444' }}></span>
-                  <span className={styles.terminalDot} style={{ background: '#F59E0B' }}></span>
-                  <span className={styles.terminalDot} style={{ background: '#22C55E' }}></span>
+                  <span className={styles.terminalDot} style={{ background: "#EF4444" }}></span>
+                  <span className={styles.terminalDot} style={{ background: "#F59E0B" }}></span>
+                  <span className={styles.terminalDot} style={{ background: "#22C55E" }}></span>
                 </div>
                 <span className={styles.terminalTitle}>deshan@portfolio ~ career-applications</span>
                 <span className={styles.terminalStatus}>
@@ -275,24 +278,20 @@ export default function Preloader({ onComplete }) {
                     className={`${styles.terminalLine} ${styles[msg.type]}`}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.22 }}
                   >
                     <span className={styles.terminalTime} suppressHydrationWarning>
-                      [{new Date().toLocaleTimeString('en-US', { hour12: false })}]
+                      [{new Date().toLocaleTimeString("en-US", { hour12: false })}]
                     </span>
-                    <span className={styles.terminalPrefix}>
-                      {MESSAGE_PREFIX[msg.type]}
-                    </span>
-                    <span className={styles.terminalText}>
-                      {msg.text}
-                    </span>
+                    <span className={styles.terminalPrefix}>{MESSAGE_PREFIX[msg.type]}</span>
+                    <span className={styles.terminalText}>{msg.text}</span>
                   </motion.div>
                 ))}
 
                 {stage === "loading" && activeMessage && (
                   <div className={`${styles.terminalLine} ${styles[activeMessage.type]} ${styles.typingLine}`}>
                     <span className={styles.terminalTime} suppressHydrationWarning>
-                      [{new Date().toLocaleTimeString('en-US', { hour12: false })}]
+                      [{new Date().toLocaleTimeString("en-US", { hour12: false })}]
                     </span>
                     <span className={styles.terminalPrefix}>{MESSAGE_PREFIX[activeMessage.type]}</span>
                     <span className={styles.terminalText}>
@@ -304,24 +303,22 @@ export default function Preloader({ onComplete }) {
               </div>
             </div>
 
-            {/* Progress bar */}
             <div className={styles.progressContainer}>
               <div className={styles.progressTrack}>
                 <motion.div
                   className={styles.progressFill}
                   initial={{ width: "0%" }}
                   animate={{ width: `${loadProgress}%` }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.18 }}
                 />
               </div>
               <span className={styles.progressValue}>{loadProgress}%</span>
             </div>
           </motion.div>
 
-          {/* Corner decorations */}
           <div className={`${styles.corner} ${styles.cornerTL}`}>
             <span>GRID.INIT</span>
-            <span>v2.0.1</span>
+            <span>v2.1.0</span>
           </div>
           <div className={`${styles.corner} ${styles.cornerTR}`}>
             <span>DESHAN.DEV</span>
@@ -332,7 +329,7 @@ export default function Preloader({ onComplete }) {
             <span>LON 79.8612°</span>
           </div>
           <div className={`${styles.corner} ${styles.cornerBR}`}>
-            <span>STATUS: {stage === "exit" ? "LOCALLY HOSTED" : rejectionCount > 0 ? `${rejectionCount} REJECTED` : "CONTACTING..."}</span>
+            <span>STATUS: {stage === "exit" ? "OPENING" : rejectionCount > 0 ? `${rejectionCount} REJECTED` : "CONTACTING..."}</span>
             <span suppressHydrationWarning>© {new Date().getFullYear()}</span>
           </div>
         </motion.div>

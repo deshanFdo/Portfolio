@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import styles from "./Footer.module.css";
+import NorrisText from "./NorrisText";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -9,6 +10,9 @@ export default function Footer() {
   const github = process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/deshanFdo";
   const linkedin = process.env.NEXT_PUBLIC_LINKEDIN_URL || "https://linkedin.com/in/DeshanFdo31";
   const email = process.env.NEXT_PUBLIC_EMAIL || "deshanfernando67@gmail.com";
+  const fullName = process.env.NEXT_PUBLIC_FULL_NAME || "Deshan Fernando";
+  const firstName = fullName.split(" ")[0]?.toUpperCase() || "DESHAN";
+  const lastName = fullName.split(" ").slice(1).join(" ").toUpperCase() || "FERNANDO";
 
   const socialLinks = [
     { name: "GitHub", href: github, icon: "🐙" },
@@ -25,7 +29,18 @@ export default function Footer() {
           {/* Logo & tagline */}
           <div className={styles.brand}>
             <div className={styles.logo}>
-              <span className={styles.logoText}>DF</span>
+              <div className={styles.logoTextWrap}>
+                <NorrisText
+                  text={firstName}
+                  className={styles.logoText}
+                  charClassName={styles.logoChar}
+                />
+                <NorrisText
+                  text={lastName}
+                  className={styles.logoTextSecondary}
+                  charClassName={styles.logoSecondaryChar}
+                />
+              </div>
               <span className={styles.logoDot} />
             </div>
             <p className={styles.tagline}>
@@ -64,7 +79,15 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className={styles.bottom}>
-          <p suppressHydrationWarning>© {currentYear} {process.env.NEXT_PUBLIC_FULL_NAME || "Deshan Fernando"}. All rights reserved.</p>
+          <p className={styles.copyright} suppressHydrationWarning>
+            <span>© {currentYear}</span>
+            <NorrisText
+              text={fullName.toUpperCase()}
+              className={styles.copyrightName}
+              charClassName={styles.copyrightChar}
+            />
+            <span>All rights reserved.</span>
+          </p>
           <p className={styles.made}>
             Made with <span className={styles.heart}>💚</span> in Sri Lanka
           </p>
