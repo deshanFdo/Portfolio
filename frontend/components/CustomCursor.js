@@ -93,7 +93,9 @@ export default function CustomCursor() {
           width: 32,
           height: 32,
           borderRadius: "50%",
-          border: "1.5px solid rgba(220, 0, 0, 0.5)",
+          border: "1.5px solid rgba(122, 215, 240, 0.45)",
+          background: "rgba(122, 215, 240, 0.06)",
+          backdropFilter: "blur(4px)",
           pointerEvents: "none",
           zIndex: 99998,
           willChange: "transform, opacity",
@@ -111,11 +113,11 @@ export default function CustomCursor() {
           width: 8,
           height: 8,
           borderRadius: "50%",
-          background: "#DC0000",
+          background: "#F7F9FF",
           pointerEvents: "none",
           zIndex: 99999,
           willChange: "transform, opacity",
-          boxShadow: "0 0 10px rgba(220, 0, 0, 0.5)",
+          boxShadow: "0 0 12px rgba(122, 215, 240, 0.45)",
         }}
       />
     </>

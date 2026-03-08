@@ -4,23 +4,30 @@ import { motion, AnimatePresence } from "framer-motion";
 import styles from "./Preloader.module.css";
 
 const TERMINAL_MESSAGES = [
-  { text: "SCUDERIA_BOOT_SEQUENCE_INITIATED", delay: 0, type: "system" },
-  { text: "Loading career credentials...", delay: 500, type: "loading" },
-  { text: "Contacting Scuderia Ferrari...", delay: 1200, type: "loading" },
-  { text: "REQUEST_DENIED: \"Mamma mia, the strategy team said no... then yes... then no\"", delay: 2400, type: "error" },
-  { text: "Contacting FIA Headquarters...", delay: 3200, type: "loading" },
-  { text: "REQUEST_DENIED: \"We don't hire people who question our decisions\"", delay: 4400, type: "error" },
-  { text: "Contacting Mercedes-AMG PETRONAS...", delay: 5200, type: "loading" },
-  { text: "REQUEST_DENIED: \"Silver Arrows only. No Rosso Corsa fans.\"", delay: 6400, type: "error" },
-  { text: "Contacting Red Bull Racing...", delay: 7200, type: "loading" },
-  { text: "REQUEST_DENIED: \"Position filled by someone with more energy drinks\"", delay: 8200, type: "error" },
-  { text: "Contacting McLaren F1...", delay: 9000, type: "loading" },
-  { text: "REQUEST_DENIED: \"Our papaya budget is maxed out\"", delay: 10200, type: "error" },
-  { text: "ALL_REMOTE_HOSTS_REJECTED.", delay: 11200, type: "system" },
-  { text: "Basta! Loading portfolio from localhost...", delay: 12000, type: "warning" },
-  { text: "LOCALHOST_PORTFOLIO_LOADED [OK]", delay: 13000, type: "success" },
-  { text: "Forza Ferrari! Welcome to my portfolio ->", delay: 13800, type: "final" },
+  { text: "boot sequence initiated", type: "system", speed: 24, hold: 260 },
+  { text: "loading candidate profile bundle...", type: "loading", speed: 18, hold: 220 },
+  { text: "requesting remote runtime from careers.deshan.dev", type: "loading", speed: 18, hold: 260 },
+  { text: "error 503: remote runtime unavailable", type: "error", speed: 16, hold: 380 },
+  { text: "retrying with motion layer package...", type: "loading", speed: 18, hold: 220 },
+  { text: "error 403: animation package rejected by gateway", type: "error", speed: 16, hold: 420 },
+  { text: "falling back to localhost render pipeline", type: "warning", speed: 19, hold: 280 },
+  { text: "injecting hero viewport...", type: "loading", speed: 18, hold: 180 },
+  { text: "hero robot scene mounted", type: "success", speed: 20, hold: 180 },
+  { text: "syncing scroll surfaces and ambient halo", type: "loading", speed: 18, hold: 180 },
+  { text: "ui motion layer online", type: "success", speed: 20, hold: 160 },
+  { text: "verifying final route /", type: "loading", speed: 18, hold: 200 },
+  { text: "localhost portfolio loaded [ok]", type: "success", speed: 20, hold: 250 },
+  { text: "opening portfolio viewport...", type: "final", speed: 22, hold: 500 },
 ];
+
+const MESSAGE_PREFIX = {
+  system: "[#]",
+  loading: "$",
+  success: "[OK]",
+  error: "[X]",
+  warning: "[! ]",
+  final: ">",
+};
 
 function seededRandom(seed) {
   const x = Math.sin(seed * 9301 + 49297) * 233280;
@@ -49,9 +56,9 @@ function Particle() {
         position: 'absolute',
         width: '3px',
         height: '3px',
-        background: 'var(--ferrari-red)',
+        background: 'var(--ferrari-blue)',
         borderRadius: '50%',
-        boxShadow: '0 0 10px var(--ferrari-red)',
+        boxShadow: '0 0 10px var(--ferrari-blue)',
       }}
       animate={{
         y: [0, -100],
@@ -70,6 +77,8 @@ export default function Preloader({ onComplete }) {
   const [stage, setStage] = useState("loading");
   const [loadProgress, setLoadProgress] = useState(0);
   const [messages, setMessages] = useState([]);
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+  const [typedLength, setTypedLength] = useState(0);
   const [glitchActive, setGlitchActive] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [rejectionCount, setRejectionCount] = useState(0);
@@ -77,23 +86,19 @@ export default function Preloader({ onComplete }) {
 
   useEffect(() => {
     setMounted(true);
-    // Skip preloader for repeat visitors
-    if (typeof window !== "undefined" && sessionStorage.getItem("preloader_seen")) {
-      if (onComplete) onComplete();
-    }
   }, [onComplete]);
 
-  const handleEnter = useCallback(() => {
-    if (stage === "ready" || stage === "loading") {
-      setStage("exit");
-      if (typeof window !== "undefined") {
-        sessionStorage.setItem("preloader_seen", "1");
-      }
+  const beginExit = useCallback(() => {
+    setStage((currentStage) => {
+      if (currentStage === "exit") return currentStage;
+
       setTimeout(() => {
         if (onComplete) onComplete();
-      }, stage === "loading" ? 400 : 1200);
-    }
-  }, [stage, onComplete]);
+      }, 1200);
+
+      return "exit";
+    });
+  }, [onComplete]);
 
   useEffect(() => {
     // Random glitch effect on logo
@@ -104,59 +109,61 @@ export default function Preloader({ onComplete }) {
       }
     }, 400);
 
-    // Progress bar - paced to match the messages
-    let progress = 0;
-    const totalDuration = 14000;
-    const progressInterval = setInterval(() => {
-      progress += (100 / (totalDuration / 150));
-      if (progress >= 100) {
-        progress = 100;
-        setLoadProgress(100);
-        clearInterval(progressInterval);
-      } else {
-        setLoadProgress(Math.floor(progress));
-      }
-    }, 150);
-
-    // Terminal messages
-    const timeouts = TERMINAL_MESSAGES.map((msg) => {
-      return setTimeout(() => {
-        setMessages(prev => [...prev, msg]);
-        if (msg.type === "error") {
-          setRejectionCount(prev => prev + 1);
-        }
-        if (terminalRef.current) {
-          terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
-        }
-        if (msg.type === "final") {
-          setTimeout(() => setStage("ready"), 500);
-        }
-      }, msg.delay);
-    });
-
     return () => {
-      clearInterval(progressInterval);
       clearInterval(glitchInterval);
-      timeouts.forEach(clearTimeout);
     };
   }, []);
 
-  // Auto-enter after ready
   useEffect(() => {
-    if (stage === "ready") {
-      const autoEnter = setTimeout(() => {
-        handleEnter();
-      }, 4000);
-      return () => clearTimeout(autoEnter);
+    const currentMessage = TERMINAL_MESSAGES[currentMessageIndex];
+    if (!currentMessage || stage === "exit") return;
+
+    const textLength = currentMessage.text.length;
+    const normalizedProgress = (currentMessageIndex + Math.min(typedLength / Math.max(textLength, 1), 1)) / TERMINAL_MESSAGES.length;
+    setLoadProgress(Math.min(100, Math.floor(normalizedProgress * 100)));
+
+    if (typedLength < textLength) {
+      const typeTimer = setTimeout(() => {
+        setTypedLength((prev) => prev + 1);
+      }, currentMessage.speed);
+      return () => clearTimeout(typeTimer);
     }
-  }, [stage, handleEnter]);
+
+    const commitTimer = setTimeout(() => {
+      setMessages((prev) => {
+        if (prev[prev.length - 1]?.text === currentMessage.text) return prev;
+        return [...prev, currentMessage];
+      });
+
+      if (currentMessage.type === "error") {
+        setRejectionCount((prev) => prev + 1);
+      }
+
+      if (terminalRef.current) {
+        terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+      }
+
+      if (currentMessageIndex === TERMINAL_MESSAGES.length - 1) {
+        setLoadProgress(100);
+        setTimeout(() => beginExit(), 280);
+        return;
+      }
+
+      setCurrentMessageIndex((prev) => prev + 1);
+      setTypedLength(0);
+    }, currentMessage.hold);
+
+    return () => clearTimeout(commitTimer);
+  }, [beginExit, currentMessageIndex, typedLength, stage]);
+
+  const activeMessage = TERMINAL_MESSAGES[currentMessageIndex];
+  const typingText = activeMessage?.text.slice(0, typedLength) || "";
 
   return (
     <AnimatePresence mode="wait">
       {stage !== "hidden" && (
         <motion.div
           className={styles.preloader}
-          onClick={handleEnter}
           initial={{ opacity: 1 }}
           exit={{
             clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)",
@@ -168,18 +175,6 @@ export default function Preloader({ onComplete }) {
         >
           {/* Animated grid background */}
           <div className={styles.gridBackground} />
-
-          {/* Curtain panels */}
-          <motion.div
-            className={styles.curtainLeft}
-            animate={stage === "exit" ? { x: "-100%" } : { x: "0%" }}
-            transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
-          />
-          <motion.div
-            className={styles.curtainRight}
-            animate={stage === "exit" ? { x: "100%" } : { x: "0%" }}
-            transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
-          />
 
           {/* Scanning line */}
           <motion.div
@@ -234,9 +229,9 @@ export default function Preloader({ onComplete }) {
                 data-text="DF"
                 animate={stage === "ready" ? {
                   textShadow: [
-                    "0 0 20px rgba(220, 0, 0, 0.5)",
-                    "0 0 60px rgba(220, 0, 0, 0.8)",
-                    "0 0 20px rgba(220, 0, 0, 0.5)",
+                    "0 0 20px rgba(136, 168, 255, 0.35)",
+                    "0 0 60px rgba(122, 215, 240, 0.45)",
+                    "0 0 20px rgba(136, 168, 255, 0.35)",
                   ]
                 } : {}}
                 transition={{ duration: 1.5, repeat: Infinity }}
@@ -286,16 +281,26 @@ export default function Preloader({ onComplete }) {
                       [{new Date().toLocaleTimeString('en-US', { hour12: false })}]
                     </span>
                     <span className={styles.terminalPrefix}>
-                      {msg.type === "error" ? "[X]" : msg.type === "success" ? "[OK]" : "$"}
+                      {MESSAGE_PREFIX[msg.type]}
                     </span>
                     <span className={styles.terminalText}>
                       {msg.text}
-                      {msg.type === "loading" && (
-                        <span className={styles.cursor}>...</span>
-                      )}
                     </span>
                   </motion.div>
                 ))}
+
+                {stage === "loading" && activeMessage && (
+                  <div className={`${styles.terminalLine} ${styles[activeMessage.type]} ${styles.typingLine}`}>
+                    <span className={styles.terminalTime} suppressHydrationWarning>
+                      [{new Date().toLocaleTimeString('en-US', { hour12: false })}]
+                    </span>
+                    <span className={styles.terminalPrefix}>{MESSAGE_PREFIX[activeMessage.type]}</span>
+                    <span className={styles.terminalText}>
+                      {typingText}
+                      <span className={styles.cursorBlock}>_</span>
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -311,41 +316,7 @@ export default function Preloader({ onComplete }) {
               </div>
               <span className={styles.progressValue}>{loadProgress}%</span>
             </div>
-
-            {/* Enter prompt */}
-            <AnimatePresence>
-              {stage === "ready" && (
-                <motion.div
-                  className={styles.readyIndicator}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <motion.span
-                    animate={{ opacity: [1, 0.4, 1] }}
-                    transition={{ duration: 1.2, repeat: Infinity }}
-                  >
-                    {"[ CLICK ANYWHERE TO ENTER... they can't reject that ]"}
-                  </motion.span>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </motion.div>
-
-          {/* Skip button */}
-          {stage === "loading" && (
-            <motion.button
-              className={styles.skipButton}
-              onClick={(e) => { e.stopPropagation(); handleEnter(); }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.6 }}
-              whileHover={{ opacity: 1 }}
-              transition={{ delay: 2, duration: 0.5 }}
-              aria-label="Skip preloader"
-            >
-              SKIP {'->'}
-            </motion.button>
-          )}
 
           {/* Corner decorations */}
           <div className={`${styles.corner} ${styles.cornerTL}`}>
@@ -361,7 +332,7 @@ export default function Preloader({ onComplete }) {
             <span>LON 79.8612°</span>
           </div>
           <div className={`${styles.corner} ${styles.cornerBR}`}>
-            <span>STATUS: {stage === "ready" ? "LOCALLY HOSTED" : rejectionCount > 0 ? `${rejectionCount} REJECTED` : "CONTACTING..."}</span>
+            <span>STATUS: {stage === "exit" ? "LOCALLY HOSTED" : rejectionCount > 0 ? `${rejectionCount} REJECTED` : "CONTACTING..."}</span>
             <span suppressHydrationWarning>© {new Date().getFullYear()}</span>
           </div>
         </motion.div>

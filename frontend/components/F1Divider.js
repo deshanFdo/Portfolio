@@ -52,33 +52,33 @@ export default function F1Divider({ flip = false }) {
           xmlns="http://www.w3.org/2000/svg"
         >
           {/* Rear wing */}
-          <rect x="2" y="4" width="3" height="14" rx="1" fill="#DC0000" />
-          <rect x="1" y="2" width="8" height="2" rx="0.5" fill="#A00000" />
+          <rect x="2" y="4" width="3" height="14" rx="1" fill="var(--ferrari-red)" />
+          <rect x="1" y="2" width="8" height="2" rx="0.5" fill="var(--ferrari-red-dark)" />
 
           {/* Engine cover / body rear */}
           <path
             d="M8 10 L20 8 L30 6 L30 22 L8 20 Z"
             fill="url(#carGradient)"
-            stroke="#DC0000"
+            stroke="var(--ferrari-red)"
             strokeWidth="0.5"
           />
 
           {/* Airbox / intake */}
-          <path d="M28 6 L32 2 L35 2 L33 6" fill="#0a0a10" stroke="#DC0000" strokeWidth="0.3" />
+          <path d="M28 6 L32 2 L35 2 L33 6" fill="var(--deep-space)" stroke="var(--ferrari-red)" strokeWidth="0.3" />
 
           {/* Main body */}
           <path
             d="M30 6 L75 4 L85 6 L90 8 L90 22 L85 24 L30 22 Z"
             fill="url(#carGradient)"
-            stroke="#A00000"
+            stroke="var(--ferrari-red-dark)"
             strokeWidth="0.5"
           />
 
           {/* Cockpit */}
           <path
             d="M50 4 L55 0 L65 0 L68 4"
-            fill="#0a0a10"
-            stroke="#DC0000"
+            fill="var(--deep-space)"
+            stroke="var(--ferrari-red)"
             strokeWidth="0.4"
           />
           {/* Halo */}
@@ -89,20 +89,20 @@ export default function F1Divider({ flip = false }) {
           <path d="M40 20 L50 21 L50 18 L40 18" fill="#0a0a10" opacity="0.6" />
 
           {/* Number */}
-          <text x="60" y="16" textAnchor="middle" fill="#FFF200" fontSize="8" fontWeight="bold" fontFamily="monospace">16</text>
+          <text x="60" y="16" textAnchor="middle" fill="var(--ferrari-yellow)" fontSize="8" fontWeight="bold" fontFamily="monospace">16</text>
 
           {/* Front nose */}
           <path
             d="M90 8 L110 10 L115 12 L115 18 L110 20 L90 22"
             fill="url(#carGradient)"
-            stroke="#A00000"
+            stroke="var(--ferrari-red-dark)"
             strokeWidth="0.5"
           />
 
           {/* Front wing */}
-          <path d="M112 8 L118 6 L120 6 L120 10 L115 10" fill="#DC0000" />
-          <path d="M112 22 L118 24 L120 24 L120 20 L115 20" fill="#DC0000" />
-          <path d="M115 10 L120 10 L120 20 L115 20" fill="#A00000" opacity="0.5" />
+          <path d="M112 8 L118 6 L120 6 L120 10 L115 10" fill="var(--ferrari-red)" />
+          <path d="M112 22 L118 24 L120 24 L120 20 L115 20" fill="var(--ferrari-red)" />
+          <path d="M115 10 L120 10 L120 20 L115 20" fill="var(--ferrari-red-dark)" opacity="0.5" />
 
           {/* Rear wheel */}
           <circle cx="22" cy="26" r="7" fill="#1a1a2e" stroke="#333" strokeWidth="1" />
@@ -114,7 +114,7 @@ export default function F1Divider({ flip = false }) {
           <circle cx="95" cy="26" r="3.5" fill="#2a2a3e" />
           <circle cx="95" cy="26" r="1.5" fill="#444" />
 
-          {/* Ferrari red accent stripe */}
+          {/* Accent stripe */}
           <line x1="10" y1="14" x2="110" y2="14" stroke="#FFFFFF" strokeWidth="1" opacity="0.7" />
 
           {/* White side accents - like SF-24 livery */}
@@ -123,9 +123,9 @@ export default function F1Divider({ flip = false }) {
 
           <defs>
             <linearGradient id="carGradient" x1="0" y1="0" x2="120" y2="0">
-              <stop offset="0%" stopColor="#8B0000" />
-              <stop offset="50%" stopColor="#DC0000" />
-              <stop offset="100%" stopColor="#8B0000" />
+              <stop offset="0%" stopColor="var(--ferrari-red-dark)" />
+              <stop offset="50%" stopColor="var(--ferrari-red)" />
+              <stop offset="100%" stopColor="var(--ferrari-blue)" />
             </linearGradient>
           </defs>
         </svg>

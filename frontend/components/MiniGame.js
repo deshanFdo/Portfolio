@@ -17,6 +17,8 @@ export default function MiniGame() {
   const [highScore, setHighScore] = useState(0);
   const gameLoopRef = useRef(null);
   const directionRef = useRef(direction);
+  const pendingDirectionRef = useRef(INITIAL_DIRECTION);
+  const directionLockedRef = useRef(false);
 
   // Load high score
   useEffect(() => {
@@ -42,9 +44,14 @@ export default function MiniGame() {
 
     gameLoopRef.current = setInterval(() => {
       setSnake(prev => {
+        const activeDirection = pendingDirectionRef.current;
+        directionRef.current = activeDirection;
+        directionLockedRef.current = false;
+        setDirection(activeDirection);
+
         const newHead = {
-          x: (prev[0].x + directionRef.current.x + GRID_SIZE) % GRID_SIZE,
-          y: (prev[0].y + directionRef.current.y + GRID_SIZE) % GRID_SIZE,
+          x: (prev[0].x + activeDirection.x + GRID_SIZE) % GRID_SIZE,
+          y: (prev[0].y + activeDirection.y + GRID_SIZE) % GRID_SIZE,
         };
 
         // Self collision
@@ -96,10 +103,12 @@ export default function MiniGame() {
       const newDir = keyMap[e.key];
       if (newDir) {
         e.preventDefault(); // Prevent page scrolling
-        // Prevent reversing
+        if (directionLockedRef.current) return;
+
+        // Prevent reversing within the same movement tick
         if (directionRef.current.x + newDir.x !== 0 || directionRef.current.y + newDir.y !== 0) {
-          directionRef.current = newDir;
-          setDirection(newDir);
+          pendingDirectionRef.current = newDir;
+          directionLockedRef.current = true;
         }
       }
     };
@@ -112,6 +121,8 @@ export default function MiniGame() {
     setSnake(INITIAL_SNAKE);
     setDirection(INITIAL_DIRECTION);
     directionRef.current = INITIAL_DIRECTION;
+    pendingDirectionRef.current = INITIAL_DIRECTION;
+    directionLockedRef.current = false;
     setScore(0);
     spawnFood();
     setGameState("playing");
@@ -119,9 +130,11 @@ export default function MiniGame() {
 
   const handleMobileControl = (dir) => {
     if (gameState !== "playing") return;
+    if (directionLockedRef.current) return;
+
     if (directionRef.current.x + dir.x !== 0 || directionRef.current.y + dir.y !== 0) {
-      directionRef.current = dir;
-      setDirection(dir);
+      pendingDirectionRef.current = dir;
+      directionLockedRef.current = true;
     }
   };
 

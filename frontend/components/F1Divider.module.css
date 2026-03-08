@@ -18,9 +18,9 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(220, 0, 0, 0.1) 20%,
-    rgba(220, 0, 0, 0.2) 50%,
-    rgba(220, 0, 0, 0.1) 80%,
+    rgba(136, 168, 255, 0.08) 20%,
+    rgba(122, 215, 240, 0.18) 50%,
+    rgba(136, 168, 255, 0.08) 80%,
     transparent 100%
   );
 }
@@ -56,7 +56,7 @@
 .car {
   width: 80px;
   height: 28px;
-  filter: drop-shadow(0 0 8px rgba(220, 0, 0, 0.4));
+  filter: drop-shadow(0 0 8px rgba(136, 168, 255, 0.35));
   position: relative;
   z-index: 2;
 }
@@ -80,8 +80,8 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(220, 0, 0, 0.05) 30%,
-    rgba(220, 0, 0, 0.15) 100%
+    rgba(136, 168, 255, 0.05) 30%,
+    rgba(122, 215, 240, 0.14) 100%
   );
 }
 
@@ -93,7 +93,7 @@
   transform: translateY(-50%);
   width: 30px;
   height: 8px;
-  background: radial-gradient(ellipse at right, rgba(220, 0, 0, 0.6) 0%, transparent 80%);
+  background: radial-gradient(ellipse at right, rgba(122, 215, 240, 0.45) 0%, transparent 80%);
   border-radius: 50%;
   z-index: 1;
 }
@@ -111,8 +111,8 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(220, 0, 0, 0.15) 40%,
-    rgba(220, 0, 0, 0.05) 100%
+    rgba(136, 168, 255, 0.16) 40%,
+    rgba(122, 215, 240, 0.05) 100%
   );
 }
 

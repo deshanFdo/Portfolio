@@ -4,54 +4,6 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from "fram
 import dynamic from 'next/dynamic';
 import styles from "./Hero.module.css";
 
-// Sound effects hook - singleton AudioContext
-let audioContext = null;
-function getAudioContext() {
-  if (typeof window === 'undefined') return null;
-  if (!audioContext) {
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-  }
-  return audioContext;
-}
-
-function useSounds() {
-  const playHover = () => {
-    try {
-      const context = getAudioContext();
-      if (!context) return;
-      const oscillator = context.createOscillator();
-      const gainNode = context.createGain();
-      oscillator.connect(gainNode);
-      gainNode.connect(context.destination);
-      oscillator.frequency.value = 2000;
-      oscillator.type = 'sine';
-      gainNode.gain.setValueAtTime(0.05, context.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.001, context.currentTime + 0.05);
-      oscillator.start(context.currentTime);
-      oscillator.stop(context.currentTime + 0.05);
-    } catch (e) { }
-  };
-
-  const playClick = () => {
-    try {
-      const context = getAudioContext();
-      if (!context) return;
-      const oscillator = context.createOscillator();
-      const gainNode = context.createGain();
-      oscillator.connect(gainNode);
-      gainNode.connect(context.destination);
-      oscillator.frequency.value = 800;
-      oscillator.type = 'square';
-      gainNode.gain.setValueAtTime(0.08, context.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.001, context.currentTime + 0.08);
-      oscillator.start(context.currentTime);
-      oscillator.stop(context.currentTime + 0.08);
-    } catch (e) { }
-  };
-
-  return { playHover, playClick };
-}
-
 // Lazy load Spline (using local embed to bypass package export issues)
 const Spline = dynamic(
   () => import('./SplineEmbed'),
@@ -70,8 +22,7 @@ const Spline = dynamic(
   }
 );
 
-// Magnetic button component with sound
-function MagneticButton({ children, href, className, onHover }) {
+function MagneticButton({ children, href, className }) {
   const ref = useRef(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -102,7 +53,7 @@ function MagneticButton({ children, href, className, onHover }) {
       style={{ x: springX, y: springY }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      onMouseEnter={onHover}
+      whileHover={{ y: -3, scale: 1.02 }}
       whileTap={{ scale: 0.95 }}
     >
       {children}
@@ -159,7 +110,7 @@ function ParticleField() {
 
   return (
     <div className={styles.particleField}>
-      {mounted && Array.from({ length: 50 }).map((_, i) => (
+      {mounted && Array.from({ length: 20 }).map((_, i) => (
         <HeroParticle key={i} index={i} />
       ))}
     </div>
@@ -168,37 +119,53 @@ function ParticleField() {
 
 export default function Hero() {
   const containerRef = useRef(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const { playHover, playClick } = useSounds();
+  const [heroReady, setHeroReady] = useState(false);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const smoothMouseX = useSpring(mouseX, { stiffness: 45, damping: 20, mass: 0.8 });
+  const smoothMouseY = useSpring(mouseY, { stiffness: 45, damping: 20, mass: 0.8 });
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
-  const textY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 24]);
+  const haloX = useTransform(smoothMouseX, [-12, 12], [-36, 36]);
+  const haloY = useTransform(smoothMouseY, [-12, 12], [-36, 36]);
+  const ringX = useTransform(smoothMouseX, [-12, 12], [24, -24]);
+  const ringY = useTransform(smoothMouseY, [-12, 12], [18, -18]);
+  const ringRotate = useTransform(smoothMouseX, [-12, 12], [-8, 8]);
+  const gridRotateX = useTransform(smoothMouseY, [-12, 12], [2.2, -2.2]);
+  const gridRotateY = useTransform(smoothMouseX, [-12, 12], [-2.2, 2.2]);
+  const contentRotateX = useTransform(smoothMouseY, [-12, 12], [0.8, -0.8]);
+  const contentRotateY = useTransform(smoothMouseX, [-12, 12], [-0.8, 0.8]);
+  const splineRotateX = useTransform(smoothMouseY, [-12, 12], [1.4, -1.4]);
+  const splineRotateY = useTransform(smoothMouseX, [-12, 12], [-1.4, 1.4]);
+  const spotlightX = useTransform(smoothMouseX, [-12, 12], [-40, 40]);
+  const spotlightY = useTransform(smoothMouseY, [-12, 12], [-40, 40]);
 
   // Environment variables
   const fullName = process.env.NEXT_PUBLIC_FULL_NAME || "Deshan Fernando";
   const firstName = fullName.split(" ")[0]?.toUpperCase() || "DESHAN";
   const lastName = fullName.split(" ").slice(1).join(" ").toUpperCase() || "FERNANDO";
   const jobTitle = process.env.NEXT_PUBLIC_JOB_TITLE || "Software Engineering Intern";
-  const company = process.env.NEXT_PUBLIC_COMPANY || "Sri Lanka Telecom";
   const github = process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/deshanFdo";
   const linkedin = process.env.NEXT_PUBLIC_LINKEDIN_URL || "https://linkedin.com/in/DeshanFdo31";
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 20
-      });
+      mouseX.set((e.clientX / window.innerWidth - 0.5) * 24);
+      mouseY.set((e.clientY / window.innerHeight - 0.5) * 24);
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setHeroReady(true), 140);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -210,16 +177,23 @@ export default function Hero() {
         <div className={styles.gradientOrb3}></div>
       </div>
 
+      <motion.div
+        className={styles.heroHalo}
+        style={{ x: haloX, y: haloY }}
+      />
+
+      <motion.div
+        className={styles.heroRing}
+        style={{ x: ringX, y: ringY, rotate: ringRotate }}
+      />
+
       {/* Particle field */}
       <ParticleField />
 
       {/* Grid overlay with perspective */}
       <motion.div
         className={styles.gridOverlay}
-        style={{
-          rotateX: mousePosition.y * 0.3,
-          rotateY: mousePosition.x * 0.3,
-        }}
+        style={{ rotateX: gridRotateX, rotateY: gridRotateY }}
       >
         {Array.from({ length: 10 }).map((_, i) => (
           <motion.div
@@ -233,11 +207,16 @@ export default function Hero() {
       </motion.div>
 
       {/* Split layout: Content + Spline */}
-      <div className={styles.splitContainer}>
+      <motion.div
+        className={styles.splitContainer}
+        initial={{ opacity: 0, y: 28, filter: "blur(12px)" }}
+        animate={heroReady ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
         {/* Left: Text content */}
         <motion.div
           className={styles.content}
-          style={{ y, opacity, scale }}
+          style={{ y, rotateX: contentRotateX, rotateY: contentRotateY }}
         >
           {/* Status badge */}
           <motion.div
@@ -285,12 +264,11 @@ export default function Hero() {
                     key={i}
                     className={styles.nameChar}
                     whileHover={{
-                      y: -10,
-                      color: '#FFF200',
-                      textShadow: '0 0 30px rgba(255, 242, 0, 0.6)'
+                      y: -8,
+                      color: 'var(--ferrari-blue-light)',
+                      textShadow: '0 0 24px rgba(122, 215, 240, 0.45)'
                     }}
                     transition={{ type: "spring", stiffness: 300 }}
-                    onMouseEnter={playHover}
                   >
                     {char}
                   </motion.span>
@@ -314,22 +292,31 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.0 }}
           >
-            <span className={styles.rolePrefix}>{'<'}</span>
             <span className={styles.role}>{jobTitle}</span>
-            <span className={styles.rolePrefix}>{'/>'}</span>
           </motion.div>
 
-          {/* Company badge */}
+          {/* CTAs */}
           <motion.div
-            className={styles.companyBadge}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 1.1 }}
-            whileHover={{ scale: 1.05, borderColor: 'var(--ferrari-red)' }}
-            onMouseEnter={playHover}
+            className={styles.ctaContainer}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.08 }}
           >
-            <span className={styles.atSymbol}>@</span>
-            <span>{company}</span>
+            <MagneticButton
+              href="#projects"
+              className={styles.ctaPrimary}
+            >
+              <span>View Projects</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </MagneticButton>
+            <MagneticButton
+              href="#contact"
+              className={styles.ctaSecondary}
+            >
+              <span>Get in Touch</span>
+            </MagneticButton>
           </motion.div>
 
           {/* Description */}
@@ -344,44 +331,17 @@ export default function Hero() {
             and full-stack development with modern frameworks.
           </motion.p>
 
-          {/* CTAs */}
-          <motion.div
-            className={styles.ctaContainer}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.3 }}
-          >
-            <MagneticButton
-              href="#projects"
-              className={styles.ctaPrimary}
-              onHover={playHover}
-            >
-              <span>View Projects</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </MagneticButton>
-            <MagneticButton
-              href="#contact"
-              className={styles.ctaSecondary}
-              onHover={playHover}
-            >
-              <span>Get in Touch</span>
-            </MagneticButton>
-          </motion.div>
-
           {/* Social links */}
           <motion.div
             className={styles.socials}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.4 }}
+            transition={{ delay: 1.45 }}
           >
             <motion.a
               href={github}
               className={styles.socialLink}
-              whileHover={{ color: 'var(--ferrari-red)' }}
-              onMouseEnter={playHover}
+              whileHover={{ color: 'var(--ferrari-blue)' }}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -391,8 +351,7 @@ export default function Hero() {
             <motion.a
               href={linkedin}
               className={styles.socialLink}
-              whileHover={{ color: 'var(--ferrari-red)' }}
-              onMouseEnter={playHover}
+              whileHover={{ color: 'var(--ferrari-blue)' }}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -405,8 +364,9 @@ export default function Hero() {
         <motion.div
           className={styles.splineContainer}
           initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.8, duration: 1 }}
+          animate={heroReady ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.9, y: 24 }}
+          transition={{ delay: 0.22, duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
+          style={{ rotateX: splineRotateX, rotateY: splineRotateY }}
         >
           <div className={styles.splineWrapper}>
             <Suspense fallback={
@@ -425,14 +385,10 @@ export default function Hero() {
           {/* Spotlight effect on Spline */}
           <motion.div
             className={styles.splineSpotlight}
-            animate={{
-              x: mousePosition.x * 15,
-              y: mousePosition.y * 15,
-            }}
-            transition={{ type: "spring", damping: 20 }}
+            style={{ x: spotlightX, y: spotlightY }}
           />
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Scroll indicator */}
       <motion.div

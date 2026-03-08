@@ -11,6 +11,8 @@ import Projects from "../../components/Projects";
 import Experience from "../../components/Experience";
 import Contact from "../../components/Contact";
 import Footer from "../../components/Footer";
+import AmbientEffects from "../../components/AmbientEffects";
+import BackToTop from "../../components/BackToTop";
 import SpaceBackground from "../../components/SpaceBackground";
 import F1Divider from "../../components/F1Divider";
 
@@ -22,6 +24,7 @@ export default function Home() {
   const [showPreloader, setShowPreloader] = useState(true);
   const [mounted, setMounted] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
+  const contentReady = mounted && !showPreloader;
 
   useEffect(() => {
     setMounted(true);
@@ -46,26 +49,33 @@ export default function Home() {
       <main style={{ position: "relative", minHeight: "100vh" }}>
         {/* Space Background */}
         <SpaceBackground />
+        {contentReady && isDesktop && <AmbientEffects />}
 
         {/* Content */}
-        <div style={{ position: "relative", zIndex: 10 }}>
-          <Navbar />
-          <Hero />
-          <F1Divider />
-          <About />
-          <F1Divider flip />
-          <Skills />
-          <F1Divider />
-          <Projects />
-          <F1Divider flip />
-          <Experience />
-          <F1Divider />
-          <Contact />
-          <Footer />
-        </div>
+        {contentReady && (
+          <>
+            <div style={{ position: "relative", zIndex: 10 }}>
+              <Navbar />
+              <Hero />
+              <F1Divider />
+              <About />
+              <F1Divider flip />
+              <Skills />
+              <F1Divider />
+              <Projects />
+              <F1Divider flip />
+              <Experience />
+              <F1Divider />
+              <Contact />
+              <Footer />
+            </div>
+
+            <BackToTop />
+          </>
+        )}
 
         {/* Snake Game (only shows when triggered) */}
-        {mounted && !showPreloader && <MiniGame />}
+        {contentReady && <MiniGame />}
       </main>
     </ErrorBoundary>
   );

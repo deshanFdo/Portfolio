@@ -6,29 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
   overflow: hidden;
-}
-
-/* Curtain panels for dramatic reveal */
-.curtainLeft,
-.curtainRight {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-  background: var(--deep-space, #050508);
-  z-index: 100;
-}
-
-.curtainLeft {
-  left: 0;
-  border-right: 1px solid rgba(220, 0, 0, 0.2);
-}
-
-.curtainRight {
-  right: 0;
-  border-left: 1px solid rgba(220, 0, 0, 0.2);
 }
 
 /* Grid background with animated opacity */
@@ -36,8 +14,8 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(220, 0, 0, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(220, 0, 0, 0.04) 1px, transparent 1px);
+    linear-gradient(rgba(136, 168, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(122, 215, 240, 0.04) 1px, transparent 1px);
   background-size: 60px 60px;
   animation: gridPulse 3s ease-in-out infinite;
 }
@@ -91,6 +69,7 @@
   gap: 5rem;
   z-index: 2;
   padding: 2rem;
+  width: min(1100px, calc(100vw - 4rem));
 }
 
 /* Logo section */
@@ -124,7 +103,7 @@
   height: 200px;
   border-top: 2px solid var(--ferrari-red);
   border-right: 2px solid transparent;
-  border-bottom: 2px solid rgba(220, 0, 0, 0.3);
+  border-bottom: 2px solid rgba(136, 168, 255, 0.25);
   border-left: 2px solid transparent;
   filter: drop-shadow(0 0 20px var(--ferrari-glow));
 }
@@ -257,6 +236,7 @@
   position: absolute;
   left: 0;
   top: 0;
+  box-shadow: 0 0 18px var(--ferrari-glow);
 }
 
 .progressGlow {
@@ -287,6 +267,7 @@
   border: 1px solid var(--border-subtle);
   border-radius: 12px;
   overflow: hidden;
+  width: min(520px, calc(100vw - 4rem));
   box-shadow:
     0 0 0 1px rgba(220, 0, 0, 0.1),
     0 20px 50px rgba(0, 0, 0, 0.5);
@@ -353,6 +334,11 @@
   margin-bottom: 0.6rem;
   color: var(--text-secondary);
   align-items: flex-start;
+  min-height: 1.15rem;
+}
+
+.typingLine {
+  opacity: 0.95;
 }
 
 .terminalTime {
@@ -410,31 +396,17 @@
   animation: blink 1s step-end infinite;
 }
 
+.cursorBlock {
+  display: inline-block;
+  margin-left: 1px;
+  color: var(--ferrari-blue);
+  animation: blink 1s step-end infinite;
+}
+
 @keyframes blink {
   50% {
     opacity: 0;
   }
-}
-
-/* Ready indicator */
-.readyIndicator {
-  position: absolute;
-  bottom: 4rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.readyIndicator span {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.8rem;
-  color: var(--ferrari-red);
-  letter-spacing: 0.2em;
-  text-shadow: 0 0 20px var(--ferrari-glow);
-  white-space: nowrap;
 }
 
 /* Rejection counter */
@@ -562,7 +534,9 @@
 @media (max-width: 900px) {
   .content {
     flex-direction: column;
-    gap: 3rem;
+    gap: 2rem;
+    width: min(680px, calc(100vw - 2rem));
+    padding: 1.5rem 1rem;
   }
 
   .terminalSection {
@@ -570,8 +544,12 @@
     max-width: 380px;
   }
 
+  .terminal {
+    width: 100%;
+  }
+
   .terminalBody {
-    height: 180px;
+    height: 240px;
   }
 }
 
@@ -608,6 +586,10 @@
     max-width: 320px;
   }
 
+  .terminal {
+    width: min(100%, 320px);
+  }
+
   .terminalTime {
     display: none;
   }
@@ -624,26 +606,4 @@
   .cornerLineV {
     height: 20px;
   }
-}
-
-/* Skip button */
-.skipButton {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  z-index: 100;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: rgba(255, 255, 255, 0.6);
-  padding: 0.4rem 1rem;
-  font-family: 'Orbitron', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.skipButton:hover {
-  border-color: var(--ferrari-red, #DC0000);
-  color: var(--ferrari-red, #DC0000);
 }

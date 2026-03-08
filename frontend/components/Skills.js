@@ -71,8 +71,7 @@ const SKILL_CATEGORIES = [
       { name: "Docker", level: 78, icon: "DK", projects: ["API Portal"] },
       { name: "CI/CD (GitHub Actions)", level: 80, icon: "CI", projects: ["API Portal"] },
       { name: "Jira", level: 88, icon: "JA", projects: ["Smart Employee System"] },
-      { name: "Vercel / Render", level: 85, icon: "DP", projects: ["API Portal", "LawLinkLK"] },
-      { name: "Linux", level: 75, icon: "LX", projects: [] }
+      { name: "Vercel / Render", level: 85, icon: "DP", projects: ["API Portal", "LawLinkLK"] }
     ]
   },
   {
