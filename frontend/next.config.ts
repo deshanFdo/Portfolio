@@ -1,6 +1,4 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+const nextConfig = {
   output: "export",
   basePath: "/Portfolio",
   assetPrefix: "/Portfolio/",
@@ -8,9 +6,6 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   transpilePackages: ['@splinetool/react-spline'],
-  experimental: {
-    esmExternals: "loose",
-  },
 };
 
 export default nextConfig;
