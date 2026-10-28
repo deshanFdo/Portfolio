@@ -384,27 +384,6 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className={styles.scrollIndicator}
-        initial={false}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-      >
-        <motion.div
-          className={styles.scrollMouse}
-          animate={{ y: [0, 5, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-        >
-          <motion.div
-            className={styles.scrollWheel}
-            animate={{ y: [0, 8, 0], opacity: [1, 0.3, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          />
-        </motion.div>
-        <span>SCROLL</span>
-      </motion.div>
-
       {/* Decorative elements */}
       <motion.div
         className={styles.decorLeft}
@@ -412,8 +391,8 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
       >
-        <span>LAT 6.9271Â° N</span>
-        <span>LON 79.8612Â° E</span>
+        <span>LAT 6.9271Ã‚Â° N</span>
+        <span>LON 79.8612Ã‚Â° E</span>
       </motion.div>
       <motion.div
         className={styles.decorRight}
@@ -421,7 +400,7 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
       >
-        <span suppressHydrationWarning>Â© {new Date().getFullYear()}</span>
+        <span suppressHydrationWarning>Ã‚Â© {new Date().getFullYear()}</span>
         <span>PORTFOLIO v2.0</span>
       </motion.div>
     </section>

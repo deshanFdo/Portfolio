@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { MotionConfig } from "framer-motion";
 import ErrorBoundary from "../../components/ErrorBoundary";
+import Preloader from "../../components/Preloader";
 import Navbar from "../../components/Navbar";
 import Hero from "../../components/Hero";
 import About from "../../components/About";
@@ -19,10 +20,12 @@ const AmbientEffects = dynamic(() => import("../../components/AmbientEffects"), 
 const MiniGame = dynamic(() => import("../../components/MiniGame"), { ssr: false });
 
 export default function Home() {
+  const [showIntro, setShowIntro] = useState(false);
   const [effectsReady, setEffectsReady] = useState(false);
   const [enhancedMotion, setEnhancedMotion] = useState(false);
 
   useEffect(() => {
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) setShowIntro(true);
     const query = window.matchMedia("(min-width: 1025px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)");
     const update = () => setEnhancedMotion(query.matches);
     update();
@@ -38,8 +41,9 @@ export default function Home() {
   return (
     <ErrorBoundary>
       <MotionConfig reducedMotion="user">
+        {showIntro && <Preloader onComplete={() => setShowIntro(false)} />}
         <a className="skip-link" href="#projects">Skip to projects</a>
-        <main style={{ position: "relative", minHeight: "100vh" }}>
+        <main inert={showIntro} style={{ position: "relative", minHeight: "100vh" }}>
           {effectsReady && enhancedMotion && <><SpaceBackground /><AmbientEffects /></>}
           <div style={{ position: "relative", zIndex: 10 }}>
             <Navbar />

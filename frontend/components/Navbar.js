@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import styles from "./Navbar.module.css";
@@ -56,17 +57,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* CTA */}
-        <motion.a 
-          href="#contact" 
-          className={styles.cta}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          whileHover={{ scale: 1.05 }}
-        >
-          Let&apos;s Talk
-        </motion.a>
+        <Link href="/studio" className={styles.studioLink}>New portfolio <span aria-hidden="true">↗</span></Link>
 
         {/* Mobile toggle */}
         <button 

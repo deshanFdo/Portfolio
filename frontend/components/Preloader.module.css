@@ -607,3 +607,17 @@
     height: 20px;
   }
 }
+
+.skipIntro { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 26px auto 0; padding: 12px 22px; border: 1px solid rgba(136,168,255,.5); border-radius: 6px; color: #e8eeff; background: #111d31; cursor: pointer; font: inherit; font-size: 12px; }
+.skipIntro:hover { background: #243450; }
+.skipIntro:focus-visible { outline: 2px solid #88a8ff; outline-offset: 4px; }
+.content { flex-direction: column; gap: 22px; width: min(560px, calc(100vw - 32px)); padding: 24px; }
+.logoSection { width: 150px; height: 150px; }
+.ringOuter { width: 150px; height: 150px; }
+.ringInner { width: 100px; height: 100px; }
+.logo { font-size: 3rem; }
+.terminal { width: 100%; }
+.terminalBody { height: 112px; padding: 17px 20px; }
+.progressTrack { width: 100%; flex: none; }
+.skipIntro { margin: 0; }
+@media(max-width:500px) { .content {padding: 16px;} .terminalTitle {font-size: 9px;} .terminalText {font-size: 10px;} .terminalBody {padding: 16px 12px;} }
