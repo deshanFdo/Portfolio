@@ -13,6 +13,12 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const close = (event) => { if (event.key === "Escape") setMobileOpen(false); };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, []);
+
   const navLinks = [
     { href: "#home", label: "Home" },
     { href: "#about", label: "About" },
@@ -66,7 +72,9 @@ export default function Navbar() {
         <button 
           className={`${styles.toggle} ${mobileOpen ? styles.open : ""}`}
           onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-navigation"
         >
           <span></span>
           <span></span>
@@ -76,6 +84,9 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       <motion.div 
+        id="mobile-navigation"
+        aria-hidden={!mobileOpen}
+        inert={!mobileOpen}
         className={`${styles.mobileMenu} ${mobileOpen ? styles.mobileOpen : ""}`}
         initial={false}
         animate={mobileOpen ? { opacity: 1, x: 0 } : { opacity: 0, x: "100%" }}

@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import { MotionConfig } from "framer-motion";
 import ErrorBoundary from "../../components/ErrorBoundary";
 import Navbar from "../../components/Navbar";
-import Preloader from "../../components/Preloader";
 import Hero from "../../components/Hero";
 import About from "../../components/About";
 import Skills from "../../components/Skills";
@@ -11,76 +11,55 @@ import Projects from "../../components/Projects";
 import Experience from "../../components/Experience";
 import Contact from "../../components/Contact";
 import Footer from "../../components/Footer";
-import AmbientEffects from "../../components/AmbientEffects";
 import BackToTop from "../../components/BackToTop";
-import SpaceBackground from "../../components/SpaceBackground";
 import F1Divider from "../../components/F1Divider";
 
-// Dynamic imports for client-only components
-const CustomCursor = dynamic(() => import("../../components/CustomCursor"), { ssr: false });
+const SpaceBackground = dynamic(() => import("../../components/SpaceBackground"), { ssr: false });
+const AmbientEffects = dynamic(() => import("../../components/AmbientEffects"), { ssr: false });
 const MiniGame = dynamic(() => import("../../components/MiniGame"), { ssr: false });
 
 export default function Home() {
-  const [showPreloader, setShowPreloader] = useState(true);
-  const [revealContent, setRevealContent] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
-  const contentReady = mounted && (revealContent || !showPreloader);
+  const [effectsReady, setEffectsReady] = useState(false);
+  const [enhancedMotion, setEnhancedMotion] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    setIsDesktop(window.innerWidth > 768);
-
-    const handleResize = () => setIsDesktop(window.innerWidth > 768);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const query = window.matchMedia("(min-width: 1025px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)");
+    const update = () => setEnhancedMotion(query.matches);
+    update();
+    query.addEventListener("change", update);
+    // Decorative work waits until after the first content paint.
+    const timer = window.setTimeout(() => setEffectsReady(true), 1200);
+    return () => {
+      query.removeEventListener("change", update);
+      window.clearTimeout(timer);
+    };
   }, []);
 
   return (
     <ErrorBoundary>
-      {/* Custom cursor - desktop only */}
-      {mounted && isDesktop && <CustomCursor />}
-
-      {/* Preloader */}
-      {showPreloader && (
-        <Preloader
-          onExitStart={() => setRevealContent(true)}
-          onComplete={() => setShowPreloader(false)}
-        />
-      )}
-
-      {/* Main content */}
-      <main style={{ position: "relative", minHeight: "100vh" }}>
-        {/* Space Background */}
-        <SpaceBackground />
-        {contentReady && isDesktop && <AmbientEffects />}
-
-        {/* Content */}
-        {contentReady && (
-          <>
-            <div style={{ position: "relative", zIndex: 10 }}>
-              <Navbar />
-              <Hero />
-              <F1Divider />
-              <About />
-              <F1Divider flip />
-              <Skills />
-              <F1Divider />
-              <Projects />
-              <F1Divider flip />
-              <Experience />
-              <F1Divider />
-              <Contact />
-              <Footer />
-            </div>
-
-            <BackToTop />
-          </>
-        )}
-
-        {/* Snake Game (only shows when triggered) */}
-        {contentReady && <MiniGame />}
-      </main>
+      <MotionConfig reducedMotion="user">
+        <a className="skip-link" href="#projects">Skip to projects</a>
+        <main style={{ position: "relative", minHeight: "100vh" }}>
+          {effectsReady && enhancedMotion && <><SpaceBackground /><AmbientEffects /></>}
+          <div style={{ position: "relative", zIndex: 10 }}>
+            <Navbar />
+            <Hero />
+            <F1Divider />
+            <About />
+            <F1Divider flip />
+            <Skills />
+            <F1Divider />
+            <Projects />
+            <F1Divider flip />
+            <Experience />
+            <F1Divider />
+            <Contact />
+            <Footer />
+          </div>
+          <BackToTop />
+          {effectsReady && <MiniGame />}
+        </main>
+      </MotionConfig>
     </ErrorBoundary>
   );
 }

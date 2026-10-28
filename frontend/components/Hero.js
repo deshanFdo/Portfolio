@@ -120,7 +120,7 @@ function ParticleField() {
 
 export default function Hero() {
   const containerRef = useRef(null);
-  const [heroReady, setHeroReady] = useState(false);
+  const heroReady = true;
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const smoothMouseX = useSpring(mouseX, { stiffness: 45, damping: 20, mass: 0.8 });
@@ -151,7 +151,7 @@ export default function Hero() {
   const fullName = process.env.NEXT_PUBLIC_FULL_NAME || "Deshan Fernando";
   const firstName = fullName.split(" ")[0]?.toUpperCase() || "DESHAN";
   const lastName = fullName.split(" ").slice(1).join(" ").toUpperCase() || "FERNANDO";
-  const jobTitle = process.env.NEXT_PUBLIC_JOB_TITLE || "Software Engineering Intern";
+  const jobTitle = process.env.NEXT_PUBLIC_JOB_TITLE || "Software Engineer";
   const github = process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/deshanFdo";
   const linkedin = process.env.NEXT_PUBLIC_LINKEDIN_URL || "https://linkedin.com/in/DeshanFdo31";
 
@@ -160,14 +160,12 @@ export default function Hero() {
       mouseX.set((e.clientX / window.innerWidth - 0.5) * 24);
       mouseY.set((e.clientY / window.innerHeight - 0.5) * 24);
     };
-    window.addEventListener('mousemove', handleMouseMove);
+    const motionQuery = window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
+    if (!motionQuery.matches) return;
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [mouseX, mouseY]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setHeroReady(true), 40);
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <section className={styles.hero} id="home" ref={containerRef}>
@@ -210,7 +208,7 @@ export default function Hero() {
       {/* Split layout: Content + Spline */}
       <motion.div
         className={styles.splitContainer}
-        initial={{ opacity: 0, y: 28, filter: "blur(12px)" }}
+        initial={false}
         animate={heroReady ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
@@ -222,7 +220,7 @@ export default function Hero() {
           {/* Status badge */}
           <motion.div
             className={styles.statusBadge}
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            initial={false}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay: 0.3, type: "spring" }}
           >
@@ -246,7 +244,7 @@ export default function Hero() {
           >
             <motion.h1
               className={styles.greeting}
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
@@ -256,7 +254,7 @@ export default function Hero() {
             <h2 className={styles.name} data-text={firstName}>
               <motion.span
                 className={styles.nameFirst}
-                initial={{ opacity: 0, y: 50, skewY: 5 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0, skewY: 0 }}
                 transition={{ delay: 0.7, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >
@@ -268,7 +266,7 @@ export default function Hero() {
               </motion.span>
               <motion.span
                 className={styles.nameLast}
-                initial={{ opacity: 0, x: -30 }}
+                initial={false}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.9, duration: 0.6 }}
               >
@@ -284,7 +282,7 @@ export default function Hero() {
           {/* Role */}
           <motion.div
             className={styles.roleContainer}
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.0 }}
           >
@@ -294,7 +292,7 @@ export default function Hero() {
           {/* CTAs */}
           <motion.div
             className={styles.ctaContainer}
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.08 }}
           >
@@ -308,29 +306,29 @@ export default function Hero() {
               </svg>
             </MagneticButton>
             <MagneticButton
-              href="#contact"
+              href={`${process.env.NEXT_PUBLIC_BASE_PATH || "/Portfolio"}/Deshan_Fernando_CV.pdf`}
               className={styles.ctaSecondary}
             >
-              <span>Get in Touch</span>
+              <span>View CV</span>
             </MagneticButton>
           </motion.div>
 
           {/* Description */}
           <motion.p
             className={styles.description}
-            initial={{ opacity: 0 }}
+            initial={false}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2 }}
           >
-            Software engineering undergraduate with internship experience building secure,
-            production-oriented web applications. Skilled in REST API design, API gateway patterns,
-            and full-stack development with modern frameworks.
+            Computer science undergraduate with software engineering internship experience at Sri Lanka Telecom, building
+            web applications with React, Node.js, Express and MySQL. My work includes REST APIs, role-based access,
+            and full-stack application development.
           </motion.p>
 
           {/* Social links */}
           <motion.div
             className={styles.socials}
-            initial={{ opacity: 0 }}
+            initial={false}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.45 }}
           >
@@ -359,7 +357,7 @@ export default function Hero() {
         {/* Right: Spline 3D Scene */}
         <motion.div
           className={styles.splineContainer}
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={false}
           animate={heroReady ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.9, y: 24 }}
           transition={{ delay: 0.22, duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
           style={{ rotateX: splineRotateX, rotateY: splineRotateY }}
@@ -389,7 +387,7 @@ export default function Hero() {
       {/* Scroll indicator */}
       <motion.div
         className={styles.scrollIndicator}
-        initial={{ opacity: 0 }}
+        initial={false}
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
       >
@@ -410,20 +408,20 @@ export default function Hero() {
       {/* Decorative elements */}
       <motion.div
         className={styles.decorLeft}
-        initial={{ opacity: 0 }}
+        initial={false}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
       >
-        <span>LAT 6.9271° N</span>
-        <span>LON 79.8612° E</span>
+        <span>LAT 6.9271Â° N</span>
+        <span>LON 79.8612Â° E</span>
       </motion.div>
       <motion.div
         className={styles.decorRight}
-        initial={{ opacity: 0 }}
+        initial={false}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
       >
-        <span suppressHydrationWarning>© {new Date().getFullYear()}</span>
+        <span suppressHydrationWarning>Â© {new Date().getFullYear()}</span>
         <span>PORTFOLIO v2.0</span>
       </motion.div>
     </section>

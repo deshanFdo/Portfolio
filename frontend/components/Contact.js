@@ -17,12 +17,12 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setStatus('sending');
-    setTimeout(() => {
-      setStatus('sent');
-      setFormState({ name: '', email: '', message: '' });
-      setTimeout(() => setStatus('idle'), 3000);
-    }, 1500);
+    const subject = encodeURIComponent(`Portfolio enquiry from ${formState.name}`);
+    const body = encodeURIComponent(
+      `Name: ${formState.name}\nReply to: ${formState.email}\n\n${formState.message}`
+    );
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    setStatus('draft');
   };
 
   const contactMethods = [
@@ -98,7 +98,7 @@ export default function Contact() {
           >
             <div className={styles.formHeader}>
               <span className={styles.formIcon}>{">"}</span>
-              <span>Send a Message</span>
+              <span>Write an Email</span>
             </div>
 
             <div className={styles.inputGroup}>
@@ -137,25 +137,30 @@ export default function Contact() {
               />
             </div>
 
+            <p role="status" aria-live="polite">
+              This opens your email app with a draft. Send it there to contact me.
+              If no app opens, email me using the link on this page. Your message stays here.
+            </p>
+
             <motion.button
               type="submit"
-              className={`${styles.submitBtn} ${status === 'sent' ? styles.sent : ''}`}
+              className={`${styles.submitBtn} ${status === 'draft' ? styles.sent : ''}`}
               disabled={status === 'sending'}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               {status === 'idle' && (
                 <>
-                  <span>Send Message</span>
+                  <span>Open Email Draft</span>
                   <span className={styles.btnIcon}>🚀</span>
                 </>
               )}
               {status === 'sending' && (
                 <span className={styles.sending}>Sending...</span>
               )}
-              {status === 'sent' && (
+              {status === 'draft' && (
                 <>
-                  <span>Message Sent!</span>
+                  <span>Open Your Email App</span>
                   <span className={styles.btnIcon}>[OK]</span>
                 </>
               )}

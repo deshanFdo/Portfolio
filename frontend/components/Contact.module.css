@@ -310,3 +310,6 @@
         font-size: 1.5rem;
     }
 }
+.methodInfo { min-width: 0; }
+.methodValue { overflow-wrap: anywhere; }
+.grid > * { min-width: 0; }

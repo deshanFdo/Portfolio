@@ -11,7 +11,7 @@ export default function About() {
   // Use environment variables or defaults from CV
   const fullName = process.env.NEXT_PUBLIC_FULL_NAME || "Deshan Fernando";
   const location = "Sri Lanka";
-  const jobTitle = process.env.NEXT_PUBLIC_JOB_TITLE || "Software Engineering Intern";
+  const jobTitle = process.env.NEXT_PUBLIC_JOB_TITLE || "Software Engineer";
 
   const stats = [
     { value: "5+", label: "Projects Shipped" },
@@ -60,7 +60,7 @@ export default function About() {
               {/* User Image - Place your image at public/images/profile.jpg */}
               <div className={styles.imagePlaceholder}>
                 <Image
-                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/profile.jpg`}
+                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || "/Portfolio"}/images/profile.jpg`}
                   alt={fullName}
                   fill
                   className={styles.profileImage}
@@ -134,7 +134,7 @@ export default function About() {
 
             {/* Download CV button */}
             <motion.a
-              href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/Deshan_Fernando_Software_Engineer_Intern_CV.pdf`}
+              href={`${process.env.NEXT_PUBLIC_BASE_PATH || "/Portfolio"}/Deshan_Fernando_CV.pdf`}
               download="Deshan_Fernando_CV.pdf"
               className={styles.downloadBtn}
               whileHover={{ scale: 1.02 }}

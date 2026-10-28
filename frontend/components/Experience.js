@@ -8,8 +8,8 @@ const EXPERIENCE = [
     role: "Software Engineer Intern",
     company: "Sri Lanka Telecom",
     location: "Colombo, Sri Lanka",
-    period: "Jun 2025 - Present",
-    current: true,
+    period: "Jun 2025 - May 2026",
+    current: false,
     highlights: [
       "Engineered RESTful backend endpoints using Node.js and Express.js for the Smart Employee System, enabling assessment creation, RBAC-controlled data access, and status management for 8+ user roles",
       "Implemented secure role-based access control (RBAC) using JWT authentication with middleware-level route protection and dynamic permission resolution across admin and assessor panels",
