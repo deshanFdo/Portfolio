@@ -1,0 +1,21 @@
+.intro { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; border: 0; padding: 35px 5.5%; background: #0b0d10; color: #f0f0ec; overflow: hidden; font-family: var(--font-geist-sans), Arial, sans-serif; opacity: 1; transition: opacity .34s ease, transform .34s ease; }
+.intro[open] { display: flex; flex-direction: column; justify-content: space-between; }
+.intro::backdrop { background: #0b0d10; }
+.intro::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(#ffffff03 1px, transparent 1px), linear-gradient(90deg, #ffffff03 1px, transparent 1px); background-size: 50px 50px; mask-image: radial-gradient(ellipse, black, transparent 75%); pointer-events: none; }
+.intro[data-leaving="true"] { opacity: 0; transform: translateY(-12px); }
+.introTop, .introBottom { display: flex; justify-content: space-between; align-items: center; gap: 25px; position: relative; font: 9px var(--font-geist-mono), monospace; letter-spacing: .8px; color: #858e9b; }
+.introTop > span:first-child { color: #f0f0ec; }
+.introCenter { text-align: center; position: relative; padding: 35px 0; }
+.introCenter > p { font: 9px var(--font-geist-mono), monospace; letter-spacing: 1.3px; color: #a5acb7; }
+.lightRack { display: flex; justify-content: center; gap: 14px; margin: 36px 0; }
+.lightRack > div { display: flex; flex-direction: column; gap: 8px; padding: 11px; background: #161a20; border: 1px solid #303641; border-radius: 60px; }
+.lightRack i { display: block; width: 39px; height: 39px; border-radius: 50%; background: #2d181c; border: 1px solid #482125; }
+.lightRack > div[data-on="true"] i { background: #ff3b32; border-color: #ff746c; box-shadow: 0 0 22px #ff3b3270; }
+.introCenter > h2 { font: italic 700 clamp(60px, 9vw, 125px)/1 var(--font-racing), 'Arial Narrow', Arial, sans-serif; letter-spacing: -1px; margin: 0; }
+.introCaption { display: block; font: 8px var(--font-geist-mono), monospace; letter-spacing: 1.6px; color: #ff6d60; margin-top: 21px; }
+.introBottom button { display: flex; gap: 30px; align-items: center; padding: 14px 0; min-height: 44px; color: #edece8; background: none; border: 0; border-bottom: 1px solid #5b616b; font: 10px var(--font-geist-mono), monospace; cursor: pointer; }
+.introBottom button:focus-visible { outline: 2px solid #ff6d60; outline-offset: 6px; }.introBottom button > span { font-size: 23px; }
+.finishLine { position: absolute; inset: auto 0 0; height: 4px; background: repeating-linear-gradient(115deg, #ee4439 0 12px, #0b0d10 12px 24px); }
+@media (max-width: 600px) { .intro { padding: 24px 7%; }.introTop, .introBottom { font-size: 7px; letter-spacing: .4px; }.introCenter > p { font-size: 7px; letter-spacing: .6px; }.lightRack { gap: 9px; margin: 30px 0; }.lightRack > div { gap: 6px; padding: 8px; }.lightRack i { width: 27px; height: 27px; }.introCenter > h2 { font-size: 64px; }.introBottom > span { max-width: 140px; line-height: 1.8; }.introBottom button { font-size: 9px; gap: 20px; }.introCaption { font-size: 7px; letter-spacing: 1px; } }
+@media (max-width: 350px) { .lightRack { gap: 6px; }.lightRack > div { padding: 7px; }.lightRack i { width: 24px; height: 24px; }.introCenter > h2 { font-size: 54px; } }
+@media (prefers-reduced-motion: reduce) { .intro { transition: none; } }

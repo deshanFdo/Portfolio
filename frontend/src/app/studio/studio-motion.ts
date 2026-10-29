@@ -28,7 +28,6 @@ export function useStudioMotion(
   root: RefObject<HTMLDivElement | null>,
   progress: RefObject<HTMLDivElement | null>,
   enabled: boolean,
-  filter: string,
 ) {
   const revealed = useRef(new WeakSet<Element>());
 
@@ -82,7 +81,7 @@ export function useStudioMotion(
       targets.forEach(element => delete element.dataset.enter);
       loops.forEach(element => delete element.dataset.inView);
     };
-  }, [root, enabled, filter]);
+  }, [root, enabled]);
 
   useEffect(() => {
     if (!enabled) return;
