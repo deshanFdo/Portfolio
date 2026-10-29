@@ -1,0 +1,161 @@
+.flow {
+  padding: 88px 5.5% 82px;
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+}
+.heading { max-width: 1496px; margin-inline: auto; }
+.workbench {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 48px;
+  max-width: 1496px;
+  margin: 42px auto 0;
+  align-items: start;
+}
+.stepList { border-top: 1px solid var(--line); }
+.stepList button {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  min-height: 100px;
+  padding: 25px 18px;
+  text-align: left;
+  background: transparent;
+  color: var(--ink);
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  transition: background .25s, color .25s, padding .25s;
+}
+.stepList button:hover { background: var(--card); }
+.stepList button[aria-selected="true"] {
+  background: var(--blue);
+  color: #fff;
+  padding-left: 25px;
+  border-color: var(--blue);
+}
+.stepNumber { font: 11px var(--font-geist-mono), monospace; opacity: .7; }
+.stepList strong { display: block; font-size: clamp(21px, 2.2vw, 32px); font-weight: 500; letter-spacing: -1px; }
+.stepList small { display: block; font-size: 11px; margin-top: 7px; opacity: .8; line-height: 1.5; }
+.stepArrow { margin-left: auto; font-size: 26px; opacity: .4; transition: transform .3s, opacity .3s; }
+.stepList [aria-selected="true"] .stepArrow { transform: rotate(45deg); opacity: 1; }
+.processNote { display: flex; align-items: center; gap: 13px; font-size: 11px; color: var(--muted); padding: 21px 0; }
+.processNote > span { font-size: 26px; color: var(--blue); }
+.panel { min-width: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--card); }
+.panelContent { animation: panelIn .4s ease both; }
+.sketch {
+  height: 210px;
+  background: #e9e6d9;
+  color: #28362c;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background-image: radial-gradient(#6c775c38 .8px, transparent .8px);
+  background-size: 14px 14px;
+}
+.sketch[data-step="1"] { background-color: #d6e0ed; color: #273b59; }
+.sketch[data-step="2"] { background-color: #dde6c4; color: #2f442b; }
+.sketch[data-step="3"] { background-color: #f1cba9; color: #573f2c; }
+.sketchLabel, .sketchMark { position: absolute; font: 9px var(--font-geist-mono), monospace; letter-spacing: .7px; left: 22px; top: 18px; }
+.sketchMark { inset: auto 20px 14px auto; font-size: 7px; opacity: .65; }
+.sketchLines { position: absolute; inset: 0; width: 100%; height: 100%; stroke: currentColor; stroke-width: 1; opacity: .25; }
+.sketchLines path:first-child, .sketchLines path:nth-child(2) { stroke-dasharray: 4 7; }
+.drawLine { stroke-dasharray: 400; animation: drawConnection .8s .1s ease both; }
+.sketchNodes { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-evenly; gap: 12px; padding-top: 12px; }
+.sketchNodes > span { font: 9px var(--font-geist-mono), monospace; background: #fcfaf2; border: 1px solid #263a3733; border-radius: 5px; padding: 11px 13px; transform: rotate(-5deg); box-shadow: 3px 4px 0 #253c3710; }
+.sketchNodes > span:last-child { transform: rotate(5deg); }
+.sketchNodes b { display: grid; place-items: center; width: 74px; height: 74px; background: #3046ed; color: #f9f7ef; border-radius: 50%; font: 36px Georgia, serif; box-shadow: 0 0 0 10px #f8f8ef66; animation: stampIn .5s ease both; }
+.sketch[data-step="2"] .sketchNodes b { font-size: 24px; }
+.sketchCenter { position: absolute; bottom: 23px; width: 100%; text-align: center; font: 8px var(--font-geist-mono), monospace; letter-spacing: 1px; }
+.panelCopy { padding: 27px 30px 0; min-height: 305px; }
+.panelCopy h3 { font-size: clamp(21px, 2.2vw, 30px); font-weight: 500; letter-spacing: -.8px; line-height: 1.2; }
+.panelCopy p { font-size: 12px; line-height: 1.85; color: var(--muted); margin-top: 12px; max-width: 560px; }
+.panelCopy ul { list-style: none; margin: 19px 0 23px; padding: 0; display: grid; gap: 9px; }
+.panelCopy li { display: flex; align-items: baseline; gap: 11px; font-size: 11px; }
+.panelCopy li > span { color: var(--blue); }
+.output { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; padding: 17px 0; border-top: 1px solid var(--line); align-items: center; }
+.output > span { font: 8px var(--font-geist-mono), monospace; color: var(--muted); letter-spacing: .5px; }
+.output strong { font-size: 11px; font-weight: 500; }
+.requestLab {
+  max-width: 1496px;
+  margin: 60px auto 0;
+  border: 1px solid #d6decd;
+  border-radius: 12px;
+  background: #e8eddd;
+  color: #2b352b;
+  display: grid;
+  grid-template-columns: .7fr 1.3fr;
+  padding: 35px;
+  gap: 45px;
+}
+.labLabel { font: 8px var(--font-geist-mono), monospace; letter-spacing: 1px; }
+.labIntro h3 { font-size: clamp(27px, 3vw, 40px); font-weight: 500; letter-spacing: -1.5px; margin-top: 16px; line-height: 1.15; }
+.labIntro p { font-size: 12px; line-height: 1.8; color: #616a58; margin-top: 15px; }
+.labPlayground { min-width: 0; }
+.requestTrack { display: flex; align-items: center; padding: 5px 0 23px; }
+.requestNode { flex: 1; min-width: 0; text-align: center; }
+.requestNode > span { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid #c3cbb6; border-radius: 12px; background: #f4f5e9; margin: 0 auto 10px; font: 20px var(--font-geist-mono), monospace; transition: background .25s, color .25s, transform .25s, box-shadow .25s; }
+.requestNode[data-active="true"] > span { background: #3046ed; border-color: #3046ed; color: white; transform: translateY(-3px); box-shadow: 0 5px 0 #3046ed18; }
+.requestNode b { display: block; font-size: 12px; font-weight: 500; }
+.requestNode small { display: block; font-size: 9px; color: #616a58; margin-top: 5px; }
+.wire { width: 42px; height: 1px; background: #b9c5ac; position: relative; align-self: flex-start; margin-top: 22px; }
+.wire::after { content: ''; position: absolute; right: 0; top: -2px; width: 5px; height: 5px; border-right: 1px solid #89977b; border-top: 1px solid #89977b; transform: rotate(45deg); }
+.wire i { position: absolute; left: 0; top: -3px; width: 7px; height: 7px; border-radius: 50%; background: #3046ed; opacity: 0; }
+.wire[data-active="true"] { background: #3046ed; }
+.wire[data-active="true"] i { animation: requestTravel .7s linear both; }
+.wire[data-return="true"] i { animation-direction: reverse; }
+.labControls { display: flex; align-items: center; gap: 18px; border-top: 1px solid #c9d2bd; padding-top: 18px; }
+.labControls button { display: inline-flex; justify-content: space-between; align-items: center; gap: 18px; min-height: 44px; min-width: 160px; border: 0; border-radius: 5px; background: #2b352b; color: #f5f7ed; padding: 11px 15px; font-size: 11px; }
+.labControls button:disabled { cursor: progress; opacity: .7; }
+.labControls button span { font-size: 19px; }
+.requestStatus { font: 9px/1.7 var(--font-geist-mono), monospace; color: #4e5b43; }
+.labFootnote { font-size: 8px; line-height: 1.7; color: #616a58; margin-top: 15px !important; }
+@keyframes panelIn { from { opacity: .25; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes stampIn { from { transform: scale(.85) rotate(-12deg); } to { transform: scale(1) rotate(0); } }
+@keyframes drawConnection { from { stroke-dashoffset: 400; } to { stroke-dashoffset: 0; } }
+@keyframes requestTravel { 0% { left: 0; opacity: 0; } 15%, 85% { opacity: 1; } 100% { left: calc(100% - 5px); opacity: 0; } }
+@media (min-width: 1500px) { .flow > div:first-child { max-width: 1496px; margin-inline: auto; } }
+@media (max-width: 1050px) {
+  .workbench { gap: 26px; grid-template-columns: .85fr 1.15fr; }
+  .stepList button { padding: 24px 12px; gap: 14px; }
+  .stepList small { max-width: 170px; }
+  .panelCopy { padding-inline: 23px; min-height: 330px; }
+  .requestLab { gap: 24px; padding: 28px; grid-template-columns: .7fr 1.3fr; }
+  .labControls { flex-wrap: wrap; gap: 10px; }
+  .requestStatus { min-height: 16px; }
+}
+@media (max-width: 760px) {
+  .flow { padding: 55px 6%; }
+  .workbench { grid-template-columns: 1fr; gap: 24px; margin-top: 28px; }
+  .stepList { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; border: 0; }
+  .stepList button { border: 1px solid var(--line); border-radius: 5px; min-height: 64px; padding: 13px; gap: 10px; }
+  .stepList button[aria-selected="true"] { padding-left: 13px; }
+  .stepList strong { font-size: 20px; letter-spacing: -.6px; }
+  .stepList small, .stepArrow { display: none; }
+  .stepNumber { font-size: 9px; }
+  .processNote { grid-column: 1 / -1; padding: 3px 0 0; font-size: 10px; }
+  .panelCopy { padding: 24px 23px 0; min-height: 295px; }
+  .panelCopy h3 { font-size: 24px; }
+  .sketch { height: 200px; }
+  .requestLab { grid-template-columns: 1fr; margin-top: 35px; padding: 25px 22px; gap: 28px; }
+  .labIntro h3 { font-size: 34px; }
+  .labIntro p br { display: none; }
+  .labControls { flex-wrap: nowrap; gap: 15px; }
+  .labControls button { min-width: 150px; }
+}
+@media (max-width: 430px) {
+  .panelCopy { padding-inline: 20px; min-height: 340px; }
+  .panelCopy h3 { font-size: 23px; }
+  .panelCopy li { font-size: 10px; }
+  .sketchNodes > span { font-size: 7px; padding: 9px; }
+  .sketchNodes b { width: 64px; height: 64px; }
+  .requestLab { padding: 24px 16px; }
+  .wire { width: 18px; }
+  .requestNode small { font-size: 8px; line-height: 1.5; min-height: 24px; }
+  .labControls { flex-direction: column; align-items: stretch; }
+  .labControls button { width: 100%; }
+  .requestStatus { min-height: 30px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .drawLine { stroke-dashoffset: 0; }
+}

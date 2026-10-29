@@ -14,3 +14,78 @@
 @media(max-width:760px){.nav{height:78px;gap:15px;}.nav nav{gap:18px;font-size:12px;}.classicLink{font-size:10px;gap:6px;}.navActions{gap:12px;}.themeButton{width:34px;height:34px;}.wordmark{font-size:37px;}.hero{grid-template-columns:1fr;padding:40px 6% 55px;gap:40px;}.hero h1{font-size:clamp(63px,12.5vw,91px);}.heroCopy{max-width:590px;}.eyebrow{font-size:9px;letter-spacing:.7px;margin-bottom:24px;}.heroBottom{margin-top:25px;}.heroMeta{margin-top:25px;}.robotStage{min-height:440px;max-width:600px;width:100%;margin:auto;}.robotViewport{height:330px;min-height:300px;}.skillsRibbon{gap:14px;padding:25px 6%;}.skillsRibbon b{font-size:13px;}.skillsRibbon i{font-size:13px;}.work{padding:55px 6%;}.sectionLabel{font-size:8px;}.sectionLabel>span:last-child{display:none;}.sectionHeading{display:block;margin-top:22px;}.sectionHeading h2{font-size:44px;letter-spacing:-2px;}.sectionHeading p{margin-top:18px;}.projectGrid{grid-template-columns:1fr;gap:38px;}.featuredProject{display:block;}.project h3{font-size:30px;}.featuredProject .projectMeta{margin-top:23px;}.portalArt{height:330px;min-height:330px;}.allRepos{font-size:11px;}.about{grid-template-columns:1fr;gap:25px;padding:50px 6%;}.aboutLeft h2{font-size:60px;letter-spacing:-3px;}.monogram{display:none;}.aboutRight{padding-top:0;}.aboutRight .aboutLead{font-size:23px;}.contact{padding:40px 6%;}.contactTop{font-size:7px;letter-spacing:.5px;}.contact h2{font-size:12vw;margin:30px 0;}.contact h2>span{display:none;}.contactBottom{flex-direction:column;gap:25px;}.emailLink{font-size:20px;}.footer{flex-wrap:wrap;padding:28px 6%;gap:20px;}.footer>span{order:3;width:100%;font-size:7px;}.footer>div{gap:18px;}.classicLink span{display:none;}}
 @media(max-width:430px){.nav nav{display:none;}.classicLink{font-size:11px;}.hero h1{font-size:16vw;}.heroActions{gap:20px;}.primary{padding:15px 18px;gap:20px;}.textLink{font-size:11px;}.heroMeta{font-size:7px;}.robotStage{min-height:410px;}.stageTop{font-size:7px;}.stageBottom{font-size:8px;}.stageBottom small{font-size:8px;}.robotViewport{min-height:280px;height:280px;}.filters{gap:5px;}.filters button{padding:9px 12px;font-size:10px;}.artTop{font-size:8px;}.portalArt{padding:25px 18px;}.apiRows{gap:17px 13px;}.lawArt{padding:30px 22px;}.contactTop{flex-wrap:wrap;}.emailLink{font-size:17px;}.sectionHeading h2{font-size:39px;}.aboutLeft h2{font-size:53px;}.experienceRow{gap:14px;}.experienceRow>span:first-child{width:65px;}}
 @media(prefers-reduced-motion:reduce){.studio *{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
+
+/* Studio motion is progressively enhanced; the exported page is visible without JS. */
+.nav { position: sticky; top: 0; z-index: 50; background: var(--paper); }
+.nav nav a { position: relative; border: 0; }
+.nav nav a::after { content: ''; position: absolute; inset: auto 0 6px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .25s ease; }
+.nav nav a:hover::after, .nav nav a:focus-visible::after { transform: scaleX(1); }
+.navActions { gap: 18px; }
+.motionButton { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 8px 0; font-size: 10px !important; color: var(--muted); border: 0; background: transparent; white-space: nowrap; }
+.motionButton > span { width: 12px; font-size: 13px; }
+.motionButton:disabled { cursor: default; }
+.themeButton { min-width: 44px; min-height: 44px; transition: transform .3s; }
+.themeButton:hover { transform: rotate(20deg); }
+.readingProgress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 100; background: #3046ed; transform: scaleX(0); transform-origin: left; pointer-events: none; }
+.studio[data-motion="off"] .readingProgress { visibility: hidden; }
+.headlineLine { display: block; }
+.studio [data-enter="pending"] { opacity: 0; transform: translateY(22px); }
+.studio [data-enter="visible"] { animation: studioReveal .75s cubic-bezier(.2, .7, .2, 1) both; }
+.studio [data-reveal-order="1"] { animation-delay: 90ms; }
+.studio [data-reveal-order="2"] { animation-delay: 180ms; }
+.studio [data-reveal-order="3"] { animation-delay: 270ms; }
+.studio [data-enter]:focus-within { opacity: 1; transform: none; animation: none; }
+.robotHalo { animation: orbit 24s linear infinite; animation-play-state: paused; }
+.orbitDot { position: absolute; left: 50%; top: -4px; width: 8px; height: 8px; background: #3046ed; border-radius: 50%; box-shadow: 0 0 0 6px #3046ed0d; }
+.orbitStar { position: absolute; right: 11%; bottom: 12%; color: #3046ed; font-size: 28px; line-height: 1; }
+.robotStage[data-in-view="true"] .robotHalo { animation-play-state: running; }
+.skillsRibbon i { animation: orbit 16s linear infinite; animation-play-state: paused; }
+.skillsRibbon[data-in-view="true"] i { animation-play-state: running; }
+.skillsRibbon i:nth-of-type(even) { animation-direction: reverse; }
+.studio[data-page-visible="false"] .robotHalo, .studio[data-page-visible="false"] .skillsRibbon i { animation-play-state: paused; }
+.primary { position: relative; overflow: hidden; isolation: isolate; }
+.primary::before { content: ''; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 25%, #ffffff22 50%, transparent 75%); transform: translateX(-110%); transition: transform .55s; pointer-events: none; }
+.primary:hover::before, .primary:focus-visible::before { transform: translateX(110%); }
+.primary > span, .textLink > span { display: inline-block; transition: transform .3s; }
+.primary:hover > span, .textLink:hover > span { transform: translate(2px, -2px); }
+.filters button { transition: background .2s, color .2s, border-color .2s; min-height: 44px; }
+.filters button:hover { border-color: var(--ink); }
+.artLink::after { content: ''; position: absolute; right: 0; bottom: 0; width: 38px; height: 38px; background: linear-gradient(135deg, #ffffff18 48%, var(--paper) 51%); transform: translate(100%, 100%); transition: transform .35s; pointer-events: none; }
+.artLink:hover::after, .artLink:focus-visible::after { transform: translate(0, 0); }
+.artLink:focus-visible .apiWindow, .artLink:focus-visible .messageCard { transform: rotate(0); }
+.projectLinks button, .projectLinks a { min-height: 44px; display: inline-flex; align-items: center; }
+.detailWrap { display: grid; grid-template-rows: 0fr; visibility: hidden; opacity: 0; transition: grid-template-rows .35s, opacity .25s, visibility .35s; }
+.detailWrap > div { overflow: hidden; min-height: 0; }
+.detailWrap[data-expanded="true"] { grid-template-rows: 1fr; visibility: visible; opacity: 1; }
+.featuredProject .detailWrap { grid-column: 2; }
+.allRepos span { transition: transform .25s; }
+.allRepos:hover span { transform: translateX(5px); }
+.contact h2 > span { transition: transform .5s cubic-bezier(.2, .7, .2, 1); }
+.contact:hover h2 > span { transform: translate(8px, -8px); }
+.studio[data-motion="off"] *, .studio[data-motion="off"] *::before, .studio[data-motion="off"] *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+.studio[data-motion="off"] [data-enter] { opacity: 1; transform: none; }
+@keyframes studioReveal { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes orbit { to { transform: rotate(360deg); } }
+@media (max-width: 1050px) { .nav nav { gap: 22px; } .navActions { gap: 12px; } }
+@media (max-width: 760px) {
+  .nav { height: auto; min-height: 104px; flex-wrap: wrap; gap: 0 14px; padding: 15px 6% 0; }
+  .nav nav { display: flex; order: 3; justify-content: space-between; gap: 15px; width: 100%; font-size: 11px; margin-top: 5px; }
+  .nav nav a { min-height: 44px; display: flex; align-items: center; padding: 10px 0; }
+  .navActions { margin-left: auto; gap: 10px; }
+  .motionButton { font-size: 9px !important; gap: 5px; }
+  .classicLink { font-size: 10px; }
+  .studio section { scroll-margin-top: 125px; }
+  .featuredProject .detailWrap { grid-column: auto; }
+}
+@media (max-width: 430px) {
+  .nav { padding-inline: 5%; gap: 0 8px; }
+  .navActions { gap: 7px; }
+  .themeButton { width: 40px; height: 44px; min-width: 40px; }
+  .motionButton { font-size: 10px !important; }
+  .classicLink { font-size: 10px; }
+  .projectMeta { font-size: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .studio [data-enter] { opacity: 1; transform: none; }
+  .studio *::before, .studio *::after { animation: none !important; transition: none !important; }
+}
