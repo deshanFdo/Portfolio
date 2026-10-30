@@ -1,6 +1,6 @@
 # Two portfolio directions
 
-- `/Portfolio/` — the original portfolio, with its intro and robot.
+- `/Portfolio/` — the Mercedes-inspired original portfolio, with its intro and robot.
 - `/Portfolio/studio` — the F1-inspired redesign, reached through **New portfolio** in the original navbar. **Classic** returns to the original.
 
 ## The Next Lap
@@ -32,3 +32,11 @@ Production compilation, TypeScript validation, and static export passed. Three e
 Deshan requested [Canvas UI](https://canvasui.dev/components) as a preferred resource for creative components and their provided prompts. Consult relevant component guidance when an effect suits a future change. The original portfolio already includes its FlameWrap implementation in `src/components/canvasui/FlameWrap.tsx`.
 
 Keep the robot and use effects selectively, with attention to mobile performance, readable content, keyboard access, and reduced-motion preferences. For this version, lightweight CSS and SVG motion provide the racing details.
+
+## Mercedes-inspired original portfolio
+
+The original `/Portfolio/` route has its own scoped silver, carbon black, and turquoise theme. A three-pointed star, condensed silver nameplate, starting-grid intro, technical dividers, and paddock-style project panels establish the F1 identity. This is Deshan’s personal fan-inspired portfolio, not an official team website. Studio remains its separate racing-red design.
+
+The original keeps the Spline robot, CV, project/source links, contact draft flow, and employment/education content. The navbar still links to New portfolio. The toolkit replaces self-rated percentage meters; the profile replaces coffee/learning counters with relevant background. Project implementation details use native expandable panels. Particle fields, space backgrounds, and flame shaders are no longer mounted on the original page.
+
+The new original intro uses a native modal dialog, closes automatically in about 2.12 seconds, and supports Skip, Escape, and footer Replay. Reduced-motion preferences skip it. The robot loads separately after the intro, can be paused/woken, and defaults to standby for reduced-motion visitors. Colors and Barlow Condensed font are scoped to the original route.

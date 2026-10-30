@@ -43,7 +43,7 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
         >
           <span className={styles.sectionNumber}>05</span>
-          <h2 className={styles.title}>GET_IN_TOUCH</h2>
+          <h2 className={styles.title}>LET’S TALK.</h2>
           <div className={styles.titleLine} />
         </motion.div>
 
@@ -56,7 +56,7 @@ export default function Contact() {
             transition={{ delay: 0.2, duration: 0.5 }}
           >
             <h3 className={styles.contentTitle}>
-              Let&apos;s build something <span>amazing</span> together.
+              The next chapter.<br /><span>Built together.</span>
             </h3>
             <p className={styles.contentDesc}>
               I&apos;m currently open to new opportunities and collaborations.

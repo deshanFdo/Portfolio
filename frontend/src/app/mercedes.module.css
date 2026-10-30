@@ -1,0 +1,43 @@
+.mercedes {
+  --ferrari-red: #00d2be;
+  --ferrari-red-light: #83f2e4;
+  --ferrari-red-dark: #00a998;
+  --ferrari-glow: rgb(0 210 190 / .22);
+  --ferrari-yellow: #c7d3d4;
+  --ferrari-yellow-dark: #9badaf;
+  --ferrari-blue: #00d2be;
+  --ferrari-blue-light: #83f2e4;
+  --ferrari-blue-glow: rgb(0 210 190 / .2);
+  --ferrari-white: #f4f7f7;
+  --ferrari-white-soft: rgb(244 247 247 / .9);
+  --silver: #c7d3d4;
+  --silver-light: #e7eeef;
+  --silver-dark: #87999b;
+  --black: #050909;
+  --carbon: #0a1010;
+  --graphite: #101818;
+  --slate: #182424;
+  --deep-space: #050909;
+  --red-accent: #00d2be;
+  --white: #f4f7f7;
+  --purple-accent: #00d2be;
+  --text-primary: #f4f7f7;
+  --text-secondary: #c0cdcd;
+  --text-muted: #98aaaa;
+  --text-subtle: #7b9090;
+  --surface-glass: rgb(8 17 17 / .94);
+  --border-subtle: rgb(195 220 220 / .14);
+  --border-accent: rgb(0 210 190 / .32);
+  min-height: 100vh;
+  background: #050909;
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+  overflow: clip;
+}
+.mercedes :global(section[id]) { scroll-margin-top: 90px; }
+.mercedes :global(a), .mercedes :global(button) { -webkit-tap-highlight-color: transparent; }
+.mercedes :global(:focus-visible) { outline: 2px solid #83f2e4; outline-offset: 5px; }
+.mercedes ::selection { background: #00d2be; color: #050909; }
+@media (prefers-reduced-motion: reduce) {
+  .mercedes *, .mercedes *::before, .mercedes *::after { animation: none !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}

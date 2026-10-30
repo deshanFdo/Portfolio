@@ -8,7 +8,7 @@
   align-items: center;
   justify-content: center;
   padding: 0;
-  border: 1px solid rgba(122, 215, 240, 0.18);
+  border: 1px solid rgba(0, 210, 190, 0.18);
   border-radius: 999px;
   background:
     radial-gradient(circle at 30% 30%, rgba(247, 249, 255, 0.18), transparent 42%),
@@ -18,7 +18,7 @@
   box-shadow:
     0 18px 50px rgba(6, 16, 27, 0.35),
     inset 0 1px 0 rgba(247, 249, 255, 0.08),
-    0 0 0 1px rgba(136, 168, 255, 0.04);
+    0 0 0 1px rgba(0, 210, 190, 0.04);
   cursor: pointer;
   z-index: 120;
   overflow: visible;
@@ -41,7 +41,7 @@
   box-shadow:
     0 20px 55px rgba(6, 16, 27, 0.4),
     inset 0 1px 0 rgba(247, 249, 255, 0.08),
-    0 0 22px rgba(122, 215, 240, 0.1);
+    0 0 22px rgba(0, 210, 190, 0.1);
 }
 
 .button[data-depth='deep'] {
@@ -49,19 +49,19 @@
   height: 4.9rem;
   border-radius: 1.2rem;
   background:
-    radial-gradient(circle at 50% 20%, rgba(122, 215, 240, 0.18), transparent 38%),
+    radial-gradient(circle at 50% 20%, rgba(0, 210, 190, 0.18), transparent 38%),
     linear-gradient(180deg, rgba(9, 16, 28, 0.98), rgba(6, 13, 24, 0.96));
   box-shadow:
     0 22px 60px rgba(6, 16, 27, 0.45),
     inset 0 1px 0 rgba(247, 249, 255, 0.08),
-    0 0 30px rgba(136, 168, 255, 0.14);
+    0 0 30px rgba(0, 210, 190, 0.14);
 }
 
 .orbit {
   position: absolute;
   inset: -0.35rem;
   border-radius: 999px;
-  border: 1px solid rgba(122, 215, 240, 0.12);
+  border: 1px solid rgba(0, 210, 190, 0.12);
   opacity: 0.75;
   transition: inset 0.28s ease, opacity 0.28s ease, border-color 0.28s ease;
 }
@@ -73,7 +73,7 @@
 
 .button[data-depth='deep'] .orbit {
   inset: -0.6rem;
-  border-color: rgba(136, 168, 255, 0.2);
+  border-color: rgba(0, 210, 190, 0.2);
   opacity: 0.95;
 }
 
@@ -100,7 +100,7 @@
   stroke: var(--ferrari-blue);
   stroke-linecap: round;
   transition: stroke-dashoffset 0.18s ease, stroke 0.28s ease, filter 0.28s ease;
-  filter: drop-shadow(0 0 8px rgba(122, 215, 240, 0.45));
+  filter: drop-shadow(0 0 8px rgba(0, 210, 190, 0.45));
 }
 
 .button[data-depth='mid'] .ringProgress {
@@ -110,7 +110,7 @@
 
 .button[data-depth='deep'] .ringProgress {
   stroke: var(--ferrari-red);
-  filter: drop-shadow(0 0 10px rgba(136, 168, 255, 0.5));
+  filter: drop-shadow(0 0 10px rgba(0, 210, 190, 0.5));
 }
 
 .iconWrap {
@@ -123,7 +123,7 @@
   border-radius: 50%;
   background: linear-gradient(135deg, var(--ferrari-red), var(--ferrari-blue));
   color: var(--ferrari-white);
-  box-shadow: 0 10px 22px rgba(122, 215, 240, 0.25);
+  box-shadow: 0 10px 22px rgba(0, 210, 190, 0.25);
   transition: width 0.28s ease, height 0.28s ease, border-radius 0.28s ease, background 0.28s ease, transform 0.28s ease;
 }
 
@@ -164,7 +164,7 @@
   padding: 0.75rem 0.85rem;
   border-radius: 14px;
   background: rgba(8, 14, 24, 0.82);
-  border: 1px solid rgba(122, 215, 240, 0.14);
+  border: 1px solid rgba(0, 210, 190, 0.14);
   backdrop-filter: blur(12px);
   opacity: 0;
   pointer-events: none;
@@ -185,7 +185,7 @@
 }
 
 .label {
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-mercedes), sans-serif;
   font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -209,3 +209,10 @@
     height: 2.2rem;
   }
 }
+
+/* A compact pit-wall control, consistent at every scroll depth. */
+.button, .button[data-depth] { width: 46px; height: 46px; right: 20px; bottom: 24px; border-radius: 2px; background: #0a1815; box-shadow: 0 5px 18px #0006; }
+.button .orbit, .button .labelWrap { display: none; }
+.button .iconWrap { background: none; box-shadow: none; width: 30px; height: 30px; }
+.button .icon { color: #d1e5df; }
+.button .ringProgress { stroke: #00d2be; filter: none; }

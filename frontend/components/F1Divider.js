@@ -1,10 +1,12 @@
 "use client";
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useId, useRef } from "react";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import styles from "./F1Divider.module.css";
 
 export default function F1Divider({ flip = false }) {
   const ref = useRef(null);
+  const gradientId = useId();
+  const reducedMotion = useReducedMotion();
   // Track scroll progress: 0 when divider enters bottom of viewport -> 1 when it leaves top
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -20,6 +22,7 @@ export default function F1Divider({ flip = false }) {
   return (
     <div
       ref={ref}
+      aria-hidden="true"
       className={styles.divider}
       style={{ transform: flip ? "scaleX(-1)" : "none" }}
     >
@@ -29,7 +32,7 @@ export default function F1Divider({ flip = false }) {
       {/* F1 Car - position driven by scroll */}
       <motion.div
         className={styles.carContainer}
-        style={{ left: leftString }}
+        style={{ left: reducedMotion ? "50%" : leftString }}
       >
         {/* Tire marks / trail behind the car */}
         <div className={styles.trail}>
@@ -40,7 +43,7 @@ export default function F1Divider({ flip = false }) {
         {/* Teal glow exhaust */}
         <motion.div
           className={styles.exhaust}
-          animate={{ opacity: [0.4, 0.8, 0.4], scaleX: [0.8, 1.2, 0.8] }}
+          animate={reducedMotion ? {} : { opacity: [0.4, 0.8, 0.4], scaleX: [0.8, 1.2, 0.8] }}
           transition={{ duration: 0.3, repeat: Infinity }}
         />
 
@@ -58,7 +61,7 @@ export default function F1Divider({ flip = false }) {
           {/* Engine cover / body rear */}
           <path
             d="M8 10 L20 8 L30 6 L30 22 L8 20 Z"
-            fill="url(#carGradient)"
+            fill={`url(#${gradientId})`}
             stroke="var(--ferrari-red)"
             strokeWidth="0.5"
           />
@@ -69,7 +72,7 @@ export default function F1Divider({ flip = false }) {
           {/* Main body */}
           <path
             d="M30 6 L75 4 L85 6 L90 8 L90 22 L85 24 L30 22 Z"
-            fill="url(#carGradient)"
+            fill={`url(#${gradientId})`}
             stroke="var(--ferrari-red-dark)"
             strokeWidth="0.5"
           />
@@ -89,12 +92,12 @@ export default function F1Divider({ flip = false }) {
           <path d="M40 20 L50 21 L50 18 L40 18" fill="#0a0a10" opacity="0.6" />
 
           {/* Number */}
-          <text x="60" y="16" textAnchor="middle" fill="var(--ferrari-yellow)" fontSize="8" fontWeight="bold" fontFamily="monospace">16</text>
+          <text x="60" y="16" textAnchor="middle" fill="var(--ferrari-yellow)" fontSize="8" fontWeight="bold" fontFamily="monospace">DF</text>
 
           {/* Front nose */}
           <path
             d="M90 8 L110 10 L115 12 L115 18 L110 20 L90 22"
-            fill="url(#carGradient)"
+            fill={`url(#${gradientId})`}
             stroke="var(--ferrari-red-dark)"
             strokeWidth="0.5"
           />
@@ -117,14 +120,14 @@ export default function F1Divider({ flip = false }) {
           {/* Accent stripe */}
           <line x1="10" y1="14" x2="110" y2="14" stroke="#FFFFFF" strokeWidth="1" opacity="0.7" />
 
-          {/* White side accents - like SF-24 livery */}
+          {/* White side accents - silver and turquoise livery */}
           <path d="M35 6 L85 5 L85 7 L35 8 Z" fill="#FFFFFF" opacity="0.25" />
           <path d="M35 22 L85 23 L85 21 L35 20 Z" fill="#FFFFFF" opacity="0.25" />
 
           <defs>
-            <linearGradient id="carGradient" x1="0" y1="0" x2="120" y2="0">
-              <stop offset="0%" stopColor="var(--ferrari-red-dark)" />
-              <stop offset="50%" stopColor="var(--ferrari-red)" />
+            <linearGradient id={gradientId} x1="0" y1="0" x2="120" y2="0">
+              <stop offset="0%" stopColor="#647879" />
+              <stop offset="50%" stopColor="#dbe6e6" />
               <stop offset="100%" stopColor="var(--ferrari-blue)" />
             </linearGradient>
           </defs>
