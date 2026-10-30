@@ -7,7 +7,11 @@
 .aboutGrid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; align-items: center; }
 .portrait { position: relative; background: #111e1a; border: 1px solid #354d45; padding: 8px; }
 .portrait::after { content: ''; position: absolute; bottom: 0; left: 0; height: 5px; width: 45%; background: #00d2be; }
-.portrait img { display: block; width: 100%; height: auto; aspect-ratio: 1.06; object-fit: cover; filter: saturate(.65); }
+.portrait .portraitArt { position: relative; min-height: 320px; padding: 35px; overflow: hidden; justify-content: flex-end; background: repeating-linear-gradient(125deg, transparent 0 45px, #8bd9c508 45px 46px), linear-gradient(145deg, #0c1412, #122c22); }
+.portraitArt::after { content: ''; position: absolute; right: 18%; top: -15%; width: 35px; height: 140%; transform: rotate(30deg); background: #00d2be; opacity: .7; }
+.portraitArt svg { position: absolute; width: 180px; height: 180px; top: 25px; right: -25px; color: #bbd7cb; opacity: .13; }
+.portraitArt b { position: relative; z-index: 1; font: italic 700 180px/.9 var(--font-mercedes), Impact, sans-serif; letter-spacing: -.05em; color: #dcece5; text-shadow: 4px 6px 0 #050909; }
+.portraitArt small { position: relative; z-index: 1; font: 7px var(--font-geist-mono), monospace; color: #a1cbb7; margin-top: 20px; letter-spacing: .09em; }
 .portrait > div { padding: 22px 14px 16px; display: flex; flex-direction: column; gap: 9px; }
 .portrait > div span:first-child { font: 600 24px var(--font-mercedes), sans-serif; letter-spacing: .05em; }
 .portrait > div span:last-child { font: 8px var(--font-geist-mono), monospace; color: #8eaaa2; letter-spacing: .1em; }
@@ -82,7 +86,7 @@
   .heading > p { font-size: 11px; }
   .aboutGrid, .projectGrid { grid-template-columns: 1fr; }
   .portrait { max-width: 380px; width: 100%; }
-  .portrait img { aspect-ratio: 1.2; }
+  .portrait .portraitArt { min-height: 285px; }
   .bio h3 { font-size: 34px; }
   .facts { gap: 12px; }
   .facts strong { font-size: 10px; }
