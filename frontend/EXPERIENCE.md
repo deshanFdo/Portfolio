@@ -1,6 +1,6 @@
 # Silverworks: the engineering paddock
 
-The main portfolio at `/Portfolio/` is the single active experience. The previous `/studio` and `/meta-version` routes remain redirects to the main page.
+The portfolio has two explicitly requested editions: Silverworks at `/Portfolio/` and the separate Ferrari-inspired Rosso Works experience at `/Portfolio/ferrari`. The header buttons switch between them. The previous `/studio` and `/meta-version` routes remain redirects to the main page.
 
 ## The journey
 
@@ -26,3 +26,11 @@ Production static export passed. Browser checks covered the default desktop view
 GitHub Pages deployment continues through the existing main-branch workflow. Existing public CV files are preserved unchanged. The newly redesigned application PDFs include third-party referee contacts and remain separate local artifacts; they are excluded from this public deployment after automatic approval review rejected that upload.
 
 Visual references considered: https://canvasui.dev/components and https://magicui.design/docs/components/animated-beam. The new vector graphics and beam implementation are original; no component source was copied.
+
+## Rosso Works / Ferrari edition
+
+Added 14 November 2026 at the user's request for a new edition and a navigation button. Its distinct red, cream and yellow presentation uses original side-profile racing artwork, an ignition intro, explicit launch and airflow controls, project illustrations, native-dialog case studies and a co-driver garage retaining the same interactive robot. No new dependencies, models or external textures were added. It is an independent Ferrari-inspired fan design.
+
+Entry point: `src/app/ferrari/page.tsx`. Components: `FerrariExperience.js`, `FerrariCar.js`, and `FerrariExperience.module.css`. The exported route initially measured approximately 163 KB first-load JavaScript. Reduced-motion guards skip the automatic intro and scroll parallax, and CSS disables continuous wheel/airflow effects for that preference.
+
+Browser checks covered the default desktop viewport plus 1280px, 390px and 320px viewport overrides. Verified reciprocal edition navigation, launch/airflow state, all four project dialogs, sample API output, task progress, LawLink channel selection, floorplan structure control, Escape dismissal, keyboard setup tabs, email copy and robot load/pause/unmount. No document horizontal overflow was observed. OS-level reduced-motion emulation was not performed. A stalled browser inspection connection was recovered with a normal reload. Public CV files remain unchanged.

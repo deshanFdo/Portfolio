@@ -2034,3 +2034,9 @@
     font-size: 14vw;
   }
 }
+
+/* The new Ferrari edition is a separate experience. */
+.editionLink { display: inline-flex; align-items: center; gap: 10px; min-height: 40px; padding: 10px 13px; font-size: 9px; background: #bd1930; color: #f3ebda; border: 1px solid #ec9b8c45; }
+.editionLink:hover { background: #d72a3f; }
+@media (max-width: 760px) { .navContact { display: none; } .editionLink { font-size: 8px; padding: 9px 11px; gap: 7px; min-height: 38px; } .navActions { gap: 10px; } }
+@media (max-width: 360px) { .editionLink { font-size: 7px; padding: 9px; gap: 5px; } }
