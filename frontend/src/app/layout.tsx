@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://deshanfdo.github.io"),
   alternates: { canonical: "/Portfolio/" },
-  title: "Deshan Fernando | Software Engineer — Silverworks",
+  title: "Deshan Fernando — Silverworks / Software Engineer",
   description:
-    "Software Engineer portfolio -- Full-stack development, RESTful APIs, and data-driven applications.",
+    "Explore Deshan Fernando's interactive engineering paddock. Full-stack applications, APIs, AI experiments, and a Mercedes-inspired creative experience. Open to Associate and Junior Software Engineer roles.",
   openGraph: {
     title: "Deshan Fernando | Software Engineer Portfolio",
     description:
