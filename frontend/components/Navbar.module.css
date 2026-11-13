@@ -9,9 +9,9 @@
 .links a::after { content: ''; position: absolute; bottom: 6px; left: 0; width: 0; height: 2px; background: #00d2be; transition: width .2s; }
 .links a:hover { color: #fff; }
 .links a:hover::after { width: 100%; }
-.studioLink { display: flex; align-items: center; gap: 18px; border: 1px solid #42605b; padding: 12px 15px; font-size: 10px; text-decoration: none; color: #e6eeee; white-space: nowrap; }
-.studioLink:hover { border-color: #00d2be; background: #102721; }
-.studioLink span { color: #00d2be; }
+.contactLink { display: flex; align-items: center; gap: 18px; border: 1px solid #42605b; padding: 12px 15px; font-size: 10px; text-decoration: none; color: #e6eeee; white-space: nowrap; }
+.contactLink:hover { border-color: #00d2be; background: #102721; }
+.contactLink span { color: #00d2be; }
 .toggle { display: none; background: transparent; border: 1px solid #34524b; height: 42px; width: 42px; padding: 12px; cursor: pointer; }
 .toggle span { display: block; height: 1px; background: #d7ece8; width: 100%; margin: 5px 0; }
 .toggle[aria-expanded="true"] span:first-child { transform: translateY(3px) rotate(45deg); }
@@ -24,5 +24,5 @@
 @media (min-width: 981px) { .mobileMenu { display: none; } }
 @media (max-width: 1100px) { .inner { padding: 0 32px; gap: 18px; } .links { gap: 15px; } }
 @media (max-width: 980px) { .links { display: none; } .toggle { display: block; } .inner { min-height: 72px; } }
-@media (max-width: 600px) { .inner { padding: 0 20px; gap: 10px; min-height: 68px; } .logo svg { width: 30px; height: 30px; } .logo { gap: 8px; } .logo > span { font-size: 19px; } .logo > span > span { font-size: 5px; } .studioLink { padding: 11px 10px; font-size: 9px; gap: 10px; } .toggle { width: 36px; height: 36px; padding: 8px; } }
-@media (max-width: 360px) { .inner { padding: 0 16px; gap: 8px; } .logo > span > span { display: none; } .logo svg { width: 25px; } .studioLink { gap: 7px; } }
+@media (max-width: 600px) { .inner { padding: 0 20px; gap: 10px; min-height: 68px; } .logo svg { width: 30px; height: 30px; } .logo { gap: 8px; } .logo > span { font-size: 19px; } .logo > span > span { font-size: 5px; } .contactLink { padding: 11px 10px; font-size: 9px; gap: 10px; } .toggle { width: 36px; height: 36px; padding: 8px; } }
+@media (max-width: 360px) { .inner { padding: 0 16px; gap: 8px; } .logo > span > span { display: none; } .logo svg { width: 25px; } .contactLink { gap: 7px; } }

@@ -1,36 +1,19 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Deshan Fernando portfolio
 
-## Getting Started
+One portfolio, one Silverworks theme: [deshanfdo.github.io/Portfolio/](https://deshanfdo.github.io/Portfolio/).
 
-First, run the development server:
+Next.js, React, and TypeScript, statically exported for GitHub Pages. The Mercedes-inspired F1 design uses carbon black, silver, and turquoise, with a retained interactive robot and a lightweight SVG garage diorama.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Run locally
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Use Node.js 22 or newer, then run npm ci and npm run dev. Open http://localhost:3000/Portfolio/. Run npm run build for the static export in out/.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- src/app/page.tsx is the single portfolio page.
+- components/GarageDiorama.js contains the original interactive isometric scene.
+- components/SplineEmbed.js retains the robot, lazy loading, visibility handling, and retry state.
+- components/PortfolioRedirect.tsx forwards former version URLs to the canonical portfolio.
+- STUDIO.md records the consolidated design direction and references.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The Spline robot requires network access and WebGL. The SVG diorama and portfolio content work independently. Decorative motion respects reduced-motion preferences.

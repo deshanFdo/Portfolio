@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import MercedesStar from "./MercedesStar";
 import styles from "./Navbar.module.css";
@@ -17,7 +16,7 @@ export default function Navbar() {
     <div className={styles.inner}>
       <a className={styles.logo} href="#home" aria-label="Deshan Fernando home"><MercedesStar /><span>DESHAN<span>FERNANDO / PORTFOLIO</span></span></a>
       <ul className={styles.links}>{links.map(([href, label]) => <li key={href}><a href={href}>{label}</a></li>)}</ul>
-      <Link href="/studio" className={styles.studioLink}>New portfolio <span aria-hidden="true">↗</span></Link>
+      <a href="#contact" className={styles.contactLink}>Let’s talk <span aria-hidden="true">↗</span></a>
       <button ref={toggle} className={styles.toggle} aria-label={mobileOpen ? "Close menu" : "Open menu"} aria-expanded={mobileOpen} aria-controls="mobile-navigation" onClick={() => setMobileOpen(!mobileOpen)}><span /> <span /></button>
     </div>
     <div id="mobile-navigation" className={styles.mobileMenu} hidden={!mobileOpen}><ul>{links.map(([href, label], i) => <li key={href}><a href={href} onClick={() => setMobileOpen(false)}><span>0{i + 1}</span>{label}<b aria-hidden="true">↗</b></a></li>)}</ul></div>

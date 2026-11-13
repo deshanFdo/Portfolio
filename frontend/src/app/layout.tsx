@@ -13,7 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Deshan Fernando | Software Engineer Portfolio",
+  metadataBase: new URL("https://deshanfdo.github.io"),
+  alternates: { canonical: "/Portfolio/" },
+  title: "Deshan Fernando | Software Engineer — Silverworks",
   description:
     "Software Engineer portfolio -- Full-stack development, RESTful APIs, and data-driven applications.",
   openGraph: {
@@ -31,7 +33,7 @@ export const metadata: Metadata = {
       "Software Engineer portfolio -- Full-stack development, RESTful APIs, and data-driven applications.",
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/Portfolio/favicon.ico",
   },
 };
 

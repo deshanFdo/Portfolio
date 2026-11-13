@@ -13,7 +13,7 @@ export default function Hero({ ready, reducedMotion }) {
   const names = fullName.split(" ");
   return <section id="home" className={styles.hero}>
     <div className={styles.speedLines} aria-hidden="true"><i /><i /><i /></div>
-    <div className={styles.topline}><span><i /> MERCEDES-INSPIRED F1 EDITION</span><span>COLOMBO, SRI LANKA <b>↗</b></span></div>
+    <div className={styles.topline}><span><i /> SILVERWORKS / MERCEDES-INSPIRED F1</span><span>COLOMBO, SRI LANKA <b>↗</b></span></div>
     <div className={styles.grid}>
       <div className={styles.copy}>
         <p className={styles.eyebrow}>SOFTWARE ENGINEER <span>/</span> FULL STACK</p>

@@ -36,7 +36,7 @@ export default function Preloader({ onComplete: onFinish }) {
   }, [onFinish]);
 
   return <dialog ref={dialog} className={styles.intro} data-leaving={leaving} onClose={onFinish} aria-labelledby="intro-title" aria-describedby="intro-description">
-    <div className={styles.introTop}><span>DF / MERCEDES-INSPIRED EDITION</span><span>SILVER. BLACK. TURQUOISE.</span></div>
+    <div className={styles.introTop}><span>SILVERWORKS / DESHAN FERNANDO</span><span>SILVER. BLACK. TURQUOISE.</span></div>
     <div className={styles.introCenter}><MercedesStar className={styles.star} />
       <p id="intro-description">DESHAN FERNANDO / SOFTWARE ENGINEER</p>
       <div className={styles.lightRack} aria-hidden="true">{[0, 1, 2, 3, 4].map(index => <div key={index} data-on={index < lights}><i /><i /></div>)}</div>
