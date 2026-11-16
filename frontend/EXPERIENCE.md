@@ -44,3 +44,9 @@ Added 16 November 2026 to both editions. `CareerCollection.js` supplies theme-aw
 When Deshan supplies the actual certificates, reconcile the exact titles, issuers and public sharing preferences, add approved assets, and populate only the corresponding document/verification fields. Both editions will update from the shared data. No CV PDFs or referee contact data are part of this change.
 
 Validation for the new sections: production export passed; category filtering, reset-to-All, placeholder counts, keyboard activation, playbook expansion, both Credentials navigation anchors and 320px/390px/800px layouts were checked in the browser. No horizontal document overflow or placeholder document links were found. The new section anchors use the existing document scroll padding without adding a second sticky-header offset.
+
+## Ferrari robot livery
+
+The Ferrari edition passes `palette="ferrari"` to the shared Spline embed. `robotPalette.js` uses the installed Spline runtime's public material-layer API after scene load, before revealing the canvas. The shell is red, the joints are carbon-dark, and the helmet has a warm yellow tint. The original video face, geometry, mouse events and visibility-based playback remain in the scene. The palette is reapplied when the robot is loaded again; Silverworks keeps its original materials.
+
+The livery uses existing material roles: video-face materials, Phong shell materials and physical joint materials. Reflective layer opacity is adjusted to keep the paint readable. No CSS filter, replacement model, production inspection logging or new website dependency is used. Local visual checks covered scene load, the painted result, viewer interaction and a pause/reload cycle.

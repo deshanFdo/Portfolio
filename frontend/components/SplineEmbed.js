@@ -1,7 +1,8 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
+import { applyRobotPalette } from "./robotPalette";
 
-export default function SplineEmbed({ scene, style, onLoad, className, ...props }) {
+export default function SplineEmbed({ scene, style, onLoad, className, palette = "original", ...props }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const onLoadRef = useRef(onLoad);
@@ -31,6 +32,7 @@ export default function SplineEmbed({ scene, style, onLoad, className, ...props 
         app = new Application(canvasRef.current);
         await app.load(scene);
         if (cancelled) return;
+        applyRobotPalette(app, palette);
         ready = true;
         setStatus("ready");
         syncPlayback();
@@ -56,7 +58,7 @@ export default function SplineEmbed({ scene, style, onLoad, className, ...props 
       document.removeEventListener("visibilitychange", syncPlayback);
       app?.dispose();
     };
-  }, [scene, attempt]);
+  }, [scene, attempt, palette]);
 
   return (
     <div ref={containerRef} className={className} style={{ width: "100%", height: "100%", position: "relative", ...style }}>
