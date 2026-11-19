@@ -1,0 +1,10 @@
+.menu { position: relative; z-index: 15; text-align: left; font: 600 .88rem/1.25 var(--font-geist-sans), sans-serif; letter-spacing: normal; text-transform: none; }
+.menu summary { display: flex; align-items: center; gap: 8px; width: max-content; min-height: 42px; padding: 7px 13px; border: 1px solid currentColor; border-radius: 3px; cursor: pointer; list-style: none; }
+.menu summary::-webkit-details-marker { display: none; }
+.menu[open] summary svg { transform: rotate(180deg); }
+.menu > div { position: absolute; right: 0; top: calc(100% + 7px); width: 178px; background: #141b29; border: 1px solid #434f63; border-radius: 4px; padding: 5px; color: #fff; box-shadow: 0 14px 32px #0007; }
+.menu a { display: flex; align-items: center; gap: 12px; padding: 9px; }
+.menu a:hover,.menu a:focus-visible { background: #293449; }
+.menu a[aria-current] { background: #222c3d; }
+.menu i { width: 4px; height: 28px; transform: skewX(-14deg); }
+.menu small { display: block; margin-top: 2px; font-size: .75rem; color: #b6c1d2; }
